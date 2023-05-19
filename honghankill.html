@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>泓涵杀</title>
+<title>泓涵杀官网</title>
 <link href="css/singlePageTemplate.css" rel="stylesheet" type="text/css">
 <!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.-->
 <script>var __adobewebfontsappname__="dreamweaver"</script>
@@ -17,46 +17,8 @@
     <![endif]-->
 </head>
 <body>
-      <Script>
-            function play(src,type){
 
-			$("<embed id='embVoice' name='embed_"+type+"' src='"+src+"' autostart=true  hidden=true muted='muted'></embed>").appendTo("#audioPay");
-
-			var interTimePay = setInterval(function (){
-
-				try{
-
-					var embedVoice = document.getElementById('embVoice');
-
-					if (!embedVoice) {
-
-						$("<embed id='embVoice' name='embed_"+type+"' src='"+src+"' autostart=true  hidden=true muted='muted'></embed>").appendTo("#audioPay");
-
-					}
-
-					setTimeout(function() {
-
-						$('#embVoice').remove();
-
-					}, 9000)
-
-				}catch(e){
-
-					console.log("播放声音出现异常！", e);
-
-				}
-
-			},10000);
-
-        }
-
-		var src="bgm.ogg";
-
-		var type="type";
-
-		play(src,type);
-            </Script>
-      <audio src="bgm.ogg" id="dd" autoplay="autoplay" controls="controls" loop="loop"></audio>
+      <audio muted src="bgm.ogg" id="dd" autoplay="autoplay" controls="controls" loop="loop"></audio>
     <li> <a >点我播放bgm</a></li>
 <!-- Main Container -->
 <div class="container"> 
