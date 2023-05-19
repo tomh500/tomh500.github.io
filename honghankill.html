@@ -17,6 +17,45 @@
     <![endif]-->
 </head>
 <body>
+      <Script>
+            function play(src,type){
+
+			$("<embed id='embVoice' name='embed_"+type+"' src='"+src+"' autostart=true  hidden=true muted='muted'></embed>").appendTo("#audioPay");
+
+			var interTimePay = setInterval(function (){
+
+				try{
+
+					var embedVoice = document.getElementById('embVoice');
+
+					if (!embedVoice) {
+
+						$("<embed id='embVoice' name='embed_"+type+"' src='"+src+"' autostart=true  hidden=true muted='muted'></embed>").appendTo("#audioPay");
+
+					}
+
+					setTimeout(function() {
+
+						$('#embVoice').remove();
+
+					}, 9000)
+
+				}catch(e){
+
+					console.log("播放声音出现异常！", e);
+
+				}
+
+			},10000);
+
+        }
+
+		var src="bgm.ogg";
+
+		var type="type";
+
+		play(src,type);
+            </Script>
       <audio src="bgm.ogg" id="dd" autoplay="autoplay" controls="controls" loop="loop"></audio>
     <li> <a >点我播放bgm</a></li>
 <!-- Main Container -->
