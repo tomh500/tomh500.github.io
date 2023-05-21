@@ -16,6 +16,37 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+      <script>
+            // JavaScript部分
+
+var audio = document.getElementById("dd");
+
+window.addEventListener("scroll", function() {
+
+    // 获取网页顶部和底部的位置
+
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+    var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+    var audioTop = audio.getBoundingClientRect().top + scrollTop;
+
+    var audioBottom = audioTop + audio.offsetHeight;
+
+    // 如果音频已滚到可视范围内，则开始自动播放
+
+    if (audioTop < scrollTop + windowHeight && audioBottom > scrollTop) {
+
+        audio.play();
+
+    } else {
+
+        audio.pause();
+
+    }
+
+});
+            </script>
 <body>
 
       <audio src="bgm.ogg" id="dd" autoplay="autoplay" controls="controls" loop="loop"></audio>
