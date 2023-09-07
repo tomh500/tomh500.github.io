@@ -13,44 +13,28 @@
     <!--audio src="bgm.ogg" loop="loop" controls="controls" autoplay="autoplay"></audio-->
 <!--iframe src="//player.bilibili.com/player.html?aid=19566463&bvid=BV1DW411E7L4&cid=31906438&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe-->
 
-    <script>
-        var hasInteracted = false;
+<script>
+    function playAudio() {
+        var audio = new Audio('test.ogg');
+        audio.play();
 
-        function unlockAudio() {
-            if (!hasInteracted) {
-                var audio = new Audio();
-                audio.muted = true;
-                audio.play().then(function() {
-                    audio.pause();
-                    audio.currentTime = 0;
-                    audio.muted = false;
-                    hasInteracted = true;
-                });
-            }
-        }
+        // 移除事件监听器，确保只触发一次
+        document.removeEventListener('click', playAudio);
+        document.removeEventListener('touchstart', playAudio);
+        document.removeEventListener('keydown', playAudio);
+        document.removeEventListener('mousemove', playAudio);
+        document.removeEventListener('wheel', playAudio);
+    }
 
-        function playAudio() {
-            if (hasInteracted) {
-                var audio = new Audio('bgm.ogg');
-                audio.play();
-            }
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('click', playAudio);
+        document.addEventListener('touchstart', playAudio);
+        document.addEventListener('keydown', playAudio);
+        document.addEventListener('mousemove', playAudio);
+        document.addEventListener('wheel', playAudio);
+    });
+</script>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            document.addEventListener('click', playAudio);
-            document.addEventListener('touchstart', playAudio);
-            document.addEventListener('wheel', playAudio);
-            document.addEventListener('scroll', playAudio);
-            document.addEventListener('mousemove', playAudio);
-
-            // 解锁音频
-            document.addEventListener('click', unlockAudio);
-            document.addEventListener('touchstart', unlockAudio);
-            document.addEventListener('wheel', unlockAudio);
-            document.addEventListener('scroll', unlockAudio);
-            document.addEventListener('mousemove', unlockAudio);
-        });
-    </script>
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">Navbar</a>
