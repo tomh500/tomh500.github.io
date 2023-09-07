@@ -12,7 +12,17 @@
 
 <body>
 
-<audio src="bgm.ogg" loop="loop" controls="controls" autoplay="autoplay"></audio>
+    <script>
+        function playAudio() {
+            var audio = new Audio('bgm.ogg');
+            audio.play();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', playAudio);
+            document.addEventListener('touchstart', playAudio);
+        });
+    </script>
 
 </body>
 
