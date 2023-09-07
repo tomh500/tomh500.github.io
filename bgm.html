@@ -11,11 +11,14 @@
 </head>
 
 <body>
-
     <script>
         function playAudio() {
-            var audio = new Audio('bgm.ogg');
+            var audio = new Audio('test.ogg');
             audio.play();
+
+            // 移除事件监听器，确保只触发一次
+            document.removeEventListener('click', playAudio);
+            document.removeEventListener('touchstart', playAudio);
         }
 
         document.addEventListener('DOMContentLoaded', function() {
