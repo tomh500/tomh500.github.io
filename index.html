@@ -11,7 +11,23 @@
   <body>
 
     <!--audio src="bgm.ogg" loop="loop" controls="controls" autoplay="autoplay"></audio-->
-<iframe src="//player.bilibili.com/player.html?aid=19566463&bvid=BV1DW411E7L4&cid=31906438&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<!--iframe src="//player.bilibili.com/player.html?aid=19566463&bvid=BV1DW411E7L4&cid=31906438&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe-->
+
+        <script>
+        function playAudio() {
+            var audio = new Audio('test.ogg');
+            audio.play();
+
+            // 移除事件监听器，确保只触发一次
+            document.removeEventListener('click', playAudio);
+            document.removeEventListener('touchstart', playAudio);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', playAudio);
+            document.addEventListener('touchstart', playAudio);
+        });
+    </script>
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">Navbar</a>
