@@ -16,11 +16,23 @@
     <script>
         var hasInteracted = false;
 
-        function playAudio() {
+        function unlockAudio() {
             if (!hasInteracted) {
-                var audio = new Audio('test.ogg');
+                var audio = new Audio();
+                audio.muted = true;
+                audio.play().then(function() {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    audio.muted = false;
+                    hasInteracted = true;
+                });
+            }
+        }
+
+        function playAudio() {
+            if (hasInteracted) {
+                var audio = new Audio('bgm.ogg');
                 audio.play();
-                hasInteracted = true;
             }
         }
 
@@ -28,6 +40,15 @@
             document.addEventListener('click', playAudio);
             document.addEventListener('touchstart', playAudio);
             document.addEventListener('wheel', playAudio);
+            document.addEventListener('scroll', playAudio);
+            document.addEventListener('mousemove', playAudio);
+
+            // 解锁音频
+            document.addEventListener('click', unlockAudio);
+            document.addEventListener('touchstart', unlockAudio);
+            document.addEventListener('wheel', unlockAudio);
+            document.addEventListener('scroll', unlockAudio);
+            document.addEventListener('mousemove', unlockAudio);
         });
     </script>
     
