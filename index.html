@@ -13,6 +13,24 @@
     <!--audio src="bgm.ogg" loop="loop" controls="controls" autoplay="autoplay"></audio-->
 <!--iframe src="//player.bilibili.com/player.html?aid=19566463&bvid=BV1DW411E7L4&cid=31906438&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe-->
 
+<div id="audioPlayer"></div>
+
+<!-- JavaScript 代码 -->
+<script>
+    // 判断是否为手机设备
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        // 创建音频元素
+        var audio = document.createElement('audio');
+        audio.src = 'bgm.ogg';  // 替换为你的音频文件路径
+        audio.controls = true;
+
+        // 添加到播放器容器中
+        document.getElementById('audioPlayer').appendChild(audio);
+    }
+</script>
+    
 <script>
     function playAudio() {
         var audio = new Audio('bgm.ogg');
