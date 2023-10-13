@@ -81,7 +81,20 @@
             pauseButton.style.display = 'none';
         }
     }
+window.onload = function() {
+            var welcomeMessage = "欢迎来到我的网站";
+            var confirmation = confirm(welcomeMessage);
 
+            // 如果用户点击确定按钮
+            if (confirmation) {
+                // 继续执行网站加载或导航操作
+              
+              playAudio();
+            } else {
+                // 用户点击取消按钮，可以选择其他操作
+                playAudio();
+            }
+        };
     document.addEventListener('DOMContentLoaded', function() {
         // 添加滑动页面的交互行为监听
         document.addEventListener('touchmove', function() {
@@ -103,7 +116,7 @@
     });
     </script>
     
-  <script>
+  <!--script>
         // 创建欢迎消息弹窗
         window.onload = function() {
             var welcomeMessage = "欢迎来到我的网站";
@@ -120,7 +133,11 @@
         };
     
   
-  </script>
+  </script-->
+
+
+
+    
     <script src="js/PhoneBgm.js"></script>
 
     
