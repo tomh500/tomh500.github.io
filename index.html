@@ -7,13 +7,22 @@
     <title>SQProject</title>
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <style>
+        #audioPlayer {
+            display: none;
+        }
+    </style>
   </head>
   <body>
 
     <!--audio src="bgm.ogg" loop="loop" controls="controls" autoplay="autoplay"></audio-->
 <!--iframe src="//player.bilibili.com/player.html?aid=19566463&bvid=BV1DW411E7L4&cid=31906438&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe-->
 
-<div id="audioPlayer"></div>
+    <div id="audioPlayer">
+        <audio id="bgmAudio" src="bgm.ogg" loop></audio>
+        <button id="playButton" onclick="playAudio()">播放</button>
+        <button id="pauseButton" onclick="pauseAudio()" style="display: none;">暂停</button>
+    </div>
 
 <!-- JavaScript 代码 -->
 <!--script>
@@ -31,7 +40,7 @@
     }
   </script-->
     
-<script>
+<!--script>
     function playAudio() {
         var audio = new Audio('bgm.ogg');
         audio.play();
@@ -49,7 +58,51 @@
         document.addEventListener('keydown', playAudio);
 
     });
-</script>
+  </script-->
+
+    <script>
+    var audioPlayer = document.getElementById('audioPlayer');
+    var bgmAudio = document.getElementById('bgmAudio');
+    var playButton = document.getElementById('playButton');
+    var pauseButton = document.getElementById('pauseButton');
+
+    function playAudio() {
+        if (bgmAudio.paused) {
+            bgmAudio.play();
+            playButton.style.display = 'none';
+            pauseButton.style display = 'inline';
+        }
+    }
+
+    function pauseAudio() {
+        if (!bgmAudio.paused) {
+            bgmAudio.pause();
+            playButton.style.display = 'inline';
+            pauseButton.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 添加滑动页面的交互行为监听
+        document.addEventListener('touchmove', function() {
+            playAudio();
+        });
+
+        // 添加点击、触摸、键盘按键的交互行为监听
+        document.addEventListener('click', function() {
+            playAudio();
+        });
+
+        document.addEventListener('touchstart', function() {
+            playAudio();
+        });
+
+        document.addEventListener('keydown', function() {
+            playAudio();
+        });
+    });
+    </script>
+    
   <script>
         // 创建欢迎消息弹窗
         window.onload = function() {
