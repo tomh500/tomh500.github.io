@@ -165,10 +165,25 @@ window.onload = function() {
             </div>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
-        </form>
+<form class="form-inline my-2 my-lg-0" onsubmit="return redirectToBing()">
+  <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+</form>
+
+<script>
+  function redirectToBing() {
+    var searchTerm = document.getElementById("searchInput").value;
+    // 使用 encodeURIComponent() 函数对搜索词进行编码，以便在 URL 中传递特殊字符
+    var encodedSearchTerm = encodeURIComponent(searchTerm);
+    // 构建 Bing 搜索的 URL
+    var bingSearchUrl = "https://www.bing.com/search?q=" + encodedSearchTerm;
+    // 在新标签页中打开 Bing 搜索结果页面
+    window.open(bingSearchUrl, "_blank");
+    // 阻止表单默认提交行为
+    return false;
+  }
+</script>
+
       </div>
     </nav>
     <div class="container mt-2">
