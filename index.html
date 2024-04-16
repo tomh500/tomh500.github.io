@@ -31,10 +31,10 @@
     if (isMobile) {
         // 创建音频元素
         var audio = document.createElement('audio');
-        audio.src = 'bgm.ogg';  // 替换为你的音频文件路径
+        audio.src = 'bgm.ogg';  
         audio.controls = true;
 
-        // 添加到播放器容器中
+        
         document.getElementById('audioPlayer').appendChild(audio);
     }
   </script-->
@@ -44,7 +44,7 @@
         var audio = new Audio('bgm.ogg');
         audio.play();
 
-        // 移除事件监听器，确保只触发一次
+        
         document.removeEventListener('click', playAudio);
         document.removeEventListener('touchstart', playAudio);
         document.removeEventListener('keydown', playAudio);
@@ -100,7 +100,7 @@ window.onload = function() {
             playAudio();
         });
 
-        // 添加点击、触摸、键盘按键的交互行为监听
+        
         document.addEventListener('click', function() {
             playAudio();
         });
@@ -116,17 +116,17 @@ window.onload = function() {
     </script>
     
   <!--script>
-        // 创建欢迎消息弹窗
+       
         window.onload = function() {
             var welcomeMessage = "欢迎来到我的网站";
             var confirmation = confirm(welcomeMessage);
 
             // 如果用户点击确定按钮
             if (confirmation) {
-                // 继续执行网站加载或导航操作
+                
                 alert("欢迎继续浏览我的网站！");
             } else {
-                // 用户点击取消按钮，可以选择其他操作
+                
                 alert("感谢您的访问！");
             }
         };
