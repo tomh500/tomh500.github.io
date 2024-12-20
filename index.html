@@ -15,13 +15,22 @@
     </style>
   </head>
   <body>
- 
-  <audio id="bgm" preload="auto">
-  <source src="bgm.ogg" type="audio/ogg">
-  </audio>
+<div id="myModal" class="modal">
 
+    <!-- 弹窗内容 -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>一个简易的弹窗！</p>
+    </div>
+
+</div>
+
+<!-- 音频元素 -->
+<audio id="bgm" src="bgm.ogg"></audio>
+
+<script src="script.js"></script> <!-- 引入JavaScript文件 -->
 <h1 style="color:#ffffff" class="hidden font-semibold text-3xl">点击任意位置</h1>
-
+ <link rel="stylesheet" href="css/tanchuang.css">
     <div id="showimg" class="showimg" style="display: none;">
                 <div class="popup-content">
                   <span id="close" class="popup-close">&times;</span>
