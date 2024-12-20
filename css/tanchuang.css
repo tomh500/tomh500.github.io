@@ -1,0 +1,26 @@
+    font-family: Arial, sans-serif* 弹窗样式 */
+.modal {
+    display: none; /* 默认隐藏 */
+    position fixed; /* 在最上层 */
+    left 0;
+    top: 0;
+    width: 100%; /* 宽度100% */
+ height: 100%; /* 高度100% */
+    overflow: auto; /* 启用滚动 */
+    background-color:(0, 0, 0); /* 阴影背景 */
+   -color: rgba(0 0, 0, 0.4 /* 设置透明度 */
+* 弹窗内容的样式 */
+.modal-content {
+    background-color #fefefe;
+    margin: 15 auto; /* 自动水平中 */
+    padding 20px;
+    border: 1px #888;
+    width 80%; /* 设定宽度 */
+* 关闭按钮样式 */
+.close {
+    color: #aaa    float: right    font-size: 28px;
+    font-weight: bold;
+.close,
+.close:focus {
+    color: black;
+    text-decoration: none    cursor: pointer;
