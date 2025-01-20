@@ -38,6 +38,9 @@
   const closeButton = document.getElementById('close-btn');
   const bgm = document.getElementById('bgm');
 
+  // 设置音量为 0.2（较小的音量）
+  bgm.volume = 0.2;
+
   // 页面加载时弹出弹窗
   window.onload = function() {
     popup.style.display = 'flex'; // 显示弹窗
