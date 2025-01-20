@@ -32,6 +32,26 @@
   Your browser does not support the audio element.
 </audio>
 
+    <!-- JavaScript 插入 -->
+<script>
+  // 获取弹窗、关闭按钮和音频元素
+  const popup = document.getElementById('popup');
+  const closeButton = document.getElementById('close-btn');
+  const bgm = document.getElementById('bgm');
+
+  // 页面加载时弹出弹窗
+  window.onload = function() {
+    popup.style.display = 'flex'; // 显示弹窗
+  };
+
+  // 关闭弹窗并播放背景音乐
+  closeButton.onclick = function() {
+    popup.style.display = 'none'; // 隐藏弹窗
+    bgm.play(); // 播放背景音乐
+  };
+</script>
+
+
 <script src="js/style.js"></script> <!-- 引入JavaScript文件 -->
 <h1 style="color:#ffffff" class="hidden font-semibold text-3xl">点击任意位置</h1>
  <link rel="stylesheet" href="css/tanchuang.css">
