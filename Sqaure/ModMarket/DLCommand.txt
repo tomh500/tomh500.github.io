@@ -1,3 +1,5 @@
+0:
+  -- exit
 1:
   -- echo 正在下载文件...
   -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/bootsounds.vsnd_c https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/bootsounds.vsnd_c
@@ -7,7 +9,7 @@
   -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/linemap.webm https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/linemap.webm
   --  echo 下载完成。
 2:
-  --cmd命令
+  -- echo
 3:
   -- echo 正在下载文件...
   -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/cfg/cn/esu/jiting.zip https://github.com/tomh500/SqaureModsMarket/releases/download/EsuJT/jiting.zip
