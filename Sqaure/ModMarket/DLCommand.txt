@@ -1,0 +1,20 @@
+1:
+  -- echo 正在下载文件...
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/bootsounds.vsnd_c https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/bootsounds.vsnd_c
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/intro-perfectworld.webm https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/intro-perfectworld.webm
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/intro-perfectworld720p.webm https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/intro-perfectworld720p.webm
+  --  src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/intro.webm https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/intro.webm
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/linemap.webm https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/linemap.webm
+  --  echo 下载完成。
+2:
+  --cmd命令
+3:
+  -- echo 正在下载文件...
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/cfg/cn/esu/jiting.zip https://github.com/tomh500/SqaureModsMarket/releases/download/EsuJT/jiting.zip
+  -- echo 下载完成。
+  -- echo 正在解压...
+  -- src\main\lib\7z.exe x -aoa src/main/cfg/cn/esu/jiting.zip -o"src/main/cfg/cn/esu/jiting" -y
+  -- echo 解压完成。
+  -- echo 正在删除压缩包...
+  -- del /f /q src/main/cfg/cn/esu/jiting.zip
+  -- echo 删除完成。
