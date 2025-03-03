@@ -9,7 +9,69 @@
   -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/linemap.webm https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/linemap.webm
   --  echo 下载完成。
 2:
-  -- echo
+  -- setlocal enabledelayedexpansion
+
+  -- :: 设置路径
+  -- set "wgetPath=src\main\lib\wget.exe"
+  -- set "sevenZipPath=src\main\lib\7z.exe"
+  -- set "tempDir=src\temp"
+  -- set "soundDir=..\..\sounds"
+  -- set "cfgFile=src\main\cfg\cn\luotiany1\SqaureNextgen\Features\Modules\Fun\MusicPlayer\CFG_SONG_EXTRA.cfg"
+  -- set "cfgDir=src\main\cfg\cn\luotiany1\SqaureNextgen\Features\Modules\Fun\MusicPlayer"
+
+  -- :: 创建临时文件夹（如果不存在）
+  -- if not exist "%tempDir%" mkdir "%tempDir%"
+
+  -- :: 下载文件
+  -- echo 正在下载 sounds.zip 和分卷...
+  -- "%wgetPath%" https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/sounds.zip -P "%tempDir%"
+  -- "%wgetPath%" https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/sounds.z01 -P "%tempDir%"
+  -- "%wgetPath%" https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/sounds.z02 -P "%tempDir%"
+  -- "%wgetPath%" https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/sounds.z03 -P "%tempDir%"
+  -- "%wgetPath%" https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/sounds.z04 -P "%tempDir%"
+  -- "%wgetPath%" https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/sounds.z05 -P "%tempDir%"
+  -- "%wgetPath%" https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/sounds.z06 -P "%tempDir%"
+
+  -- :: 解压文件到目标文件夹
+  -- echo 正在解压文件...
+  -- "%sevenZipPath%" x "%tempDir%\sounds.zip" -o"%soundDir%" -y
+  -- "%sevenZipPath%" x "%tempDir%\sounds.z01" -o"%soundDir%" -y
+  -- "%sevenZipPath%" x "%tempDir%\sounds.z02" -o"%soundDir%" -y
+  -- "%sevenZipPath%" x "%tempDir%\sounds.z03" -o"%soundDir%" -y
+  -- "%sevenZipPath%" x "%tempDir%\sounds.z04" -o"%soundDir%" -y
+  -- "%sevenZipPath%" x "%tempDir%\sounds.z05" -o"%soundDir%" -y
+  -- "%sevenZipPath%" x "%tempDir%\sounds.z06" -o"%soundDir%" -y
+
+  -- :: 检查解压是否成功
+  -- if exist "%soundDir%\sounds" (
+  --     echo 解压成功！
+  -- ) else (
+  --     echo 解压失败，请检查错误。
+  --     exit /b 1
+  -- )
+
+  -- :: 检查并创建父目录和文件
+  -- if not exist "%cfgDir%" (
+  --     echo 文件夹不存在，正在创建文件夹...
+  --     mkdir "%cfgDir%"
+  -- )
+
+  -- if not exist "%cfgFile%" (
+  --     echo 文件不存在，正在创建文件...
+  --     echo. > "%cfgFile%"
+  -- )
+
+  -- :: 将配置添加到指定文件
+  -- echo 正在修改配置文件...
+  -- echo. >> "%cfgFile%"
+  -- echo Sqaure_Feature_Fun_CfgSongExtra_Installed >> "%cfgFile%"
+
+  -- :: 清空临时文件夹
+  -- echo 正在清空临时文件夹...
+  -- rmdir /s /q "%tempDir%"
+
+  -- echo 操作完成！
+
 3:
   -- echo 正在下载文件...
  # -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/cfg/cn/esu/jiting.zip https://github.com/tomh500/SqaureModsMarket/releases/download/EsuJT/jiting.zip
