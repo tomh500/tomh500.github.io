@@ -26,4 +26,4 @@
 4:
    -- src\main\lib\wget.exe --no-check-certificate --output-document=src/temp/Movement_H.zip https://github.com/tomh500/SqaureModsMarket/releases/download/MovementH/Movement_H.zip
    -- src\main\lib\7z.exe x -aoa src/temp/Movement_H.zip -o"src/main/cfg/cn/luotiany1/SqaureNextgen/Utilities/Ticker/180fps/Movement_H" -y
-  -- del src/temp/*.*
+  -- del /f /q src\temp\*
