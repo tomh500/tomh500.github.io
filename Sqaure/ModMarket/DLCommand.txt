@@ -9,7 +9,7 @@
   -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/linemap.webm https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/linemap.webm
   --  echo 下载完成。
 2:
-  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/temp/cfgsong_installer.bat https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/cfgsong_installer.bat 
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/cfgsong_installer.bat https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/cfgsong_installer.bat 
   -- src\main\temp\cfgsong_installer.bat
   -- del src\main\temp\*.*
 
