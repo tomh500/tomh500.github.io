@@ -18,5 +18,5 @@
   -- src\main\lib\7z.exe x -aoa src/main/cfg/cn/esu/jiting.zip -o\"src/main/cfg/cn/esu/jiting\" -y
   -- echo 解压完成。
   -- echo 正在删除压缩包...
-  -- del /f /q "src\\main\cfg\\cn\\esu\\jiting.zip"
+  -- del /f /q \"src\\main\cfg\\cn\\esu\\jiting.zip\"
   -- echo 删除完成。
