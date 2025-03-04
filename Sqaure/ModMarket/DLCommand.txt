@@ -8,6 +8,12 @@
   --  src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/intro.webm https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/intro.webm
   -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/linemap.webm https://github.com/tomh500/SqaureModsMarket/releases/download/BlueArchive/linemap.webm
   --  echo 下载完成。
+-- move /Y src\main\resources\intro-perfectworld.webm ..\..\panorama\videos\
+-- move /Y src\main\resources\intro-perfectworld720p.webm ..\..\panorama\videos\
+-- move /Y src\main\resources\intro.webm ..\..\panorama\videos\
+-- move /Y src\main\resources\linemap.webm ..\..\panorama\videos\
+-- move /Y src\main\resources\bootsounds.vsnd_c ..\..\sounds\
+
 2:
   -- src\main\lib\wget.exe --no-check-certificate --output-document=cfgsong_installer.bat https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/cfgsong_installer.bat 
   -- cfgsong_installer.bat
