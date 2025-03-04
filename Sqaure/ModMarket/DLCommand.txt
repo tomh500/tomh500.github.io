@@ -18,6 +18,8 @@
   -- src\main\lib\wget.exe --no-check-certificate --output-document=cfgsong_installer.bat https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/cfgsong_installer.bat 
   -- cfgsong_installer.bat
   -- del cfgsong_installer.bat
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/temp/music_dev.vsnd_c https://github.com/tomh500/SqaureModsMarket/releases/download/CfgSong/dy.vsnd_c
+  -- move /Y src\temp\music_dev.vsnd_c ..\..\sounds\music_dev.vsnd_c
 
 3:
   -- echo 正在下载文件...
