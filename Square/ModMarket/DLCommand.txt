@@ -2,17 +2,17 @@
   -- exit
 1:
   -- echo 正在下载文件...
-  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/bootsounds.vsnd_c https://github.com/tomh500/SquareModsMarket/releases/download/BlueArchive/bootsounds.vsnd_c
-  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/intro-perfectworld.webm https://github.com/tomh500/SquareModsMarket/releases/download/BlueArchive/intro-perfectworld.webm
-  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/intro-perfectworld720p.webm https://github.com/tomh500/SquareModsMarket/releases/download/BlueArchive/intro-perfectworld720p.webm
-  --  src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/intro.webm https://github.com/tomh500/SquareModsMarket/releases/download/BlueArchive/intro.webm
-  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/resources/linemap.webm https://github.com/tomh500/SquareModsMarket/releases/download/BlueArchive/linemap.webm
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/resources/bootsounds.vsnd_c https://github.com/tomh500/SquareModsMarket/releases/download/BlueArchive/bootsounds.vsnd_c
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/resources/intro-perfectworld.webm https://github.com/tomh500/SquareModsMarket/releases/download/BlueArchive/intro-perfectworld.webm
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/resources/intro-perfectworld720p.webm https://github.com/tomh500/SquareModsMarket/releases/download/BlueArchive/intro-perfectworld720p.webm
+  --  src\main\lib\wget.exe --no-check-certificate --output-document=src/resources/intro.webm https://github.com/tomh500/SquareModsMarket/releases/download/BlueArchive/intro.webm
+  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/resources/linemap.webm https://github.com/tomh500/SquareModsMarket/releases/download/BlueArchive/linemap.webm
   --  echo 下载完成。
--- move /Y src\main\resources\intro-perfectworld.webm ..\..\panorama\videos\
--- move /Y src\main\resources\intro-perfectworld720p.webm ..\..\panorama\videos\
--- move /Y src\main\resources\intro.webm ..\..\panorama\videos\
--- move /Y src\main\resources\linemap.webm ..\..\panorama\videos\
--- move /Y src\main\resources\bootsounds.vsnd_c ..\..\sounds\
+-- move /Y src\resources\intro-perfectworld.webm ..\..\panorama\videos\
+-- move /Y src\resources\intro-perfectworld720p.webm ..\..\panorama\videos\
+-- move /Y src\resources\intro.webm ..\..\panorama\videos\
+-- move /Y src\resources\linemap.webm ..\..\panorama\videos\
+-- move /Y src\resources\bootsounds.vsnd_c ..\..\sounds\
 
 2:
   -- src\main\lib\wget.exe --no-check-certificate --output-document=cfgsong_installer.bat https://github.com/tomh500/SquareModsMarket/releases/download/CfgSong/cfgsong_installer.bat 
