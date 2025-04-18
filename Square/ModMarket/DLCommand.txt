@@ -21,13 +21,4 @@
   -- src\main\lib\wget.exe --no-check-certificate --output-document=src/temp/music_dev.vsnd_c https://github.com/tomh500/SquareModsMarket/releases/download/CfgSong/dy.vsnd_c
   -- move /Y src\temp\music_dev.vsnd_c ..\..\sounds\music_dev.vsnd_c
 
-3:
-  -- echo 正在下载文件...
- # -- src\main\lib\wget.exe --no-check-certificate --output-document=src/main/cfg/cn/esu/jiting.zip https://github.com/tomh500/SquareModsMarket/releases/download/EsuJT/jiting.zip
-  -- echo 下载完成。
-  -- echo 正在解压...
-  -- src\main\lib\7z.exe x -aoa src/main/cfg/cn/esu/jiting.zip -o"src/main/cfg/cn/esu/jiting" -y
-  -- echo 解压完成。
-  -- echo 正在删除压缩包...
-  -- del /f /q "src\main\cfg\cn\esu\jiting.zip"
-  -- echo 删除完成。
+
