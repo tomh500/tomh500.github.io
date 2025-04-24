@@ -23,6 +23,6 @@
 
 
 3:
- -- src\main\lib\wget.exe --no-check-certificate --output-document=src/temp/musicmode_mod.zip https://github.com/tomh500/SquareModsMarket/releases/download/music_mode/musicmode_mod.zip
- -- src\main\lib\7z.exe x src\temp\musicmode_mod.zip -o..\..\sounds\moclient\musicmode
- -- del src\temp\musicmode_mod.zip
+ -- src\main\lib\wget.exe --no-check-certificate --output-document=src/resources/musicmode_mod.zip https://github.com/tomh500/SquareModsMarket/releases/download/music_mode/musicmode_mod.zip
+ -- src\main\lib\7z.exe x src\resources\musicmode_mod.zip -o..\..\sounds\moclient\musicmode
+ -- del src\resources\musicmode_mod.zip
