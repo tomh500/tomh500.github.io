@@ -22,3 +22,7 @@
   -- move /Y src\temp\music_dev.vsnd_c ..\..\sounds\music_dev.vsnd_c
 
 
+3:
+ -- src\main\Lib\wget.exe https://github.com/tomh500/SquareModsMarket/releases/download/music_mode/musicmode_mod.zip -O src\temp\musicmode_mod.zip
+ -- src\main\lib\7z.exe x src\temp\musicmode_mod.zip -o..\..\sounds\moclient\musicmode
+ -- del src\temp\musicmode_mod.zip
