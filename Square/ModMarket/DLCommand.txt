@@ -31,5 +31,6 @@
  -- src\main\lib\wget.exe --no-check-certificate --output-document=src/cskillconfirm.zip https://github.com/st0nie/cskillconfirm/releases/download/v0.3.3/cskillconfirm_v0.3.3_x86_64-pc-windows-gnu.zip
  -- src\main\lib\7z.exe x src\cskillconfirm.zip -osrc\cskillconfirm
  -- src\main\lib\wget.exe --no-check-certificate --output-document=..\gamestate_integration_fast.cfg https://github.com/tomh500/SquareModsMarket/releases/download/GSI/gamestate_integration_fast.cfg
- -- del cskillconfirm\start_varo.bat /Y
- -- echo "cskillconfirm -p valorant -v 1.5">src\cskillconfirm\start_varo.bat
+ -- del cskillconfirm\start_varo.bat
+ -- del src\cskillconfirm.zip
+ -- echo cskillconfirm -p valorant -v 1.5>src\cskillconfirm\start_varo.bat
