@@ -36,4 +36,4 @@
  -- del src\cskillconfirm.zip
  -- echo start src\cskillconfirm\varo.bat>src\cskillconfirm\start_varo.bat
  -- echo cd src\cskillconfirm\>src\cskillconfirm\varo.bat
- -- echo cskillconfirm -p valorant -v 1.5>src\cskillconfirm\varo.bat
+ -- echo cskillconfirm -p valorant -v 1.5>>src\cskillconfirm\varo.bat
