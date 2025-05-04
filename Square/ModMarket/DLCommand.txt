@@ -27,13 +27,4 @@
  -- src\main\lib\7z.exe x src\resources\musicmode_mod.zip -o..\..\sounds\moclient\musicmode
  -- del src\resources\musicmode_mod.zip
 
-4:
- -- src\main\lib\wget.exe --no-check-certificate --output-document=src/cskillconfirm.zip https://github.com/st0nie/cskillconfirm/releases/download/v0.3.3/cskillconfirm_v0.3.3_x86_64-pc-windows-gnu.zip
- -- src\main\lib\7z.exe x src\cskillconfirm.zip -osrc\cskillconfirm
- -- src\main\lib\wget.exe --no-check-certificate --output-document=..\gamestate_integration_fast.cfg https://github.com/tomh500/SquareModsMarket/releases/download/GSI/gamestate_integration_fast.cfg
- -- del cskillconfirm\start_varo.bat
- -- del cskillconfirm\varo.bat
- -- del src\cskillconfirm.zip
- -- echo start src\cskillconfirm\varo.bat>src\cskillconfirm\start_varo.bat
- -- echo cd src\cskillconfirm\>src\cskillconfirm\varo.bat
- -- echo cskillconfirm -p valorant -v 1.5>>src\cskillconfirm\varo.bat
+
