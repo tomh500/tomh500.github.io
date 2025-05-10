@@ -13,3 +13,7 @@
 4:
 - KissKiss - AveMujica
 - https://tomh500.github.io/Square/CloudMusic/kisskiss.mp3
+
+5:
+- Imprisoned_XII - AveMujica
+- https://tomh500.github.io/Square/CloudMusic/Imprisoned_XII.mp3
