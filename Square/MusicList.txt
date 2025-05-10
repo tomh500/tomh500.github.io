@@ -1,3 +1,7 @@
 0:
 - 时间日记
 - https://tomh500.github.io/bgm.ogg
+
+1:
+- CFG SONG Origin
+- https://tomh500.github.io/Square/CloudMusic/CfgSong_1.mp3
