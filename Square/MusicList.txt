@@ -13,3 +13,7 @@
 4:
 - Imprisoned_XII - AveMujica
 - https://tomh500.github.io/Square/CloudMusic/Imprisoned_XII.mp3
+
+5:
+- 雑踏、僕らの街
+- https://tomh500.github.io/Square/CloudMusic/gbc_op.mp3
