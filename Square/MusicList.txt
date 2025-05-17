@@ -8,7 +8,7 @@
 
 3:
 - CFG SONG Planet
-- https://tomh500.github.io/Square/CloudMusic/cfgsong_3.m4a
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_3.mp3
 
 4:
 - CFG SONG War
