@@ -1,44 +1,54 @@
-1:
-- CFG SONG SA
-- https://tomh500.github.io/Square/CloudMusic/cfgsong_7.mp3
+1: 
+- 雑踏、僕らの街
+- https://tomh500.github.io/Square/CloudMusic/gbc_op.mp3
+- normal
 
-2:
-- CFG SONG EEEEE
-- https://tomh500.github.io/Square/CloudMusic/cfgsong_6.mp3
+2: 
+- Imprisoned_XII - AveMujica
+- https://tomh500.github.io/Square/CloudMusic/Imprisoned_XII.mp3
+- normal
 
-3:
-- CFG SONG Perfect
-- https://tomh500.github.io/Square/CloudMusic/cfgsong_5.mp3
+3: 
+- KissKiss - AveMujica
+- https://tomh500.github.io/Square/CloudMusic/kisskiss.mp3
+- normal
 
-4:
-- CFG SONG War
-- https://tomh500.github.io/Square/CloudMusic/cfgsong_4.mp3
+4: 
+- 时间日记
+- https://tomh500.github.io/bgm.ogg
+- normal
 
 5:
-- CFG SONG Planet
-- https://tomh500.github.io/Square/CloudMusic/cfgsong_3.mp3
+- CFG SONG Origin
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_1.mp3
+- hide
 
 6:
 - CFG SONG Air
 - https://tomh500.github.io/Square/CloudMusic/cfgsong_2.mp3
+- hide
 
 7:
-- CFG SONG Origin
-- https://tomh500.github.io/Square/CloudMusic/cfgsong_1.mp3
-
+- CFG SONG Planet
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_3.mp3
+- hide
 
 8:
-- 时间日记
-- https://tomh500.github.io/bgm.ogg
+- CFG SONG War
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_4.mp3
+- hide
 
 9:
-- KissKiss - AveMujica
-- https://tomh500.github.io/Square/CloudMusic/kisskiss.mp3
+- CFG SONG Perfect
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_5.mp3
+- hide
 
 10:
-- Imprisoned_XII - AveMujica
-- https://tomh500.github.io/Square/CloudMusic/Imprisoned_XII.mp3
+- CFG SONG EEEEE
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_6.mp3
+- hide
 
 11:
-- 雑踏、僕らの街
-- https://tomh500.github.io/Square/CloudMusic/gbc_op.mp3
+- CFG SONG SA
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_7.mp3
+- hide
