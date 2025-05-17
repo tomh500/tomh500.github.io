@@ -8,11 +8,11 @@
 
 3:
 - CFG SONG Planet
-- https://tomh500.github.io/Square/CloudMusic/cfgsong_3.mp3
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_3.m4a
 
 4:
 - CFG SONG War
-- https://tomh500.github.io/Square/CloudMusic/cfgsong_4.m4a
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_4.mp3
 
 5:
 - CFG SONG Perfect
