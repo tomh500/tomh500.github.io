@@ -1,19 +1,44 @@
 1:
-- 时间日记
-- https://tomh500.github.io/bgm.ogg
-
-2:
 - CFG SONG Origin
 - https://tomh500.github.io/Square/CloudMusic/cfgsong_1.mp3
 
+2:
+- CFG SONG Air
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_2.mp3
+
 3:
+- CFG SONG Planet
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_3.mp3
+
+4:
+- CFG SONG War
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_4.m4a
+
+
+5:
+- CFG SONG Perfect
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_5.mp3
+
+6:
+- CFG SONG Perfect
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_6.mp3
+
+7:
+- CFG SONG Perfect
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_7.mp3
+
+8:
+- 时间日记
+- https://tomh500.github.io/bgm.ogg
+
+9:
 - KissKiss - AveMujica
 - https://tomh500.github.io/Square/CloudMusic/kisskiss.mp3
 
-4:
+10:
 - Imprisoned_XII - AveMujica
 - https://tomh500.github.io/Square/CloudMusic/Imprisoned_XII.mp3
 
-5:
+11:
 - 雑踏、僕らの街
 - https://tomh500.github.io/Square/CloudMusic/gbc_op.mp3
