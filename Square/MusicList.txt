@@ -63,4 +63,9 @@
 - https://tomh500.github.io/Square/CloudMusic/空の箱.mp3
 - normal
 
+14:
+- R6_Lobby_Y8S2
+- https://tomh500.github.io/Square/CloudMusic/R6y8s2.mp3
+- normal
+
 
