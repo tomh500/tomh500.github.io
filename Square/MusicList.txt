@@ -68,4 +68,10 @@
 - https://tomh500.github.io/Square/CloudMusic/R6y8s2.mp3
 - normal
 
+15:
+- CFG SONG VARAGE
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_8.mp3
+- hide
+
+
 
