@@ -1,16 +1,16 @@
 1:
-- Elvis Presley - Can't Help Falling in Love
-- https://tomh500.github.io/Square/CloudMusic/Elvis Presley - Can't Help Falling in Love.flac
+- ElvisPresley-Can'tHelpFallinginLove
+- https://tomh500.github.io/Square/CloudMusic/ElvisPresley-Can'tHelpFallinginLove.flac
 - normal
 
 2:
-- GUMI (グミ) - 大きな世界 (大千世界)
-- https://tomh500.github.io/Square/CloudMusic/GUMI (グミ) - 大きな世界 (大千世界).ogg
+- GUMI(グミ)-大きな世界(大千世界)
+- https://tomh500.github.io/Square/CloudMusic/GUMI(グミ)-大きな世界(大千世界).ogg
 - normal
 
 3:
-- Glue _ 初音未来 (初音ミク) - Pinky Night
-- https://tomh500.github.io/Square/CloudMusic/Glue _ 初音未来 (初音ミク) - Pinky Night.flac
+- Glue_初音未来(初音ミク)-PinkyNight
+- https://tomh500.github.io/Square/CloudMusic/Glue_初音未来(初音ミク)-PinkyNight.flac
 - normal
 
 4:
@@ -29,8 +29,8 @@
 - normal
 
 7:
-- Twinfield _ 初音未来 (初音ミク) - 夏に透明
-- https://tomh500.github.io/Square/CloudMusic/Twinfield _ 初音未来 (初音ミク) - 夏に透明.flac
+- Twinfield_初音未来(初音ミク)-夏に透明
+- https://tomh500.github.io/Square/CloudMusic/Twinfield_初音未来(初音ミク)-夏に透明.flac
 - normal
 
 8:
@@ -74,8 +74,8 @@
 - hide
 
 16:
-- cosMo@暴走P _ 初音未来 (初音ミク) - 初音天地開闢神話-初音ミク「マジカルミライ 2021」Live-
-- https://tomh500.github.io/Square/CloudMusic/cosMo@暴走P _ 初音未来 (初音ミク) - 初音天地開闢神話-初音ミク「マジカルミライ 2021」Live-.flac
+- cosMo@暴走P_初音未来(初音ミク)-初音天地開闢神話-初音ミク「マジカルミライ2021」Live-
+- https://tomh500.github.io/Square/CloudMusic/cosMo@暴走P_初音未来(初音ミク)-初音天地開闢神話-初音ミク「マジカルミライ2021」Live-.flac
 - normal
 
 17:
@@ -84,8 +84,8 @@
 - normal
 
 18:
-- keisei _ 初音未来 (初音ミク) - zenmaikatatenikimiwadokoe
-- https://tomh500.github.io/Square/CloudMusic/keisei _ 初音未来 (初音ミク) - zenmaikatatenikimiwadokoe.flac
+- keisei_初音未来(初音ミク)-zenmaikatatenikimiwadokoe
+- https://tomh500.github.io/Square/CloudMusic/keisei_初音未来(初音ミク)-zenmaikatatenikimiwadokoe.flac
 - normal
 
 19:
@@ -94,43 +94,43 @@
 - normal
 
 20:
-- livetune (ライブチューン) - Tell Your World (告诉你的世界)
-- https://tomh500.github.io/Square/CloudMusic/livetune (ライブチューン) - Tell Your World (告诉你的世界).ogg
+- livetune(ライブチューン)-TellYourWorld(告诉你的世界)
+- https://tomh500.github.io/Square/CloudMusic/livetune(ライブチューン)-TellYourWorld(告诉你的世界).ogg
 - normal
 
 21:
-- livetune (ライブチューン) _ 初音未来 (初音ミク) - DECORATOR
-- https://tomh500.github.io/Square/CloudMusic/livetune (ライブチューン) _ 初音未来 (初音ミク) - DECORATOR.flac
+- livetune(ライブチューン)_初音未来(初音ミク)-DECORATOR
+- https://tomh500.github.io/Square/CloudMusic/livetune(ライブチューン)_初音未来(初音ミク)-DECORATOR.flac
 - normal
 
 22:
-- wowaka (現実逃避P) _ 初音未来 (初音ミク) - プリズムキューブ (立方棱镜)
-- https://tomh500.github.io/Square/CloudMusic/wowaka (現実逃避P) _ 初音未来 (初音ミク) - プリズムキューブ (立方棱镜).ogg
+- wowaka(現実逃避P)_初音未来(初音ミク)-プリズムキューブ(立方棱镜)
+- https://tomh500.github.io/Square/CloudMusic/wowaka(現実逃避P)_初音未来(初音ミク)-プリズムキューブ(立方棱镜).ogg
 - normal
 
 23:
-- かげぴーぼーる _ 初音未来 (初音ミク) - ヒロイン。 (feat_ 初音ミク)
-- https://tomh500.github.io/Square/CloudMusic/かげぴーぼーる _ 初音未来 (初音ミク) - ヒロイン。 (feat_ 初音ミク).flac
+- かげぴーぼーる_初音未来(初音ミク)-ヒロイン。(feat_初音ミク)
+- https://tomh500.github.io/Square/CloudMusic/かげぴーぼーる_初音未来(初音ミク)-ヒロイン。(feat_初音ミク).flac
 - normal
 
 24:
-- せきこみごはん _ 初音未来 (初音ミク) - ラストスコア (Last Score)
-- https://tomh500.github.io/Square/CloudMusic/せきこみごはん _ 初音未来 (初音ミク) - ラストスコア (Last Score).flac
+- せきこみごはん_初音未来(初音ミク)-ラストスコア(LastScore)
+- https://tomh500.github.io/Square/CloudMusic/せきこみごはん_初音未来(初音ミク)-ラストスコア(LastScore).flac
 - normal
 
 25:
-- みつあくま _ 初音未来 (初音ミク) - ひとりじゃイヤ (讨厌一个人)
-- https://tomh500.github.io/Square/CloudMusic/みつあくま _ 初音未来 (初音ミク) - ひとりじゃイヤ (讨厌一个人).flac
+- みつあくま_初音未来(初音ミク)-ひとりじゃイヤ(讨厌一个人)
+- https://tomh500.github.io/Square/CloudMusic/みつあくま_初音未来(初音ミク)-ひとりじゃイヤ(讨厌一个人).flac
 - normal
 
 26:
-- ナノウ _ 初音未来 (初音ミク) - そういうことでまたあした (就那样吧明天见)
-- https://tomh500.github.io/Square/CloudMusic/ナノウ _ 初音未来 (初音ミク) - そういうことでまたあした (就那样吧明天见).ogg
+- ナノウ_初音未来(初音ミク)-そういうことでまたあした(就那样吧明天见)
+- https://tomh500.github.io/Square/CloudMusic/ナノウ_初音未来(初音ミク)-そういうことでまたあした(就那样吧明天见).ogg
 - normal
 
 27:
-- 初音未来 (初音ミク) _ Anamanaguchi - Miku
-- https://tomh500.github.io/Square/CloudMusic/初音未来 (初音ミク) _ Anamanaguchi - Miku.flac
+- 初音未来(初音ミク)_Anamanaguchi-Miku
+- https://tomh500.github.io/Square/CloudMusic/初音未来(初音ミク)_Anamanaguchi-Miku.flac
 - normal
 
 28:
@@ -139,8 +139,8 @@
 - normal
 
 29:
-- 晴いちばん_初音ミク - エクスプロウル
-- https://tomh500.github.io/Square/CloudMusic/晴いちばん_初音ミク - エクスプロウル.flac
+- 晴いちばん_初音ミク-エクスプロウル
+- https://tomh500.github.io/Square/CloudMusic/晴いちばん_初音ミク-エクスプロウル.flac
 - normal
 
 30:
