@@ -1,77 +1,150 @@
-1: 
-- 雑踏、僕らの街
-- https://tomh500.github.io/Square/CloudMusic/gbc_op.mp3
+1:
+- Elvis Presley - Can't Help Falling in Love
+- https://tomh500.github.io/Square/CloudMusic/Elvis Presley - Can't Help Falling in Love.flac
 - normal
 
-2: 
-- Imprisoned_XII - AveMujica
+2:
+- GUMI (グミ) - 大きな世界 (大千世界)
+- https://tomh500.github.io/Square/CloudMusic/GUMI (グミ) - 大きな世界 (大千世界).ogg
+- normal
+
+3:
+- Glue _ 初音未来 (初音ミク) - Pinky Night
+- https://tomh500.github.io/Square/CloudMusic/Glue _ 初音未来 (初音ミク) - Pinky Night.flac
+- normal
+
+4:
+- Imprisoned_XII
 - https://tomh500.github.io/Square/CloudMusic/Imprisoned_XII.mp3
 - normal
 
-3: 
-- KissKiss - AveMujica
-- https://tomh500.github.io/Square/CloudMusic/kisskiss.mp3
-- normal
-
-4: 
-- 时间日记
-- https://tomh500.github.io/bgm.ogg
-- normal
-
 5:
-- CFG SONG Origin
+- R6y10s2
+- https://tomh500.github.io/Square/CloudMusic/R6y10s2.mp3
+- normal
+
+6:
+- R6y8s2
+- https://tomh500.github.io/Square/CloudMusic/R6y8s2.mp3
+- normal
+
+7:
+- Twinfield _ 初音未来 (初音ミク) - 夏に透明
+- https://tomh500.github.io/Square/CloudMusic/Twinfield _ 初音未来 (初音ミク) - 夏に透明.flac
+- normal
+
+8:
+- cfgsong_1
 - https://tomh500.github.io/Square/CloudMusic/cfgsong_1.mp3
 - hide
 
-6:
-- CFG SONG Air
+9:
+- cfgsong_2
 - https://tomh500.github.io/Square/CloudMusic/cfgsong_2.mp3
 - hide
 
-7:
-- CFG SONG Planet
+10:
+- cfgsong_3
 - https://tomh500.github.io/Square/CloudMusic/cfgsong_3.mp3
 - hide
 
-8:
-- CFG SONG War
+11:
+- cfgsong_4
 - https://tomh500.github.io/Square/CloudMusic/cfgsong_4.mp3
 - hide
 
-9:
-- CFG SONG Perfect
+12:
+- cfgsong_5
 - https://tomh500.github.io/Square/CloudMusic/cfgsong_5.mp3
 - hide
 
-10:
-- CFG SONG EEEEE
+13:
+- cfgsong_6
 - https://tomh500.github.io/Square/CloudMusic/cfgsong_6.mp3
 - hide
 
-11:
-- CFG SONG SA
+14:
+- cfgsong_7
 - https://tomh500.github.io/Square/CloudMusic/cfgsong_7.mp3
 - hide
 
-12:
+15:
+- cfgsong_8
+- https://tomh500.github.io/Square/CloudMusic/cfgsong_8.mp3
+- hide
+
+16:
+- cosMo@暴走P _ 初音未来 (初音ミク) - 初音天地開闢神話-初音ミク「マジカルミライ 2021」Live-
+- https://tomh500.github.io/Square/CloudMusic/cosMo@暴走P _ 初音未来 (初音ミク) - 初音天地開闢神話-初音ミク「マジカルミライ 2021」Live-.flac
+- normal
+
+17:
+- gbc_op
+- https://tomh500.github.io/Square/CloudMusic/gbc_op.mp3
+- normal
+
+18:
+- keisei _ 初音未来 (初音ミク) - zenmaikatatenikimiwadokoe
+- https://tomh500.github.io/Square/CloudMusic/keisei _ 初音未来 (初音ミク) - zenmaikatatenikimiwadokoe.flac
+- normal
+
+19:
+- kisskiss
+- https://tomh500.github.io/Square/CloudMusic/kisskiss.mp3
+- normal
+
+20:
+- livetune (ライブチューン) - Tell Your World (告诉你的世界)
+- https://tomh500.github.io/Square/CloudMusic/livetune (ライブチューン) - Tell Your World (告诉你的世界).ogg
+- normal
+
+21:
+- livetune (ライブチューン) _ 初音未来 (初音ミク) - DECORATOR
+- https://tomh500.github.io/Square/CloudMusic/livetune (ライブチューン) _ 初音未来 (初音ミク) - DECORATOR.flac
+- normal
+
+22:
+- wowaka (現実逃避P) _ 初音未来 (初音ミク) - プリズムキューブ (立方棱镜)
+- https://tomh500.github.io/Square/CloudMusic/wowaka (現実逃避P) _ 初音未来 (初音ミク) - プリズムキューブ (立方棱镜).ogg
+- normal
+
+23:
+- かげぴーぼーる _ 初音未来 (初音ミク) - ヒロイン。 (feat_ 初音ミク)
+- https://tomh500.github.io/Square/CloudMusic/かげぴーぼーる _ 初音未来 (初音ミク) - ヒロイン。 (feat_ 初音ミク).flac
+- normal
+
+24:
+- せきこみごはん _ 初音未来 (初音ミク) - ラストスコア (Last Score)
+- https://tomh500.github.io/Square/CloudMusic/せきこみごはん _ 初音未来 (初音ミク) - ラストスコア (Last Score).flac
+- normal
+
+25:
+- みつあくま _ 初音未来 (初音ミク) - ひとりじゃイヤ (讨厌一个人)
+- https://tomh500.github.io/Square/CloudMusic/みつあくま _ 初音未来 (初音ミク) - ひとりじゃイヤ (讨厌一个人).flac
+- normal
+
+26:
+- ナノウ _ 初音未来 (初音ミク) - そういうことでまたあした (就那样吧明天见)
+- https://tomh500.github.io/Square/CloudMusic/ナノウ _ 初音未来 (初音ミク) - そういうことでまたあした (就那样吧明天见).ogg
+- normal
+
+27:
+- 初音未来 (初音ミク) _ Anamanaguchi - Miku
+- https://tomh500.github.io/Square/CloudMusic/初音未来 (初音ミク) _ Anamanaguchi - Miku.flac
+- normal
+
+28:
 - 大石碎胸口
 - https://tomh500.github.io/Square/CloudMusic/大石碎胸口.mp3
 - normal
 
-13:
+29:
+- 晴いちばん_初音ミク - エクスプロウル
+- https://tomh500.github.io/Square/CloudMusic/晴いちばん_初音ミク - エクスプロウル.flac
+- normal
+
+30:
 - 空の箱
 - https://tomh500.github.io/Square/CloudMusic/空の箱.mp3
 - normal
-
-14:
-- R6_Lobby_Y8S2
-- https://tomh500.github.io/Square/CloudMusic/R6y8s2.mp3
-- normal
-
-15:
-- CFG SONG VARAGE
-- https://tomh500.github.io/Square/CloudMusic/cfgsong_8.mp3
-- hide
-
-
 
