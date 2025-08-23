@@ -1,12 +1,19 @@
 import os
 
-# 获取当前目录下所有文件
-files = os.listdir()
+# 获取当前目录
+current_dir = os.getcwd()
 
-for file in files:
-    # 如果文件名中有空格
-    if ' ' in file:
-        new_name = file.replace(' ', '')  # 去掉文件名中的空格
-        os.rename(file, new_name)  # 重命名文件
+# 遍历当前目录下的所有文件
+for filename in os.listdir(current_dir):
+    # 构造完整路径
+    old_path = os.path.join(current_dir, filename)
 
-print("所有文件名中的空格已删除。")
+    # 如果是文件且文件名中包含空格
+    if os.path.isfile(old_path) and ' ' in filename:
+        # 替换空格为下划线
+        new_filename = filename.replace(' ', '_')
+        new_path = os.path.join(current_dir, new_filename)
+
+        # 重命名文件
+        os.rename(old_path, new_path)
+        print(f"重命名: {filename} → {new_filename}")
