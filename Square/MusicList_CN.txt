@@ -93,11 +93,6 @@
 - https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_偽りの理.flac
 - normal
 
-20:
-- トゲナシトゲアリ_-_傷つき傷つけ痛くて辛い
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_傷つき傷つけ痛くて辛い.flac
-- normal
-
 21:
 - トゲナシトゲアリ_-_名もなき何もかも
 - https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_名もなき何もかも.flac
@@ -143,64 +138,10 @@
 - https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_空白とカタルシス.flac
 - normal
 
-30:
-- トゲナシトゲアリ_-_臆病な白夜
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_臆病な白夜.flac
-- normal
-
-31:
-- トゲナシトゲアリ_-_薄采ディスプレイ
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_薄采ディスプレイ.flac
-- normal
-
-32:
-- トゲナシトゲアリ_-_蝶に結いた赤い糸
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_蝶に結いた赤い糸.flac
-- normal
-
-33:
-- トゲナシトゲアリ_-_視界の隅_朽ちる音_(新川崎（仮）)
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_視界の隅_朽ちる音_(新川崎（仮）).flac
-- normal
-
-34:
-- トゲナシトゲアリ_-_誰にもなれない私だから
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_誰にもなれない私だから.flac
-- normal
-
-35:
-- トゲナシトゲアリ_-_運命に賭けたい論理
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_運命に賭けたい論理.flac
-- normal
-
-36:
-- トゲナシトゲアリ_-_運命の華
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_運命の華.flac
-- normal
-
-37:
-- トゲナシトゲアリ_-_闇に溶けてく
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_闇に溶けてく.flac
-- normal
 
 38:
 - トゲナシトゲアリ_-_雑踏、僕らの街
 - https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_雑踏、僕らの街.flac
-- normal
-
-39:
-- トゲナシトゲアリ_-_飛べない蝶は夢を見る
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_飛べない蝶は夢を見る.flac
-- normal
-
-40:
-- トゲナシトゲアリ_-_飛べない蝶は夢を見る(2)
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_飛べない蝶は夢を見る(2).flac
-- normal
-
-41:
-- トゲナシトゲアリ_-_黎明を穿つ
-- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_黎明を穿つ.flac
 - normal
 
 42:
@@ -218,8 +159,10 @@
 - https://tomh500.github.io/Square/CloudMusic/晴いちばん_初音ミク-エクスプロウル.flac
 - normal
 
-45:
-- 空の箱
-- https://tomh500.github.io/Square/CloudMusic/空の箱.mp3
-- normal
+
+46:
+- CFG SONG 3 REMIX
+- https://tomh500.github.io/Square/CloudMusic/CFGSONG3REMIX.mp3
+- hide
+
 
