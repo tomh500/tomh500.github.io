@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -95,7 +96,7 @@
                 <p>屏幕录制的顶级存在，视频质量杠杠的，不丢帧，录啥都像大片，剪辑再也不用发愁。</p>
             </div>
             <div class="app-download">
-                <button onclick="window.open('https://www.bandicam.cn/downloads/', '_blank')">下载</button>
+                <button onclick="window.open('https://www.bandicam.cn/downloads', '_blank')">下载</button>
             </div>
         </div>
     
@@ -140,10 +141,13 @@ function filterApps() {
     const input = document.getElementById('searchInput').value.toLowerCase();
     const category = document.getElementById('categorySelect').value;
     const apps = document.querySelectorAll('.app-item');
+
     apps.forEach(app => {
         const name = app.getAttribute('data-name').toLowerCase();
         const cat = app.getAttribute('data-category');
-        if ((name.includes(input) || input==='') && (category==='all' || category===cat)) {
+        const description = app.querySelector('.app-info p').innerText.toLowerCase();
+
+        if ((name.includes(input) || description.includes(input) || input==='') && (category==='all' || category===cat)) {
             app.style.display = 'flex';
         } else {
             app.style.display = 'none';
@@ -151,10 +155,14 @@ function filterApps() {
     });
 }
 
-// 按回车键触发搜索
+// 搜索框按回车触发
 document.getElementById('searchInput').addEventListener('keypress', function(e){
     if(e.key==='Enter') filterApps();
 });
+
+// 分类选择立即触发筛选
+document.getElementById('categorySelect').addEventListener('change', filterApps);
 </script>
+
 </body>
 </html>
