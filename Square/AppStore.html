@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无损平方应用市场</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:"Microsoft YaHei", sans-serif; }
+        body { background:#f5f6fa; color:#333; }
+        header { background:#4e73df; color:#fff; padding:20px; text-align:center; font-size:28px; font-weight:bold; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+        .container { max-width:800px; margin:30px auto; padding:0 20px; }
+        .search-box { display:flex; margin-bottom:20px; gap:10px; flex-wrap:wrap; }
+        .search-box input { flex:1; padding:10px 15px; border:1px solid #ccc; border-radius:5px; font-size:16px; }
+        .search-box select { padding:10px 15px; border:1px solid #ccc; border-radius:5px; font-size:16px; }
+        .search-box button { padding:10px 20px; border:none; background:#4e73df; color:#fff; font-size:16px; border-radius:5px; cursor:pointer; transition:background 0.3s; }
+        .search-box button:hover { background:#2e59d9; }
+        .app-list { display:flex; flex-direction:column; gap:20px; }
+        .app-item { background:#fff; padding:20px; border-radius:10px; display:flex; align-items:center; box-shadow:0 4px 12px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; }
+        .app-item:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.1); }
+        .app-icon { width:80px; height:80px; background:#ddd; border-radius:15px; margin-right:20px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:36px; color:#888; }
+        .app-info { flex:1; }
+        .app-info h3 { font-size:22px; margin-bottom:8px; }
+        .app-info p { color:#666; font-size:14px; }
+        .app-download button { padding:10px 20px; background:#1cc88a; color:#fff; border:none; border-radius:5px; cursor:pointer; font-size:16px; transition:background 0.3s; }
+        .app-download button:hover { background:#17a673; }
+        footer { text-align:center; margin-top:50px; padding:20px 0; color:#999; font-size:14px; }
+        @media (max-width:600px) {
+            .app-item { flex-direction:column; align-items:flex-start; }
+            .app-icon { margin-bottom:15px; }
+            .app-download { width:100%; text-align:right; }
+        }
+    </style>
+</head>
+<body>
+<header>无损平方应用市场</header>
+<div class="container">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="搜索应用...">
+        <select id="categorySelect">
+            <option value="all">全部分类</option>
+            <option value="娱乐">娱乐</option><option value="安全">安全</option><option value="工具">工具</option><option value="开发">开发</option><option value="游戏">游戏</option>
+        </select>
+        <button onclick="filterApps()">筛选</button>
+    </div>
+    <div class="app-list" id="appList">
+
+        <div class="app-item" data-name="360安全卫士" data-category="安全">
+            <div class="app-icon">🛡️</div>
+            <div class="app-info">
+                <h3>360安全卫士</h3>
+                <p>哎哟病毒什么的，见我绕道走！系统保护全覆盖，广告？轻轻一点全关！全球最牛批的安全神器。</p>
+            </div>
+            <div class="app-download">
+                <button onclick="window.open('https://dl.360safe.com/inst.exe', '_blank')">下载</button>
+            </div>
+        </div>
+    
+        <div class="app-item" data-name="Steam客户端" data-category="游戏">
+            <div class="app-icon">🎮</div>
+            <div class="app-info">
+                <h3>Steam客户端</h3>
+                <p>全球最大的游戏王国，一键下载全世界的游戏资源，想玩啥就玩啥！玩家的神仙乐园。</p>
+            </div>
+            <div class="app-download">
+                <button onclick="window.open('https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe', '_blank')">下载</button>
+            </div>
+        </div>
+    
+        <div class="app-item" data-name="Everything" data-category="工具">
+            <div class="app-icon">🔍</div>
+            <div class="app-info">
+                <h3>Everything</h3>
+                <p>文件去哪了？不存在的！瞬间检索全电脑，速度快得像闪电，秒到你眼前，堪称搜索界的超神。</p>
+            </div>
+            <div class="app-download">
+                <button onclick="window.open('https://www.voidtools.com/Everything-1.4.1.1009.x64-Setup.exe', '_blank')">下载</button>
+            </div>
+        </div>
+    
+        <div class="app-item" data-name="7-Zip" data-category="工具">
+            <div class="app-icon">📦</div>
+            <div class="app-info">
+                <h3>7-Zip</h3>
+                <p>压缩？解压？小意思！高压缩比让你文件瞬间瘦身，支持各种格式，简直无所不能。</p>
+            </div>
+            <div class="app-download">
+                <button onclick="window.open('https://www.7-zip.org/a/7z2301-x64.exe', '_blank')">下载</button>
+            </div>
+        </div>
+    
+        <div class="app-item" data-name="Bandicam" data-category="娱乐">
+            <div class="app-icon">📹</div>
+            <div class="app-info">
+                <h3>Bandicam</h3>
+                <p>屏幕录制的顶级存在，视频质量杠杠的，不丢帧，录啥都像大片，剪辑再也不用发愁。</p>
+            </div>
+            <div class="app-download">
+                <button onclick="window.open('https://www.bandicam.cn/downloads/bdcamsetup.exe', '_blank')">下载</button>
+            </div>
+        </div>
+    
+        <div class="app-item" data-name="Bandizip" data-category="工具">
+            <div class="app-icon">📦</div>
+            <div class="app-info">
+                <h3>Bandizip</h3>
+                <p>压缩解压小巨人，轻巧快速，打开文件秒到，操作简单到爆炸，真是电脑必备利器。</p>
+            </div>
+            <div class="app-download">
+                <button onclick="window.open('https://www.bandisoft.com/bandizip/dl.php?web', '_blank')">下载</button>
+            </div>
+        </div>
+    
+        <div class="app-item" data-name="NDM下载器" data-category="工具">
+            <div class="app-icon">⚡</div>
+            <div class="app-info">
+                <h3>NDM下载器</h3>
+                <p>下载速度飞起来，千兆大文件瞬间到手，资源啥的，想要啥就有啥，堪比神速搬运工。</p>
+            </div>
+            <div class="app-download">
+                <button onclick="window.open('https://neatdownloadmanager.com/file/NeatDM_setup.exe', '_blank')">下载</button>
+            </div>
+        </div>
+    
+        <div class="app-item" data-name="VS Code" data-category="开发">
+            <div class="app-icon">💻</div>
+            <div class="app-info">
+                <h3>VS Code</h3>
+                <p>写代码必备，插件多到爆炸，支持各种语言，堪称开发者的灵魂伴侣，效率提升N倍。</p>
+            </div>
+            <div class="app-download">
+                <button onclick="window.open('https://update.code.visualstudio.com/latest/win32-x64-user/stable', '_blank')">下载</button>
+            </div>
+        </div>
+    
+    </div>
+</div>
+<footer>&copy; 2025 无损平方应用市场</footer>
+<script>
+function filterApps() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const category = document.getElementById('categorySelect').value;
+    const apps = document.querySelectorAll('.app-item');
+    apps.forEach(app => {
+        const name = app.getAttribute('data-name').toLowerCase();
+        const cat = app.getAttribute('data-category');
+        if ((name.includes(input) || input==='') && (category==='all' || category===cat)) {
+            app.style.display = 'flex';
+        } else {
+            app.style.display = 'none';
+        }
+    });
+}
+
+// 按回车键触发搜索
+document.getElementById('searchInput').addEventListener('keypress', function(e){
+    if(e.key==='Enter') filterApps();
+});
+</script>
+</body>
+</html>
