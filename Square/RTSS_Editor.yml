@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAML 配置编辑器</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #1a1a1a;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .checkbox-label input {
+            width: auto;
+            margin-right: 10px;
+        }
+        .program-card {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .bind-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .bind-item > div {
+            flex-grow: 1;
+        }
+        .bind-item button, .program-card button, .button-group button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .add-bind-btn, .add-program-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .add-bind-btn:hover, .add-program-btn:hover {
+            background-color: #218838;
+        }
+        .remove-bind-btn, .remove-program-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .remove-bind-btn:hover, .remove-program-btn:hover {
+            background-color: #c82333;
+        }
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button-group button {
+            padding: 12px 25px;
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #downloadBtn {
+            background-color: #007bff;
+        }
+        #downloadBtn:hover {
+            background-color: #0056b3;
+        }
+        #importBtn {
+            background-color: #6c757d;
+            margin-right: 10px;
+        }
+        #importBtn:hover {
+            background-color: #5a6268;
+        }
+        .flex-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>YAML 配置编辑器</h1>
+        <p>在这里通过表单编辑你的配置，然后下载到本地。</p>
+
+        <div class="program-card">
+            <label class="checkbox-label">
+                <input type="checkbox" id="readConsole" checked>
+                全局开关: ReadConsole
+            </label>
+        </div>
+
+        <div id="programsContainer">
+            </div>
+
+        <div class="button-group">
+            <button id="addProgramBtn" class="add-program-btn">添加新程序配置</button>
+        </div>
+
+        <hr style="margin: 30px 0;">
+
+        <div class="button-group">
+            <button id="importBtn">导入配置</button>
+            <input type="file" id="fileInput" accept=".yml,.yaml" style="display:none;">
+            <button id="downloadBtn">下载配置 (rtss_config.yml)</button>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script>
+        const availableKeys = [
+            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "SPACE", "ENTER", "ESCAPE", "TAB", "BACKSPACE", "SHIFT", "CTRL", "ALT",
+            "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
+            ";", "=", ",", "-", ".", "/", "`", "[", "\\", "]", "'"
+        ];
+
+        const defaultPrograms = [
+            {
+                name: "cs2.exe",
+                binds: [
+                    { key: "SPACE", fps: 64, hold: true }
+                ]
+            }
+        ];
+
+        const programsContainer = document.getElementById('programsContainer');
+        const addProgramBtn = document.getElementById('addProgramBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const importBtn = document.getElementById('importBtn');
+        const fileInput = document.getElementById('fileInput');
+        const readConsoleCheckbox = document.getElementById('readConsole');
+
+        function createBindElement(bind = {}) {
+            const bindItem = document.createElement('div');
+            bindItem.className = 'bind-item';
+            
+            bindItem.innerHTML = `
+                <div>
+                    <label>键:</label>
+                    <select class="key-select"></select>
+                </div>
+                <div>
+                    <label>FPS:</label>
+                    <input type="number" class="fps-input" value="${bind.fps || 64}" min="1">
+                </div>
+                <div>
+                    <label>持续:</label>
+                    <input type="checkbox" class="hold-checkbox" ${bind.hold ? 'checked' : ''}>
+                </div>
+                <button class="remove-bind-btn">删除</button>
+            `;
+
+            const keySelect = bindItem.querySelector('.key-select');
+            availableKeys.forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = key;
+                if (key === bind.key) {
+                    option.selected = true;
+                }
+                keySelect.appendChild(option);
+            });
+
+            bindItem.querySelector('.remove-bind-btn').addEventListener('click', () => {
+                bindItem.remove();
+            });
+
+            return bindItem;
+        }
+
+        function createProgramCard(program = {}) {
+            const programCard = document.createElement('div');
+            programCard.className = 'program-card';
+            
+            const bindsContainerId = 'binds-' + Math.random().toString(36).substr(2, 9);
+            programCard.innerHTML = `
+                <div class="flex-row">
+                    <label>程序名称 (.exe):</label>
+                    <button class="remove-program-btn">删除此程序</button>
+                </div>
+                <input type="text" class="program-name-input" value="${program.name || ''}" placeholder="例如：cs2.exe">
+                
+                <label>按键绑定:</label>
+                <div id="${bindsContainerId}"></div>
+                <button class="add-bind-btn">添加新绑定</button>
+            `;
+
+            const bindsContainer = programCard.querySelector(`#${bindsContainerId}`);
+            const removeProgramBtn = programCard.querySelector('.remove-program-btn');
+            const addBindBtn = programCard.querySelector('.add-bind-btn');
+
+            (program.binds || []).forEach(bind => {
+                bindsContainer.appendChild(createBindElement(bind));
+            });
+
+            removeProgramBtn.addEventListener('click', () => {
+                programCard.remove();
+            });
+
+            addBindBtn.addEventListener('click', () => {
+                bindsContainer.appendChild(createBindElement());
+            });
+
+            return programCard;
+        }
+
+        function renderConfig(data) {
+            // 清空当前所有配置
+            programsContainer.innerHTML = '';
+            
+            // 渲染全局开关
+            readConsoleCheckbox.checked = data.ReadConsole === true;
+            
+            // 渲染每个程序配置
+            for (const programName in data) {
+                if (programName !== 'ReadConsole' && data.hasOwnProperty(programName)) {
+                    const programData = {
+                        name: programName,
+                        binds: data[programName].binds || []
+                    };
+                    programsContainer.appendChild(createProgramCard(programData));
+                }
+            }
+            if (Object.keys(data).length <= 1) { // 检查除了ReadConsole之外是否有其他配置
+                 renderDefaultConfig();
+            }
+        }
+        
+        function renderDefaultConfig() {
+             defaultPrograms.forEach(program => {
+                programsContainer.appendChild(createProgramCard(program));
+            });
+        }
+
+
+        function getConfigData() {
+            const configData = {};
+            
+            configData.ReadConsole = readConsoleCheckbox.checked;
+
+            const programCards = programsContainer.querySelectorAll('.program-card');
+            programCards.forEach(card => {
+                const programName = card.querySelector('.program-name-input').value.trim();
+                if (!programName) return;
+
+                const binds = [];
+                const bindItems = card.querySelectorAll('.bind-item');
+                bindItems.forEach(item => {
+                    binds.push({
+                        key: item.querySelector('.key-select').value,
+                        fps: parseInt(item.querySelector('.fps-input').value, 10),
+                        hold: item.querySelector('.hold-checkbox').checked
+                    });
+                });
+
+                if (binds.length > 0) {
+                    configData[programName] = { binds: binds };
+                }
+            });
+
+            return configData;
+        }
+
+        function convertToYaml(data) {
+            let yamlString = `ReadConsole: ${data.ReadConsole}\n`;
+            delete data.ReadConsole;
+            
+            for (const programName in data) {
+                if (data.hasOwnProperty(programName)) {
+                    yamlString += `\n${programName}:\n`;
+                    if (data[programName].binds && data[programName].binds.length > 0) {
+                        yamlString += `  binds:\n`;
+                        data[programName].binds.forEach(bind => {
+                            yamlString += `    - key: ${bind.key}\n`;
+                            yamlString += `      fps: ${bind.fps}\n`;
+                            yamlString += `      hold: ${bind.hold}\n`;
+                        });
+                    }
+                }
+            }
+            return yamlString;
+        }
+
+        // 事件监听器
+        addProgramBtn.addEventListener('click', () => {
+            programsContainer.appendChild(createProgramCard());
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const configData = getConfigData();
+            const yamlContent = convertToYaml(configData);
+            
+            const blob = new Blob([yamlContent], { type: 'text/yaml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'rtss_config.yml';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        importBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const yamlString = e.target.result;
+                    const loadedConfig = jsyaml.load(yamlString);
+                    if (loadedConfig) {
+                        renderConfig(loadedConfig);
+                        alert("配置导入成功！");
+                    } else {
+                        alert("文件内容为空或格式不正确。");
+                        renderConfig({}); // 导入失败，显示空表单
+                    }
+                } catch (error) {
+                    alert("导入失败：YAML 格式错误。\n" + error.message);
+                    renderConfig({}); // 导入失败，显示空表单
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        // 初始化页面
+        renderDefaultConfig();
+    </script>
+
+</body>
+</html>
