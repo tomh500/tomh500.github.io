@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>应用市场网站生成器</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #1cc88a;
+            --light-gray: #f5f6fa;
+            --dark-gray: #5a5c69;
+            --border-color: #e3e6f0;
+            --white: #fff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Microsoft YaHei", sans-serif; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .main-container {
+            display: flex;
+            flex-grow: 1;
+            padding: 20px;
+            gap: 20px;
+        }
+        .editor-pane, .preview-pane {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* 防止子元素溢出圆角 */
+        }
+        .editor-pane {
+            width: 40%;
+            min-width: 400px;
+        }
+        .preview-pane {
+            width: 60%;
+        }
+        .pane-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pane-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        #yaml-editor {
+            width: 100%;
+            flex-grow: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 300px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .btn, input[type="file"]::file-selector-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: var(--white);
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            text-align: center;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-generate { background-color: var(--primary-color); }
+        .btn-generate:hover { background-color: #2e59d9; }
+        .btn-download { background-color: var(--secondary-color); }
+        .btn-download:hover { background-color: #17a673; }
+        .btn-download:disabled { background-color: #a0a0a0; cursor: not-allowed; }
+        .btn-upload { background-color: #f6c23e; }
+        .btn-upload:hover { background-color: #f4b619; }
+        input[type="file"] { display: none; } /* 隐藏原生上传按钮 */
+        #preview-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+        }
+        #error-message {
+            color: #e74a3b;
+            background-color: #fbebeb;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+            white-space: pre-wrap; /* 保持错误信息格式 */
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #858796;
+            font-size: 14px;
+            background-color: var(--white);
+            border-top: 1px solid var(--border-color);
+        }
+        @media (max-width: 900px) {
+            .main-container { flex-direction: column; }
+            .editor-pane, .preview-pane { width: 100%; }
+            .preview-pane { min-height: 500px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="editor-pane">
+            <div class="pane-header">YAML 编辑器</div>
+            <div class="pane-content">
+                <p style="margin-bottom:10px;">在此处编辑或粘贴您的 YAML 数据：</p>
+                <textarea id="yaml-editor"></textarea>
+                <div id="error-message"></div>
+                <div class="controls">
+                    <label for="upload-yaml" class="btn btn-upload">上传 YML</label>
+                    <input type="file" id="upload-yaml" accept=".yml,.yaml">
+                    <button id="generate-btn" class="btn btn-generate">生成网站</button>
+                    <button id="download-btn" class="btn btn-download" disabled>下载 HTML</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-pane">
+            <div class="pane-header">网站预览</div>
+            <iframe id="preview-frame" title="网站预览"></iframe>
+        </div>
+    </div>
+
+    <footer>
+        由 Gemini 将 Python 脚本移植到 HTML+JS &copy; 2025
+    </footer>
+
+<script>
+    const yamlEditor = document.getElementById('yaml-editor');
+    const generateBtn = document.getElementById('generate-btn');
+    const downloadBtn = document.getElementById('download-btn');
+    const uploadInput = document.getElementById('upload-yaml');
+    const previewFrame = document.getElementById('preview-frame');
+    const errorMessage = document.getElementById('error-message');
+
+    let generatedHtmlContent = ''; // 用于存储生成的 HTML 内容
+
+    // 默认的 YAML 内容，方便用户了解格式
+    const defaultYaml = `
+apps:
+  - name: "应用示例 A"
+    description: "这是一个非常有用的工具，可以帮助您完成任务 A。"
+    icon: "🚀"
+    category: "工具"
+    download: "https://example.com/download/a"
+
+  - name: "应用示例 B"
+    description: "体验下一代效率软件，专为团队协作设计。"
+    icon: "💼"
+    category: "效率"
+    download: "https://example.com/download/b"
+    
+  - name: "娱乐应用 C"
+    description: "放松一下，享受这款有趣的应用程序带来的快乐。"
+    icon: "🎮"
+    category: "娱乐"
+    download: "https://example.com/download/c"
+`;
+
+    // 页面加载时填充默认 YAML
+    window.onload = () => {
+        yamlEditor.value = defaultYaml.trim();
+    };
+
+    // 文件上传处理
+    uploadInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                yamlEditor.value = e.target.result;
+                errorMessage.style.display = 'none'; // 上传成功后隐藏错误信息
+            };
+            reader.onerror = () => {
+                showError("读取文件失败！");
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    // 生成网站按钮点击事件
+    generateBtn.addEventListener('click', () => {
+        try {
+            const yamlText = yamlEditor.value;
+            const data = jsyaml.load(yamlText);
+
+            if (!data || !Array.isArray(data.apps)) {
+                showError("YAML 格式错误：根节点必须包含一个名为 'apps' 的数组。");
+                return;
+            }
+
+            // 生成 HTML
+            generatedHtmlContent = generateHtmlFromData(data);
+            
+            // 在 iframe 中显示预览
+            previewFrame.srcdoc = generatedHtmlContent;
+
+            // 激活下载按钮
+            downloadBtn.disabled = false;
+            errorMessage.style.display = 'none';
+
+        } catch (e) {
+            showError(`YAML 解析失败：\n${e.message}`);
+            downloadBtn.disabled = true;
+        }
+    });
+
+    // 下载按钮点击事件
+    downloadBtn.addEventListener('click', () => {
+        if (!generatedHtmlContent) {
+            alert("请先生成网站！");
+            return;
+        }
+        const blob = new Blob([generatedHtmlContent], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'index.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url); // 释放内存
+    });
+    
+    // 显示错误信息
+    function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+    }
+
+    // 从解析后的数据生成完整的 HTML 字符串 (核心逻辑)
+    function generateHtmlFromData(data) {
+        const apps = data.apps || [];
+        
+        // 获取所有分类并去重排序
+        const categories = [...new Set(apps.map(app => app.category || "未分类"))].sort();
+
+        const categoryOptions = categories.map(c => `<option value="${c}">${c}</option>`).join('');
+
+        let appItemsHtml = '';
+        for (const app of apps) {
+            const name = app.name || "";
+            const desc = app.description || "";
+            const icon = app.icon || "📦";
+            const download = app.download || "#";
+            const category = app.category || "未分类";
+
+            appItemsHtml += `
+            <div class="app-item" data-name="${name}" data-category="${category}">
+                <div class="app-icon">${icon}</div>
+                <div class="app-info">
+                    <h3>${name}</h3>
+                    <p>${desc}</p>
+                </div>
+                <div class="app-download">
+                    <button onclick="window.open('${download}', '_blank')">下载</button>
+                </div>
+            </div>`;
+        }
+
+        // 返回完整的 HTML 模板字符串
+        return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无损平方应用市场</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:"Microsoft YaHei", sans-serif; }
+        body { background:#f5f6fa; color:#333; }
+        header { background:#4e73df; color:#fff; padding:20px; text-align:center; font-size:28px; font-weight:bold; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+        .container { max-width:800px; margin:30px auto; padding:0 20px; }
+        .search-box { display:flex; margin-bottom:20px; gap:10px; flex-wrap:wrap; }
+        .search-box input { flex:1; padding:10px 15px; border:1px solid #ccc; border-radius:5px; font-size:16px; }
+        .search-box select { padding:10px 15px; border:1px solid #ccc; border-radius:5px; font-size:16px; }
+        .search-box button { padding:10px 20px; border:none; background:#4e73df; color:#fff; font-size:16px; border-radius:5px; cursor:pointer; transition:background 0.3s; }
+        .search-box button:hover { background:#2e59d9; }
+        .app-list { display:flex; flex-direction:column; gap:20px; }
+        .app-item { background:#fff; padding:20px; border-radius:10px; display:flex; align-items:center; box-shadow:0 4px 12px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; }
+        .app-item:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.1); }
+        .app-icon { width:80px; height:80px; background:#ddd; border-radius:15px; margin-right:20px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:36px; color:#888; }
+        .app-info { flex:1; }
+        .app-info h3 { font-size:22px; margin-bottom:8px; }
+        .app-info p { color:#666; font-size:14px; }
+        .app-download button { padding:10px 20px; background:#1cc88a; color:#fff; border:none; border-radius:5px; cursor:pointer; font-size:16px; transition:background 0.3s; }
+        .app-download button:hover { background:#17a673; }
+        footer { text-align:center; margin-top:50px; padding:20px 0; color:#999; font-size:14px; }
+        @media (max-width:600px) {
+            .app-item { flex-direction:column; align-items:flex-start; }
+            .app-icon { margin-bottom:15px; }
+            .app-download { width:100%; text-align:right; }
+        }
+    </style>
+</head>
+<body>
+<header>无损平方应用市场</header>
+<div class="container">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="搜索应用...">
+        <select id="categorySelect">
+            <option value="all">全部分类</option>
+            ${categoryOptions}
+        </select>
+        <button onclick="filterApps()">筛选</button>
+    </div>
+    <div class="app-list" id="appList">
+        ${appItemsHtml}
+    </div>
+</div>
+<footer>&copy; 2025 无损平方应用市场</footer>
+<script>
+function filterApps() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const category = document.getElementById('categorySelect').value;
+    const apps = document.querySelectorAll('.app-item');
+
+    apps.forEach(app => {
+        const name = app.getAttribute('data-name').toLowerCase();
+        const cat = app.getAttribute('data-category');
+        const description = app.querySelector('.app-info p').innerText.toLowerCase();
+
+        const nameMatch = name.includes(input);
+        const descMatch = description.includes(input);
+        const searchMatch = input === '' || nameMatch || descMatch;
+        const categoryMatch = category === 'all' || category === cat;
+
+        if (searchMatch && categoryMatch) {
+            app.style.display = 'flex';
+        } else {
+            app.style.display = 'none';
+        }
+    });
+}
+document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') filterApps();
+});
+document.getElementById('categorySelect').addEventListener('change', filterApps);
+<\/script>
+</body>
+</html>`;
+    }
+
+</script>
+
+</body>
+</html>
