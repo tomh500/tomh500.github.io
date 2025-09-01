@@ -165,4 +165,9 @@
 - https://tomh500.github.io/Square/CloudMusic/CFGSONG3REMIX.mp3
 - hide
 
+35:
+- トゲナシトゲアリ_-_誰にもなれない私だから
+- https://tomh500.github.io/Square/CloudMusic/トゲナシトゲアリ_-_誰にもなれない私だから.flac
+- normal
+
 
