@@ -1,0 +1,352 @@
+:root {
+    --bg-dark: #060913;
+    --panel-cyber: rgba(10, 16, 32, 0.85);
+    --border-glow: #00f3ff;   /* 极客冰蓝 */
+    --neon-pink: #ff007f;     /* 二次元粉 */
+    --neon-purple: #9d4edd;
+    --text-white: #ffffff;
+    --text-gray: #8892b0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Consolas', 'Fira Code', 'Microsoft YaHei', sans-serif;
+    overflow-x: hidden;
+}
+
+/* 科技感背景网格 */
+.geek-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: 
+        linear-gradient(rgba(18, 24, 48, 0.3) 1px, transparent 1px) 0 0 / 50px 50px,
+        linear-gradient(90deg, rgba(18, 24, 48, 0.3) 1px, transparent 1px) 0 0 / 50px 50px,
+        radial-gradient(circle at 50% 30%, rgba(157, 78, 221, 0.15), transparent 60%);
+    z-index: -2;
+}
+
+.container {
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+/* ==========================================
+   顶部个人中心：外舱结构
+   ========================================== */
+.profile-card {
+    background: var(--panel-cyber);
+    border: 1px solid #1e293b;
+    border-left: 4px solid var(--border-glow);
+    padding: 40px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    display: flex;
+    gap: 35px;
+    align-items: center;
+}
+
+/* 圆形头像特殊控制舱 */
+.avatar-container {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.avatar-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #161f38, #090d16);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+    transition: border-color 0.3s;
+}
+
+.avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-card:hover .avatar-circle {
+    border-color: var(--border-glow);
+}
+
+.status-badge {
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--border-glow);
+    color: #060913;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* 顶部字色分离修正：父级纯白，仅 span 渐变 */
+.welcome-text {
+    font-size: 32px;
+    font-weight: 500;
+    color: #ffffff !important; /* 强制前缀为纯白 */
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.gradient-name {
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--border-glow), var(--neon-purple), var(--neon-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    padding-left: 6px;
+    filter: drop-shadow(0 0 12px rgba(0, 243, 255, 0.25));
+}
+
+.subtitle {
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* 随机动态 Tips 区域 - 降噪冷灰色调 */
+.tips-container {
+    background: rgba(14, 22, 43, 0.6);
+    border: 1px solid rgba(0, 243, 255, 0.15);
+    padding: 12px 18px;
+    font-size: 13px;
+    color: #cbd5e1;
+    margin-bottom: 25px;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tips-container:hover {
+    border-color: var(--border-glow);
+    background: rgba(0, 243, 255, 0.04);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+}
+
+.tips-prefix {
+    font-weight: bold;
+    color: var(--border-glow);
+    margin-right: 8px;
+    font-family: monospace;
+}
+
+/* ==========================================
+   社交按钮样式：带官方图标排版
+   ========================================== */
+.social-links {
+    display: flex;
+    gap: 12px;
+}
+
+.link-btn {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    color: var(--text-gray);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid #1e293b;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.link-btn i {
+    font-size: 14px;
+    transition: transform 0.2s;
+}
+
+.link-btn:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.link-btn.github:hover {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.link-btn.bilibili:hover {
+    border-color: #ff71bf;
+    color: #ff71bf;
+    background: rgba(255, 113, 191, 0.08);
+}
+
+.link-btn.discord:hover {
+    border-color: #5865f2;
+    color: #5865f2;
+    background: rgba(88, 101, 242, 0.08);
+}
+
+.link-btn:hover i {
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   音乐播放器排版
+   ========================================== */
+.music-player {
+    margin-top: 25px;
+    background: linear-gradient(90deg, #0f172a, var(--panel-cyber));
+    border: 1px solid #1e293b;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    border-radius: 4px;
+}
+.track-meta { flex-grow: 1; }
+.track-title { font-size: 16px; font-weight: bold; color: var(--border-glow); }
+.track-artist { font-size: 12px; color: var(--text-gray); margin-top: 4px; }
+
+.progress-bar-container {
+    width: 100%; height: 4px;
+    background: #1e293b;
+    margin-top: 15px;
+    cursor: pointer;
+    position: relative;
+}
+.progress-bar {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--border-glow), var(--neon-purple));
+    box-shadow: 0 0 8px var(--border-glow);
+}
+.ctrl-btn {
+    background: transparent;
+    border: 1px solid var(--border-glow);
+    color: var(--border-glow);
+    padding: 10px 24px;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+.ctrl-btn:hover {
+    background: rgba(0, 243, 255, 0.1);
+    box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+/* ==========================================
+   项目矩阵排版
+   ========================================== */
+.product-grid { margin-top: 50px; }
+.product-grid h2 {
+    font-size: 14px;
+    color: var(--text-gray);
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+.product-card {
+    background: var(--panel-cyber);
+    border: 1px solid #1e293b;
+    margin-bottom: 20px;
+    display: flex;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+    position: relative;
+}
+.product-card:hover {
+    border-color: var(--border-glow);
+    transform: translateX(4px);
+    box-shadow: 0 5px 20px rgba(0, 243, 255, 0.1);
+}
+.prod-img-wrapper {
+    width: 180px; height: 110px;
+    background: #090d16;
+    overflow: hidden;
+}
+.prod-img-wrapper img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+.product-card:hover .prod-img-wrapper img { opacity: 1; }
+
+.prod-details {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.prod-details h3 { font-size: 18px; color: #f1f5f9; }
+.prod-details p { font-size: 13px; color: var(--text-gray); line-height: 1.5; }
+.action-tag { font-size: 11px; font-weight: bold; letter-spacing: 1px; }
+.text-link { color: var(--border-glow); }
+.text-download { color: var(--neon-pink); }
+
+/* ==========================================
+   下载弹窗
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(3, 5, 11, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 100;
+}
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+.modal-box {
+    background: #0b0f19;
+    border: 1px solid #22314d;
+    border-top: 4px solid var(--neon-pink);
+    width: 440px;
+    padding: 30px;
+    position: relative;
+}
+.modal-header {
+    display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 25px;
+}
+.modal-title { font-size: 11px; color: var(--text-gray); letter-spacing: 1px; }
+.close-btn { background: transparent; border: none; color: var(--text-gray); cursor: pointer; font-size: 16px; }
+.close-btn:hover { color: #fff; }
+.modal-prod-name { font-size: 22px; font-weight: bold; margin-bottom: 20px; color: #fff; }
+
+.route-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 20px; border: 1px solid #1e293b;
+    margin-bottom: 12px; text-decoration: none; color: #fff;
+    font-size: 14px; background: rgba(255,255,255,0.01);
+}
+.route-item.available:hover {
+    border-color: var(--neon-pink);
+    background: rgba(255, 0, 127, 0.05);
+}
+.route-item.disabled {
+    background: #0d111a; border-color: #161b22;
+    color: #384252; cursor: not-allowed; pointer-events: none;
+}
+.status-text { font-size: 10px; font-weight: bold; }
+.route-item.available .status-text { color: var(--neon-pink); }
+.route-item.disabled .status-text { color: #384252; }

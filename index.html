@@ -1,288 +1,103 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SQProject</title>
-    <!-- Bootstrap & Custom CSS -->
-    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-    <link href="css/showimg.css" rel="stylesheet">
-    <link href="css/tanchuang.css" rel="stylesheet">
-    <style>
-        #audioPlayer {
-            display: none;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无损平方集团 | Lossless Square</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- 欢迎弹窗 -->
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <span class="popup-close" id="close-btn">&times;</span>
-            <h2>欢迎来到我的网站！</h2>
-            <p>时间如同流水，而故人早已不在身边。</p>
-        </div>
-    </div>
+    <div class="geek-bg"></div>
 
-    <!-- 音频元素 -->
-    <audio id="bgm" preload="auto">
-        <source src="bgm.ogg" type="audio/ogg">
-        Your browser does not support the audio element.
-    </audio>
-
-    <!-- 图片展示弹窗 -->
-    <div id="showimg" class="showimg" style="display: none;">
-        <div class="popup-content">
-            <span id="close" class="popup-close">&times;</span>
-            <img src="images/bm.jpg" alt="群号1007991448" class="popup-image">
-        </div>
-    </div>
-
-    <!-- 导航栏 -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-            <!-- 搜索框 -->
-            <form class="form-inline my-2 my-lg-0" onsubmit="return redirectToBing()">
-                <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
-            </form>
-        </div>
-    </nav>
-
-    <!-- 主体巨幕导航 -->
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-12">
-                <div class="jumbotron">
-                    <h1 class="text-center">Kawaii网站导航</h1>
-                    <div class="row justify-content-center">
-                        <div class="col-auto">
-                            <p><a class="btn btn-success btn-lg" href="#" role="button">资源下载</a></p>
-                        </div>
-                        <div class="col-auto">
-                            <p><a class="btn btn-primary btn-lg" href="https://tomh500.githun.io/windx" role="button">友商官网</a></p>
-                        </div>
-                    </div>
-                    <p class="text-center">我们是致力于打造优秀产品</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 玩梗介绍区域 -->
     <div class="container">
-        <div class="row">
-            <div class="text-center col-md-6 col-12">
-                <h3>&nbsp;</h3>
-                <p>你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。</p>
-                <a class="btn btn-danger btn-lg" href="https://ys.mihoyo.com" role="button">Tutorials</a>
+        <header class="profile-card">
+            <div class="avatar-container">
+                <div class="avatar-circle">
+                    <img src="images/iseri.gif" alt="Avatar" onerror="this.style.display='none';">
+                </div>
+                <span class="status-badge">ONLINE</span>
             </div>
-            <div class="text-center col-md-6 col-12 d-flex align-items-center justify-content-center">
-                <span>原神怎么你了</span>
-            </div>
-        </div>
-    </div>
-    <hr>
 
-    <!-- 客户端简介格子 -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-12">
-                <h2>天依Client</h2>
-                <p>是一款《我的世界》的安卓客户端，实现了渲染龙直接加载bin文件，内置材质包，让你的新手朋友直接安装！最棒的是？它完全免费</p>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <h2>米库Client</h2>
-                <p>基于Client重构，不同的是，这款客户端更注重优化</p>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <h2>汉堡Bounce</h2>
-                <p>《我的世界》知名作弊客户端LiquidBounce的分支，提供强力的花雨庭功能，是SQBounce的NextGen</p>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <h2>SQ系列插件</h2>
-                <p>开发代号WindX，是《我的世界》中国版知名小游戏服务器的系列插件，提供了SQProtect、SQReport等特色插件！</p>
-            </div>
-        </div>
-    </div>
-    <hr>
+            <div class="profile-info">
+                <h1 class="welcome-text">你好，我是 <span class="gradient-name">三月小芹菜</span></h1>
+                
+                <div class="tips-container" id="random-tips" title="点击刷新切句">
+                    <span class="tips-prefix">SYSTEM_LOG //</span>
+                    <span id="tips-content">正在载入系统日志...</span>
+                </div>
 
-    <!-- 下载卡片区域 -->
-    <div class="container mt-4">
-        <div class="row">
-            <!-- 卡片 1 -->
-            <div class="col-sm-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="images/LuoClient.jpg" alt="天依Client">
-                    <div class="card-body">
-                        <h5 class="card-title">天依Client</h5>
-                        <p class="card-text">我的世界安卓客户端，共存，自带光影，致力于新手使用</p>
-                        <a href="https://www.123pan.com/s/N9b8Vv-rNbPv.html" class="btn btn-primary">获取</a>
-                    </div>
+                <div class="social-links">
+                    <a href="https://github.com/tomh500" target="_blank" class="link-btn github">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    <a href="https://space.bilibili.com/511242952" target="_blank" class="link-btn bilibili">
+                        <i class="fa-brands fa-bilibili"></i> Bilibili
+                    </a>
+                    <a href="https://discord.gg/MvuaUfwyQ9" target="_blank" class="link-btn discord">
+                        <i class="fa-brands fa-discord"></i> Discord
+                    </a>
                 </div>
             </div>
-            <!-- 卡片 2 -->
-            <div class="col-sm-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="images/600X300.gif" alt="米库Client">
-                    <div class="card-body">
-                        <h5 class="card-title">米库Client</h5>
-                        <p class="card-text">划时代的发明，共存，优化++</p>
-                        <a href="https://www.123pan.com/s/N9b8Vv-wvtPv.html" class="btn btn-primary">获取</a>
-                    </div>
-                </div>
-            </div>
-            <!-- 卡片 3 -->
-            <div class="col-sm-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="images/logo.png" alt="Square For CS2">
-                    <div class="card-body">
-                        <h5 class="card-title">Square For CS2</h5>
-                        <p class="card-text">为反恐精英2准备的CFG文件</p>
-                        <a href="https://tomh500.github.io/Square-Web" class="btn btn-primary">获取</a>
-                    </div>
-                </div>
-            </div>
-            <!-- 卡片 4 -->
-            <div class="col-sm-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="images/BurgerBounce.jpg" alt="LiquidBounce 1.12.2 src">
-                    <div class="card-body">
-                        <h5 class="card-title">LiquidBounce 1.12.2 src</h5>
-                        <p class="card-text">绝版源代码，在此下载</p>
-                        <a href="https://www.123pan.com/s/N9b8Vv-wktPv.html" class="btn btn-primary">获取</a>
-                    </div>
-                </div>
-            </div>
-            <!-- 卡片 5 -->
-            <div class="col-sm-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="images/Screenshot_2023-07-31-23-52-28-893_com.tianyiclient.mcpe.jpg" alt="ProtoHax">
-                    <div class="card-body">
-                        <h5 class="card-title">ProtoHax</h5>
-                        <p class="card-text">我的世界国际版的服务器作弊软件，亲自汉化</p>
-                        <a href="apks/ProtoHax_1.4.0-1.apk" class="btn btn-primary">获取</a>
-                    </div>
-                </div>
-            </div>
-            <!-- 卡片 6 -->
-            <div class="col-sm-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="images/BurgerBounce.jpg" alt="BurgerBounce">
-                    <div class="card-body">
-                        <h5 class="card-title">BurgerBounce</h5>
-                        <p class="card-text">基于LiquidBounce的我的世界知名作弊客户端，针对花雨庭</p>
-                        <a href="BurgerBounce.html" class="btn btn-primary">获取</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr>
+        </header>
 
-    <!-- 页脚与额外信息 -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                <h4>Vocaloid下载决定不再开放，支持正版，若需使用请自行寻找</h4>
+        <section class="music-player">
+            <div class="track-meta">
+                <div class="track-title">时间日记</div>
+                <div class="track-artist">洛天依</div>
+                <div class="progress-bar-container" id="progress-container">
+                    <div class="progress-bar" id="progress"></div>
+                </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-12 mb-4">
-                <h2>New Project</h2>
-                <ul class="list-unstyled">
-                    <li class="media">
-                        <img class="mr-3" src="images/35X35.gif" alt="Placeholder">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">Heading 1</h5>
-                        </div>
-                    </li>
-                    <li class="media my-4">
-                        <img class="mr-3" src="images/35X35.gif" alt="Placeholder">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">Heading 2</h5>
-                        </div>
-                    </li>
-                </ul>
+            <div class="player-controls">
+                <button id="play-btn" class="ctrl-btn">PLAY</button>
             </div>
-            <div class="col-lg-4 col-12 mb-4">
-                <h2>Connect Us</h2>
-                <p>Email: tomh500@163.com</p>
+            <audio id="bgm" src="bgm.ogg" loop></audio>
+        </section>
+
+        <main class="product-grid">
+            <h2>// 核心项目矩阵</h2>
+            
+            <div class="product-card" data-type="link" data-target="https://tomh500.github.io/DearMoments">
+                <div class="prod-img-wrapper">
+                    <img src="images/dearmoments.png" alt="DearNextgen">
+                </div>
+                <div class="prod-details">
+                    <h3>DearNextgen</h3>
+                    <p>下一代CS2 CFG，完全合法地获取游戏优势。</p>
+                    <span class="action-tag text-link">访问站点 →</span>
+                </div>
+            </div>
+
+            <div class="product-card" id="ccd-manager-card" data-type="download">
+                <div class="prod-img-wrapper">
+                    <img src="images/ccdmanager.png" alt="CCD Manager">
+                </div>
+                <div class="prod-details">
+                    <h3>CCD Manager</h3>
+                    <p>免费无广告的CPU调度管理软件，充分利用您的Ryzen9 9950X3D。Process Lasso 理想平替。</p>
+                    <span class="action-tag text-download">获取下载 ↓</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="download-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">SELECT_DOWNLOAD_ROUTE</span>
+                <button class="close-btn" id="close-modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-prod-name">CCD Manager</p>
+                <div class="route-list" id="route-container">
+                    </div>
             </div>
         </div>
     </div>
 
-    <hr>
-    <footer class="text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <p>Copyright © tomh500</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript 脚本导入（统一放在底部防止阻塞渲染） -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.4.1.js"></script>
-    <script src="js/style.js"></script>
-    <script src="js/PhoneBgm.js"></script>
-    <script src="js/popup.js"></script>
-    <script src="js/showimg.js"></script>
-
-    <!-- 弹窗控制与 BGM 播放内联逻辑 -->
-    <script>
-        const popup = document.getElementById('popup');
-        const closeButton = document.getElementById('close-btn');
-        const bgm = document.getElementById('bgm');
-
-        if (bgm) {
-            bgm.volume = 0.5;
-        }
-
-        window.onload = function() {
-            if (popup) popup.style.display = 'flex';
-        };
-
-        if (closeButton && popup && bgm) {
-            closeButton.onclick = function() {
-                popup.style.display = 'none';
-                bgm.play().catch(err => {
-                    console.log("音频播放被浏览器拦截，需要用户点击页面任意地方触发:", err);
-                });
-            };
-        }
-
-        function redirectToBing() {
-            var searchTerm = document.getElementById("searchInput").value;
-            var encodedSearchTerm = encodeURIComponent(searchTerm);
-            var bingSearchUrl = "https://www.bing.com/search?q=" + encodedSearchTerm;
-            window.open(bingSearchUrl, "_blank");
-            return false;
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
