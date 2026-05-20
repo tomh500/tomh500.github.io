@@ -350,3 +350,94 @@ body {
 .status-text { font-size: 10px; font-weight: bold; }
 .route-item.available .status-text { color: var(--neon-pink); }
 .route-item.disabled .status-text { color: #384252; }
+
+/* ==========================================
+   移动端响应式适配 (屏幕小于 768px 时自动触发)
+   ========================================== */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    /* 顶部个人中心：由横向排版改为纵向居中排版 */
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+        gap: 20px;
+    }
+
+    /* 让头像在手机端居中 */
+    .avatar-container {
+        margin: 0 auto;
+    }
+
+    /* 名字与前缀字体稍微缩小，防止小屏手机上尴尬换行 */
+    .welcome-text {
+        font-size: 26px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+        text-align: left; /* 简介还是左对齐看起舒服 */
+        padding-left: 10px;
+        border-left: 2px solid var(--neon-pink);
+    }
+
+    /* 社交按钮：手机端自动塞满并平分空间 */
+    .social-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .link-btn {
+        flex: 1 1 calc(50% - 10px); /* 两个一排，自动撑开 */
+        justify-content: center;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    /* 音乐播放器手机端改造 */
+    .music-player {
+        padding: 20px;
+        gap: 15px;
+    }
+    .ctrl-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    /* 项目矩阵卡片：由左右并排改为上下堆叠 */
+    .product-card {
+        flex-direction: column;
+    }
+
+    .prod-img-wrapper {
+        width: 100%;
+        height: 140px; /* 图片全宽展示 */
+    }
+
+    .prod-details {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .prod-details h3 {
+        font-size: 16px;
+    }
+
+    /* 下载弹窗：宽度自适应，防止挤出屏幕 */
+    .modal-box {
+        width: 90%;
+        max-width: 400px;
+        padding: 20px;
+    }
+    
+    .route-item {
+        padding: 12px 15px;
+        font-size: 13px;
+    }
+}
