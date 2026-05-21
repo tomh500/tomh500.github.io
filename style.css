@@ -118,11 +118,13 @@ body {
     color: #ffffff !important; 
     margin-bottom: 12px;
     letter-spacing: 1px;
+    white-space: nowrap; /* 整个标题保持一行 */
 }
 
 .gradient-name {
     font-weight: 900;
     background: linear-gradient(45deg, var(--border-glow), var(--neon-purple), var(--neon-pink));
+    white-space: nowrap;  /* 阻止自动换行 */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
