@@ -372,13 +372,23 @@ body {
 /* ==========================================
    项目矩阵排版
    ========================================== */
-.product-grid { margin-top: 50px; }
+.product-grid { 
+    margin-top: 50px; 
+    position: relative; /* 确保容器定位正常 */
+    z-index: 10;        /* 确保在背景之上 */
+}
+
 .product-grid h2 {
     font-size: 14px;
-    color: var(--text-gray);
+    /* 显式定义颜色，不要完全依赖变量，防止变量未加载时显示空白 */
+    color: var(--text-gray, #8892b0) !important; 
     letter-spacing: 3px;
     margin-bottom: 25px;
     text-transform: uppercase;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto;
 }
 .product-card {
     background: var(--panel-cyber);
