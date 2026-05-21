@@ -1,3 +1,6 @@
+/* ==========================================
+   全局核心变量与基础重置
+   ========================================== */
 :root {
     --bg-dark: #060913;
     --panel-cyber: rgba(10, 16, 32, 0.85);
@@ -39,19 +42,21 @@ body {
 }
 
 /* ==========================================
-   顶部个人中心：外舱结构
+   顶部个人中心：三栏空间精细化排版外舱
    ========================================== */
 .profile-card {
     background: var(--panel-cyber);
     border: 1px solid #1e293b;
     border-left: 4px solid var(--border-glow);
-    padding: 40px;
+    padding: 35px 40px; 
     border-radius: 8px;
     position: relative;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     display: flex;
-    gap: 35px;
+    gap: 30px;          
     align-items: center;
+    justify-content: space-between;
+    overflow: hidden;   /* 坚决不允许子元素穿墙溢出 */
 }
 
 /* 圆形头像特殊控制舱 */
@@ -98,11 +103,19 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* 顶部字色分离修正：父级纯白，仅 span 渐变 */
+/* 中间信息区：保护生存空间，限制上限防止推挤右侧 */
+.profile-info {
+    flex: 1 1 auto;       
+    max-width: 440px;     
+    min-width: 0;         
+    display: flex;
+    flex-direction: column;
+}
+
 .welcome-text {
     font-size: 32px;
     font-weight: 500;
-    color: #ffffff !important; /* 强制前缀为纯白 */
+    color: #ffffff !important; 
     margin-bottom: 12px;
     letter-spacing: 1px;
 }
@@ -124,18 +137,18 @@ body {
     margin-bottom: 20px;
 }
 
-/* 随机动态 Tips 区域 - 降噪冷灰色调 */
+/* 随机动态 Tips 区域 */
 .tips-container {
     background: rgba(14, 22, 43, 0.6);
     border: 1px solid rgba(0, 243, 255, 0.15);
-    padding: 12px 18px;
+    padding: 12px 16px;
     font-size: 13px;
     color: #cbd5e1;
-    margin-bottom: 25px;
-    display: inline-block;
+    margin-bottom: 20px;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s ease;
+    width: 100%;            
 }
 
 .tips-container:hover {
@@ -149,6 +162,80 @@ body {
     color: var(--border-glow);
     margin-right: 8px;
     font-family: monospace;
+}
+
+/* ==========================================
+   流光标签簇：安全区硬核限宽与对齐
+   ========================================== */
+.profile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;        
+    width: 220px;         
+    max-width: 220px;
+    justify-content: flex-start;
+    align-content: center;
+    flex-shrink: 0;       /* 坚决不参与中间区域的挤压 */
+}
+
+.profile-tags .tag {
+    font-family: 'Consolas', monospace;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: default;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    user-select: none;
+    white-space: nowrap;  /* 强制文本单行，绝对不换行 */
+}
+
+.profile-tags .tag.cyan {
+    color: var(--border-glow);
+    border-color: rgba(0, 243, 255, 0.15);
+}
+.profile-tags .tag.cyan:hover {
+    background: rgba(0, 243, 255, 0.06);
+    border-color: var(--border-glow);
+    box-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
+}
+
+.profile-tags .tag.purple {
+    color: #b577ff;
+    border-color: rgba(157, 78, 221, 0.2);
+}
+.profile-tags .tag.purple:hover {
+    background: rgba(157, 78, 221, 0.08);
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 12px rgba(157, 78, 221, 0.3);
+}
+
+.profile-tags .tag.pink {
+    color: #00b4d8;
+    border-color: rgba(0, 180, 216, 0.2);
+}
+.profile-tags .tag.pink:hover {
+    color: var(--border-glow);
+    background: rgba(0, 243, 255, 0.06);
+    border-color: var(--border-glow);
+    box-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
+}
+
+.profile-tags .tag.gray {
+    color: var(--text-gray);
+    border-color: rgba(136, 146, 176, 0.15);
+}
+.profile-tags .tag.gray:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+.profile-tags .tag:hover {
+    transform: scale(1.05) translateY(-1px);
 }
 
 /* ==========================================
@@ -297,25 +384,22 @@ body {
 .prod-details h3 { font-size: 18px; color: #f1f5f9; }
 .prod-details p { font-size: 13px; color: var(--text-gray); line-height: 1.5; }
 .action-tag { font-size: 11px; font-weight: bold; letter-spacing: 1px; }
-/* ==========================================
-   产品卡片动作标签：同色系对齐，消除恶性色差
-   ========================================== */
+
 .text-link { 
-    color: var(--border-glow); /* 维持高亮冰蓝色 (#00f3ff) */
+    color: var(--border-glow); 
 }
 
 .text-download { 
-    /* 使用稍深一点的极光青/湖蓝色，与冰蓝处于同一色谱，极其和谐 */
     color: #00b4d8; 
     position: relative;
     transition: color 0.2s ease;
 }
 
-/* 鼠标悬停到整张卡片时，让下载标签也亮起和冰蓝一致的光芒 */
 .product-card:hover .text-download {
     color: var(--border-glow);
     filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.5));
 }
+
 /* ==========================================
    下载弹窗
    ========================================== */
@@ -378,7 +462,8 @@ body {
 
     /* 顶部个人中心：由横向排版改为纵向居中排版 */
     .profile-card {
-        flex-direction: column;
+        flex-direction: column !important;
+        align-items: center;
         text-align: center;
         padding: 30px 20px;
         gap: 20px;
@@ -389,19 +474,19 @@ body {
         margin: 0 auto;
     }
 
-    /* 名字与前缀字体稍微缩小，防止小屏手机上尴尬换行 */
+    /* 名字与前缀字体稍微缩小 */
     .welcome-text {
         font-size: 26px;
     }
 
     .subtitle {
         font-size: 13px;
-        text-align: left; /* 简介还是左对齐看起舒服 */
+        text-align: left; 
         padding-left: 10px;
         border-left: 2px solid var(--neon-pink);
     }
 
-    /* 社交按钮：手机端自动塞满并平分空间 */
+    /* 社交按钮：手机端自动平分空间 */
     .social-links {
         justify-content: center;
         flex-wrap: wrap;
@@ -410,7 +495,7 @@ body {
     }
 
     .link-btn {
-        flex: 1 1 calc(50% - 10px); /* 两个一排，自动撑开 */
+        flex: 1 1 calc(50% - 10px); 
         justify-content: center;
         font-size: 12px;
         padding: 10px;
@@ -433,7 +518,7 @@ body {
 
     .prod-img-wrapper {
         width: 100%;
-        height: 140px; /* 图片全宽展示 */
+        height: 140px; 
     }
 
     .prod-details {
@@ -445,7 +530,7 @@ body {
         font-size: 16px;
     }
 
-    /* 下载弹窗：宽度自适应，防止挤出屏幕 */
+    /* 下载弹窗：宽度自适应 */
     .modal-box {
         width: 90%;
         max-width: 400px;
@@ -456,4 +541,33 @@ body {
         padding: 12px 15px;
         font-size: 13px;
     }
+
+    /* 移动端中间信息区释放 */
+    .profile-info {
+        max-width: 100% !important;
+        width: 100%;
+    }
+
+    /* 系统日志移动端自适应 */
+    .tips-container {
+        text-align: left; 
+        margin-bottom: 20px;
+    }
+
+    /* 手机端彻底释放词云的硬锁死 */
+    .profile-tags {
+        width: 100% !important;    
+        max-width: 100% !important;
+        justify-content: center;    
+        margin-left: 0;            
+        margin-top: 15px;          
+    }
+
+    /* 稍微收紧手机端标签的内边距 */
+    .profile-tags .tag {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
 }
+
+

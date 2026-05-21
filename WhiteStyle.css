@@ -1,0 +1,81 @@
+/* ==========================================
+   WhiteStyle.css - 浅色模式主题
+   ========================================== */
+:root {
+    --bg-dark: #f8fafc;            /* 极浅灰白底色 */
+    --panel-cyber: #ffffff;        /* 面板纯白 */
+    --border-glow: #0077b6;        /* 稳重墨蓝 (替代原本的冰蓝) */
+    --neon-pink: #d90429;          /* 深朱砂红 (替代原本的二次元粉) */
+    --neon-purple: #6a4c93;        /* 暮色紫 (替代原本的霓虹紫) */
+    --text-white: #1e293b;         /* 标题纯黑/深蓝 */
+    --text-gray: #64748b;          /* 辅助文字灰 */
+}
+
+/* 覆盖背景网格颜色 */
+.geek-bg {
+    background: 
+        linear-gradient(rgba(200, 200, 200, 0.2) 1px, transparent 1px) 0 0 / 50px 50px,
+        linear-gradient(90deg, rgba(200, 200, 200, 0.2) 1px, transparent 1px) 0 0 / 50px 50px,
+        radial-gradient(circle at 50% 30%, rgba(0, 119, 182, 0.05), transparent 60%);
+}
+
+/* 面板调整 */
+.profile-card, .product-card, .music-player {
+    background: var(--panel-cyber) !important;
+    border: 1px solid #e2e8f0 !important;
+    border-left: 4px solid var(--border-glow) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 头像外舱：增加对比度 */
+.avatar-circle {
+    background: #f1f5f9 !important;
+    border: 2px solid #cbd5e1 !important;
+}
+
+/* 文字与标签调整 */
+.welcome-text, .prod-details h3, .modal-prod-name {
+    color: #0f172a !important;
+}
+
+.tips-container {
+    background: #f1f5f9 !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #475569 !important;
+}
+
+/* 标签颜色修正 */
+.profile-tags .tag {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #475569 !important;
+}
+
+.profile-tags .tag.cyan { color: var(--border-glow); border-color: #bae6fd; }
+.profile-tags .tag.purple { color: var(--neon-purple); border-color: #e9d5ff; }
+.profile-tags .tag.pink { color: var(--neon-pink); border-color: #fecaca; }
+
+/* 社交按钮适配 */
+.link-btn {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #64748b !important;
+}
+
+.link-btn:hover {
+    color: var(--border-glow) !important;
+    border-color: var(--border-glow) !important;
+}
+
+/* 下载弹窗 */
+.modal-box {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-top: 4px solid var(--neon-pink) !important;
+}
+
+.route-item {
+    border: 1px solid #e2e8f0 !important;
+    background: #fcfcfc !important;
+    color: #1e293b !important;
+}
