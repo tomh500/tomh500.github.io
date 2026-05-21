@@ -11,6 +11,37 @@
     --text-gray: #8892b0;
 }
 
+/* 水色主题变量 */
+body.light-theme {
+    --bg-dark: #e0faff;            /* 背景浅蓝 */
+    --panel-cyber: rgba(240, 255, 255, 0.85);
+    --border-glow: #00cfff;        /* 水色高光 */
+    --neon-pink: #80e0ff;          /* 替代粉色光 */
+    --neon-purple: #66d9ff;
+    --text-white: #0a0a0a;         /* 浅色背景文字深色 */
+    --text-gray: #555555;
+}
+
+/* 主题切换按钮 */
+.theme-toggle-btn {
+    margin-top: 10px;
+    display: block;
+    width: 120px;
+    font-size: 12px;
+    padding: 6px 10px;
+    border: 1px solid var(--border-glow);
+    background: rgba(0, 243, 255, 0.1);
+    color: var(--border-glow);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--border-glow);
+    color: var(--text-white);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
