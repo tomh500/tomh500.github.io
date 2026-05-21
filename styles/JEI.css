@@ -1,0 +1,75 @@
+/* 基础过渡 */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 默认悬浮轻微效果 */
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* ========== 热卡片 ========== */
+.product-card[data-label="hot"] {
+    border: 2px solid #ff6b6b; /* 柔和红色 */
+}
+.product-card[data-label="hot"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(255, 107, 107, 0.6),
+                0 0 40px rgba(255, 107, 107, 0.3) inset;
+}
+.product-card[data-label="hot"] .tag.hot {
+    background: linear-gradient(45deg, #ff6b6b, #ff9e6b);
+    color: #fff;
+    animation: hot-glow 1.5s infinite alternate;
+}
+@keyframes hot-glow {
+    0% { text-shadow: 0 0 5px #ff6b6b; }
+    50% { text-shadow: 0 0 12px #ff9e6b; }
+    100% { text-shadow: 0 0 8px #ff6b6b; }
+}
+
+/* 热下载按钮 hover */
+.product-card[data-label="hot"] .text-download:hover {
+    color: #ff8c8c;
+    text-shadow: 0 0 8px #ff6b6b;
+}
+
+/* ========== 新卡片 ========== */
+.product-card[data-label="new"] {
+    border: 2px solid #00cfff; /* 柔和水色 */
+}
+.product-card[data-label="new"]:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(0, 207, 255, 0.5),
+                0 0 30px rgba(0, 207, 255, 0.2) inset;
+}
+.product-card[data-label="new"] .tag.new {
+    background: linear-gradient(45deg, #4dd0ff, #00b4d8);
+    color: #fff;
+    animation: new-glow 2s infinite alternate;
+}
+@keyframes new-glow {
+    0% { text-shadow: 0 0 5px #00cfff; }
+    50% { text-shadow: 0 0 12px #66d9ef; }
+    100% { text-shadow: 0 0 8px #00cfff; }
+}
+
+/* 新下载按钮 hover */
+.product-card[data-label="new"] .text-download:hover {
+    color: #33e6ff;
+    text-shadow: 0 0 8px #00cfff;
+}
+
+/* ========== 同时有热和新标签 ========== */
+.product-card[data-label="hot-new"] {
+    border: 2px solid #d16aff; /* 紫色 */
+}
+.product-card[data-label="hot-new"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(209,106,255,0.6),
+                0 0 40px rgba(209,106,255,0.3) inset;
+}
+.product-card[data-label="hot-new"] .tag {
+    animation: hot-glow 1.5s infinite alternate;
+}

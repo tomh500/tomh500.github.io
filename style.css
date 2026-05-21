@@ -418,21 +418,38 @@ body {
 .prod-details p { font-size: 13px; color: var(--text-gray); line-height: 1.5; }
 .action-tag { font-size: 11px; font-weight: bold; letter-spacing: 1px; }
 
-.text-link { 
-    color: var(--border-glow); 
-}
+/* ----------------- 按钮统一高亮方案 ----------------- */
 
-.text-download { 
-    color: #00b4d8; 
+/* 普通状态 */
+.text-link,
+.text-download {
     position: relative;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
 }
 
+/* 默认颜色：区别轻微 */
+.text-link {
+    color: #00cfff;        /* 浅蓝，和整体科技感一致 */
+}
+
+.text-download {
+    color: #00b4d8;        /* 稍深的水色，区分下载按钮 */
+}
+
+/* 鼠标悬停高亮效果：统一风格，差别小 */
+.product-card:hover .text-link,
 .product-card:hover .text-download {
-    color: var(--border-glow);
-    filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.5));
+    color: #00f3ff;        /* 极客冰蓝高亮，统一风格 */
+    text-shadow: 0 0 8px rgba(0, 243, 255, 0.5); /* 流光感 */
 }
 
+/* 进阶：给下载按钮增加轻微光晕，增强互动感 */
+.product-card:hover .text-download {
+    filter: drop-shadow(0 0 6px rgba(0, 180, 216, 0.6));
+}
 /* ==========================================
    下载弹窗
    ========================================== */
@@ -604,3 +621,40 @@ body {
 }
 
 
+/* 标签样式 */
+.tag {
+    font-size: 0.8rem;
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    margin-left: 6px;
+    font-weight: bold;
+}
+
+.tag.hot {
+    background: linear-gradient(45deg, #ff4d4d, #ff9900);
+    color: #fff;
+}
+
+.tag.new {
+    background: linear-gradient(45deg, #4dd0ff, #00b4d8);
+    color: #fff;
+}
+
+/* 鼠标悬停特效统一 */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* 热卡片悬停特殊 */
+.product-card[data-label="hot"]:hover {
+    background: linear-gradient(to right, rgba(255,77,77,0.1), rgba(255,153,0,0.1));
+    box-shadow: 0 0 20px rgba(255, 77, 77, 0.6);
+}
+
+/* 新卡片悬停特殊 */
+.product-card[data-label="new"]:hover {
+    background: linear-gradient(to right, rgba(77,208,255,0.1), rgba(0,180,216,0.1));
+    box-shadow: 0 0 20px rgba(0, 180, 216, 0.6);
+}

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="phone.css">
+    <link rel="stylesheet" href="styles/JEI.css">
 	<link rel="icon" href="images/iseri.gif" type="image/gif">
 </head>
 <body>
@@ -71,38 +72,49 @@
         <main class="product-grid">
             <h2>// 核心项目矩阵</h2>
             
-            <div class="product-card" data-type="link" data-target="https://tomh500.github.io/DearMoments">
+            <div class="product-card" data-type="link" data-target="https://tomh500.github.io/DearMoments" data-label="hot">
                 <div class="prod-img-wrapper">
                     <img src="images/product/dearmoments.png" alt="DearNextgen">
                 </div>
                 <div class="prod-details">
-                    <h3>DearNextgen （无损平方集团挂名）</h3>
+                    <h3>DearNextgen （无损平方集团挂名）<span class="tag hot">热</span></h3>
                     <p>下一代CS2 CFG，完全合法地获取游戏优势。</p>
                     <span class="action-tag text-link">访问站点 →</span>
                 </div>
             </div>
 
-            <div class="product-card" id="ccd-manager-card" data-type="download">
+        <div class="product-card" data-type="download" data-label="new">
+            <div class="prod-img-wrapper">
+            <img src="images/product/ccdmanager.png" alt="CCD Manager">
+        </div>
+        <div class="prod-details">
+            <h3>CCD Manager <span class="tag new">新</span></h3>
+            <p>免费无广告的CPU调度管理软件，充分利用您的Ryzen9 9950X3D。Process Lasso 理想平替。</p>
+            <span class="action-tag text-download">获取下载 ↓</span>
+        </div>
+    </div>
+
+        <div class="product-card" id="prod-47c719e1-card" data-type="download">
+            <div class="prod-img-wrapper">
+                <img src="images/product/squaremove.png" alt="SquareMove">
+            </div>
+        <div class="prod-details">
+            <h3>SquareMove</h3>
+            <p>无损、快速地将您的文件移动到别的地方，腾出C盘空间，FreeMove的增强体验版。</p>
+            <span class="action-tag text-download">获取下载 ↓</span>
+        </div>
+    </div>
+            <div class="product-card" data-type="link" data-target="https://github.com/tomh500/LMSC_PLAYER">
                 <div class="prod-img-wrapper">
-                    <img src="images/product/ccdmanager.png" alt="CCD Manager">
+                     <img src="images/product/lmsc.png" alt="LMSC Player">
                 </div>
                 <div class="prod-details">
-                    <h3>CCD Manager</h3>
-                    <p>免费无广告的CPU调度管理软件，充分利用您的Ryzen9 9950X3D。Process Lasso 理想平替。</p>
-                    <span class="action-tag text-download">获取下载 ↓</span>
+                    <h3>LMSC Player</h3>
+                    <p>自研人类可阅读的电子版五线谱记谱方法，附加了游戏自动弹琴（如《原神》）的自动化程序</p>
+                     <span class="action-tag text-link">访问站点 →</span>
                 </div>
             </div>
 
-<div class="product-card" id="prod-47c719e1-card" data-type="download">
-    <div class="prod-img-wrapper">
-        <img src="images/product/squaremove.png" alt="SquareMove">
-    </div>
-    <div class="prod-details">
-        <h3>SquareMove</h3>
-        <p>无损、快速地将您的文件移动到别的地方，腾出C盘空间，FreeMove的增强体验版。</p>
-        <span class="action-tag text-download">获取下载 ↓</span>
-    </div>
-</div>
 
         </main>
     </div>
@@ -122,6 +134,6 @@
     </div>
 
     <script src="script.js"></script>
-    
+    <script src="scripts/JEI.js"></script>
 </body>
 </html>
