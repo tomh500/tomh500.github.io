@@ -297,9 +297,25 @@ body {
 .prod-details h3 { font-size: 18px; color: #f1f5f9; }
 .prod-details p { font-size: 13px; color: var(--text-gray); line-height: 1.5; }
 .action-tag { font-size: 11px; font-weight: bold; letter-spacing: 1px; }
-.text-link { color: var(--border-glow); }
-.text-download { color: var(--neon-pink); }
+/* ==========================================
+   产品卡片动作标签：同色系对齐，消除恶性色差
+   ========================================== */
+.text-link { 
+    color: var(--border-glow); /* 维持高亮冰蓝色 (#00f3ff) */
+}
 
+.text-download { 
+    /* 使用稍深一点的极光青/湖蓝色，与冰蓝处于同一色谱，极其和谐 */
+    color: #00b4d8; 
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+/* 鼠标悬停到整张卡片时，让下载标签也亮起和冰蓝一致的光芒 */
+.product-card:hover .text-download {
+    color: var(--border-glow);
+    filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.5));
+}
 /* ==========================================
    下载弹窗
    ========================================== */

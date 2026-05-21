@@ -12,7 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: "GitHub 节点", url: "https://github.com/...", available: 0 },
                 { name: "百度网盘 备份", url: "https://pan.baidu.com/...", available: 0 }
             ]
-        }
+        },
+        "prod-47c719e1-card": {
+                "name": "SquareMove",
+                "routes": [
+                                {
+                                                "name": "Github节点",
+                                                "url": "https://github.com/tomh500/SquareMove",
+                                                "available": 1
+                                }
+                ]
+}
+
         // 如果以后新增了产品，直接在 HTML 里给卡片加个 id="my-new-app"
         // 然后在这里接着写：
         // "my-new-app": {
