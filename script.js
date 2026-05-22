@@ -13,6 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: "百度网盘 备份", url: "https://pan.baidu.com/...", available: 0 }
             ]
         },
+        "prod-f8441903-card": {
+            "name": "三月刷机工具箱",
+            "routes": [
+                        {
+                                    "name": "蓝奏云 高速",
+                                    "url": "https://wwd.lanzoue.com/iVPMp21vvnla",
+                                    "available": 1
+                        }
+            ]
+},
         "prod-47c719e1-card": {
                 "name": "SquareMove",
                 "routes": [

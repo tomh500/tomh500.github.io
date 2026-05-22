@@ -73,3 +73,27 @@
 .product-card[data-label="hot-new"] .tag {
     animation: hot-glow 1.5s infinite alternate;
 }
+
+/* ========== 旧卡片 (Legacy) ========== */
+.product-card[data-label="legacy"] {
+    border: 1px solid #4a4a4a; /* 深灰色边框 */
+}
+
+
+.product-card[data-label="legacy"]:hover {
+    opacity: 1;                /* 悬浮时恢复清晰 */
+    border-color: #888;
+    transform: translateY(-2px);
+}
+
+/* 强制将旧卡片内的所有文字变为灰色 */
+.product-card[data-label="legacy"] .prod-details p,
+.product-card[data-label="legacy"] .action-tag {
+    color: #888 !important;
+}
+
+/* 如果你有标签样式，也一并重置 */
+.product-card[data-label="legacy"] .tag.legacy {
+    background: #444;
+    color: #ccc;
+}

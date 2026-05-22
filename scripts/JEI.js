@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".product-grid");
-    
-    // 只选取 class 为 product-card 的元素，不要选中 h2
     const cards = Array.from(container.querySelectorAll(".product-card"));
 
-    const priority = { hot: 2, new: 1, none: 0 };
+    // 修改优先级：hot(2) > new(1) > none(0) > legacy(-1)
+    const priority = { hot: 2, new: 1, none: 0, legacy: -1 };
 
     const sortedCards = cards.sort((a, b) => {
         const labelA = a.dataset.label || "none";
@@ -18,10 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return typeOrder[a.dataset.type] - typeOrder[b.dataset.type];
     });
 
-    // 【修改点】：不要使用 innerHTML = ""
-    // 而是移除所有旧卡片，重新添加
     cards.forEach(card => card.remove());
-    
-    // 把排序后的卡片放回到容器末尾
     sortedCards.forEach(card => container.appendChild(card));
 });

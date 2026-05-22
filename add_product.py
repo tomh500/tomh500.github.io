@@ -1,110 +1,84 @@
 import uuid
+import json
 
 def generate_product_configs():
     print("=" * 50)
-    print("      Lossless Square 产品配置自动生成脚本")
+    print("    Lossless Square 产品配置自动生成脚本 (升级版)")
     print("=" * 50)
 
     # 1. 基础信息收集
-    prod_name = input("请输入产品名称 (例如: CCD Manager): ").strip()
-    prod_desc = input("请输入产品一句话描述 (例如: 极致优化，不容失误): ").strip()
+    prod_name = input("请输入产品名称: ").strip()
+    prod_desc = input("请输入产品描述: ").strip()
     
-    # 自动生成一个不重复的唯一 ID，防止和你以后加的其他产品冲突
+    # 新增：标签选择
+    print("\n[产品标签]")
+    print("可选标签: hot (热), new (新), legacy (旧), none (无)")
+    label = input("请输入标签 (默认 none): ").strip() or "none"
+    
     card_id = f"prod-{uuid.uuid4().hex[:8]}-card"
     
     print("\n[选择产品点击行为]")
-    print("1. 点击直接跳转外部网页链接 (如 GitHub Pages 站点)")
-    print("2. 点击弹出下载线路选择窗 (如 蓝奏云/百度网盘/GitHub Release)")
-    behavior_type = input("请选择行为序号 (1 或 2): ").strip()
+    print("1. 点击直接跳转外部网页链接")
+    print("2. 点击弹出下载线路选择窗")
+    behavior_type = input("请选择 (1 或 2): ").strip()
 
-    # 2. 根据行为渲染 HTML 和 JS
+    # 2. 生成 HTML 通用属性
+    data_attr = f'data-label="{label}"' if label != "none" else ""
+
     if behavior_type == "1":
-        target_url = input("请输入要跳转的外部网页链接 (URL): ").strip()
-        img_path = input("请输入展示图片路径 (默认: images/default.png): ").strip() or "images/default.png"
+        target_url = input("请输入跳转链接: ").strip()
+        img_path = input("请输入展示图片路径: ").strip() or "images/default.png"
         
-        # 生成 HTML
-        html_code = f"""<div class="product-card" data-type="link" data-target="{target_url}">
+        html_code = f"""<div class="product-card" {data_attr} data-type="link" data-target="{target_url}">
     <div class="prod-img-wrapper">
         <img src="{img_path}" alt="{prod_name}">
     </div>
     <div class="prod-details">
-        <h3>{prod_name}</h3>
+        <h3>{prod_name} {f'<span class="tag {label}">{label.upper()}</span>' if label != 'none' else ''}</h3>
         <p>{prod_desc}</p>
         <span class="action-tag text-link">访问站点 →</span>
     </div>
 </div>"""
-
-        print("\n" + "="*20 + " 成功生成 HTML 片段 " + "="*20)
-        print("请将以下代码粘贴到 index.html 的 <main class=\"product-grid\"> 内部：\n")
-        print(html_code)
-        print("\n" + "="*50)
-        print("提示：此产品为直接跳转类型，不需要在 script.js 中添加任何配置！")
-        print("=" * 50)
+        print_result(html_code, None)
 
     elif behavior_type == "2":
-        img_path = input("请输入展示图片路径 (默认: images/default.png): ").strip() or "images/default.png"
-        
+        img_path = input("请输入展示图片路径: ").strip() or "images/default.png"
         routes = []
-        print("\n--- 开始配置下载路线 (输入 q 结束配置路线) ---")
         while True:
-            route_name = input("\n[路线名称] (例如: 蓝奏云 高速 / GitHub 节点): ").strip()
-            if route_name.lower() == 'q':
-                break
-            route_url = input("[路线链接] (URL): ").strip()
-            route_pwd = input("[路线密码] (如果没有密码请直接回车留空): ").strip()
-            route_avail = input("[是否可用] (1 表示可用/ONLINE，0 表示维护中/OFFLINE): ").strip()
+            r_name = input("\n[路线名称] (q 结束): ").strip()
+            if r_name.lower() == 'q': break
+            r_url = input("[路线链接]: ").strip()
+            r_pwd = input("[路线密码] (留空跳过): ").strip()
+            r_avail = input("[是否可用] (1/0): ").strip()
             
-            # 默认高可用
-            avail_status = 1 if route_avail != '0' else 0
-            
-            route_item = {
-                "name": route_name,
-                "url": route_url,
-                "available": avail_status
-            }
-            if route_pwd:
-                route_item["password"] = route_pwd
-                
-            routes.append(route_item)
-            
-            choice = input("是否继续添加下一条下载路线？(y/n): ").strip().lower()
-            if choice == 'n':
-                break
+            item = {"name": r_name, "url": r_url, "available": int(r_avail or 1)}
+            if r_pwd: item["password"] = r_pwd
+            routes.append(item)
+            if input("继续添加? (y/n): ").lower() == 'n': break
 
-        # 生成 HTML
-        html_code = f"""<div class="product-card" id="{card_id}" data-type="download">
+        html_code = f"""<div class="product-card" id="{card_id}" {data_attr} data-type="download">
     <div class="prod-img-wrapper">
         <img src="{img_path}" alt="{prod_name}">
     </div>
     <div class="prod-details">
-        <h3>{prod_name}</h3>
+        <h3>{prod_name} {f'<span class="tag {label}">{label.upper()}</span>' if label != 'none' else ''}</h3>
         <p>{prod_desc}</p>
         <span class="action-tag text-download">获取下载 ↓</span>
     </div>
 </div>"""
-
-        # 生成 JS
-        import json
-        js_data = {
-            "name": prod_name,
-            "routes": routes
-        }
-        # 将 python 字典转为漂亮的 JS 对象字符串格式
-        js_code_formatted = json.dumps(js_data, ensure_ascii=False, indent=16)
-        # 微调格式对齐
-        js_code_output = f'"{card_id}": {js_code_formatted.strip()}'
-
-        print("\n" + "="*20 + " 步骤 1：生成 HTML 片段 " + "="*20)
-        print("请将以下代码粘贴到 index.html 的 <main class=\"product-grid\"> 内部：\n")
-        print(html_code)
         
-        print("\n" + "="*20 + " 步骤 2：生成 JS 数据库配置 " + "="*20)
-        print("请将以下代码粘贴到 script.js 的 `const productsDatabase = {` 内部（注意逗号分隔）：\n")
-        print(js_code_output + ",")
-        print("\n" + "="*50)
+        js_data = {"name": prod_name, "routes": routes}
+        js_output = f'"{card_id}": {json.dumps(js_data, ensure_ascii=False, indent=12)}'
+        print_result(html_code, js_output)
 
-    else:
-        print("输入错误，脚本已退出。")
+def print_result(html, js):
+    print("\n" + "="*20 + " 成功生成 " + "="*20)
+    print("【HTML 代码】 (请粘贴到 <main class=\"product-grid\">):")
+    print(html)
+    if js:
+        print("\n【JS 配置】 (请粘贴到 script.js 的 productsDatabase 中):")
+        print(js + ",")
+    print("=" * 50)
 
 if __name__ == "__main__":
     generate_product_configs()
