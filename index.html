@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="phone.css">
     <link rel="stylesheet" href="styles/JEI.css">
+    <link rel="stylesheet" href="styles/Header.css">
 	<link rel="icon" href="images/iseri.gif" type="image/gif">
 </head>
 <body>
@@ -73,7 +74,13 @@
         </section>
 
         <main class="product-grid">
-            <h2>// 核心项目矩阵</h2>
+            <div class="matrix-header">
+    <h2>// 核心项目矩阵</h2>
+    <div class="search-wrapper">
+        <input type="text" id="project-search" placeholder="搜索过滤..." autocomplete="off">
+        <span class="search-line"></span>
+    </div>
+</div>
             
             <div class="product-card" data-type="link" data-target="https://tomh500.github.io/DearMoments" data-label="hot">
                 <div class="prod-img-wrapper">
@@ -149,5 +156,6 @@
 
     <script src="script.js"></script>
     <script src="scripts/JEI.js"></script>
+    <script src="scripts/Header.js"></script>
 </body>
 </html>

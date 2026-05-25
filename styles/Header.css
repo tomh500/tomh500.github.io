@@ -1,0 +1,63 @@
+/* 头部两端对齐 */
+.matrix-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* 保证移动端下能自动换行 */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.matrix-header h2 {
+    margin: 0; /* 移除默认外边距干扰对齐 */
+}
+
+/* 搜索框容器 */
+.search-wrapper {
+    position: relative;
+    width: 200px;
+}
+
+/* 输入框本体 */
+#project-search {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 6px 4px;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    color: #fff;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* 占位符颜色 */
+#project-search::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 1px;
+}
+
+/* 聚焦时的呼吸流光下划线效果 */
+.search-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--border-glow, #00cfff); /* 自动复用你之前的青色流光变量 */
+    box-shadow: 0 0 8px var(--border-glow, #00cfff);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+#project-search:focus {
+    border-bottom-color: transparent;
+}
+
+#project-search:focus + .search-line,
+.search-wrapper:focus-within::after {
+    width: 100%;
+}
