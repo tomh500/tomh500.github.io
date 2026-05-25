@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "name": "R6ChineseInput",
             "routes": [
                         {
-                                    "name": "Github",
+                                    "name": "Github 节点",
                                     "url": "https://github.com/tomh500/tomh500.github.io/releases/download/R6ChineseInput/R6ChineseInput.7z",
                                     "available": 1
                         }
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "name": "SquareMove",
                 "routes": [
                                 {
-                                                "name": "Github节点",
+                                                "name": "Github 节点",
                                                 "url": "https://github.com/tomh500/SquareMove",
                                                 "available": 1
                                 }

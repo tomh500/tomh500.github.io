@@ -246,14 +246,14 @@ body {
 }
 
 .profile-tags .tag.pink {
-    color: #00b4d8;
-    border-color: rgba(0, 180, 216, 0.2);
+    color: #ff007f;
+    border-color: rgba(255, 0, 127, 0.2);
 }
 .profile-tags .tag.pink:hover {
-    color: var(--border-glow);
-    background: rgba(0, 243, 255, 0.06);
-    border-color: var(--border-glow);
-    box-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
+    color: #ff55a3;
+    background: rgba(255, 0, 127, 0.08);
+    border-color: #ff007f;
+    box-shadow: 0 0 12px rgba(255, 0, 127, 0.4);
 }
 
 .profile-tags .tag.gray {
@@ -269,6 +269,54 @@ body {
 
 .profile-tags .tag:hover {
     transform: scale(1.05) translateY(-1px);
+}
+
+/* 2. Gold / Orange（赛博金黄 / 警示高亮） */
+.profile-tags .tag.gold {
+    color: #ffaa00;
+    border-color: rgba(255, 170, 0, 0.2);
+}
+.profile-tags .tag.gold:hover {
+    color: #ffcc66;
+    background: rgba(255, 170, 0, 0.08);
+    border-color: #ffaa00;
+    box-shadow: 0 0 12px rgba(255, 170, 0, 0.35);
+}
+
+/* 3. Green / Matrix（黑客帝国翠绿 / 激活/健康状态） */
+.profile-tags .tag.green {
+    color: #00ff66;
+    border-color: rgba(0, 255, 102, 0.15);
+}
+.profile-tags .tag.green:hover {
+    color: #66ff99;
+    background: rgba(0, 255, 102, 0.06);
+    border-color: #00ff66;
+    box-shadow: 0 0 12px rgba(0, 255, 102, 0.35);
+}
+
+/* 4. Red / Danger（高危红 / 核心暴击） */
+.profile-tags .tag.red {
+    color: #ff3333;
+    border-color: rgba(255, 51, 51, 0.2);
+}
+.profile-tags .tag.red:hover {
+    color: #ff6666;
+    background: rgba(255, 51, 51, 0.08);
+    border-color: #ff3333;
+    box-shadow: 0 0 12px rgba(255, 51, 51, 0.4);
+}
+
+/* 5. Deep Blue / Ghost（幽灵深蓝 / 隐蔽/被动技能） */
+.profile-tags .tag.blue {
+    color: #0077ff;
+    border-color: rgba(0, 119, 255, 0.2);
+}
+.profile-tags .tag.blue:hover {
+    color: #3399ff;
+    background: rgba(0, 119, 255, 0.08);
+    border-color: #0077ff;
+    box-shadow: 0 0 12px rgba(0, 119, 255, 0.35);
 }
 
 /* ==========================================
@@ -372,23 +420,13 @@ body {
 /* ==========================================
    项目矩阵排版
    ========================================== */
-.product-grid { 
-    margin-top: 50px; 
-    position: relative; /* 确保容器定位正常 */
-    z-index: 10;        /* 确保在背景之上 */
-}
-
+.product-grid { margin-top: 50px; }
 .product-grid h2 {
     font-size: 14px;
-    /* 显式定义颜色，不要完全依赖变量，防止变量未加载时显示空白 */
-    color: var(--text-gray, #8892b0) !important; 
+    color: var(--text-gray);
     letter-spacing: 3px;
     margin-bottom: 25px;
     text-transform: uppercase;
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto;
 }
 .product-card {
     background: var(--panel-cyber);
@@ -631,40 +669,3 @@ body {
 }
 
 
-/* 标签样式 */
-.tag {
-    font-size: 0.8rem;
-    padding: 0.1rem 0.3rem;
-    border-radius: 4px;
-    margin-left: 6px;
-    font-weight: bold;
-}
-
-.tag.hot {
-    background: linear-gradient(45deg, #ff4d4d, #ff9900);
-    color: #fff;
-}
-
-.tag.new {
-    background: linear-gradient(45deg, #4dd0ff, #00b4d8);
-    color: #fff;
-}
-
-/* 鼠标悬停特效统一 */
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 255, 255, 0.3);
-    transition: all 0.3s ease;
-}
-
-/* 热卡片悬停特殊 */
-.product-card[data-label="hot"]:hover {
-    background: linear-gradient(to right, rgba(255,77,77,0.1), rgba(255,153,0,0.1));
-    box-shadow: 0 0 20px rgba(255, 77, 77, 0.6);
-}
-
-/* 新卡片悬停特殊 */
-.product-card[data-label="new"]:hover {
-    background: linear-gradient(to right, rgba(77,208,255,0.1), rgba(0,180,216,0.1));
-    box-shadow: 0 0 20px rgba(0, 180, 216, 0.6);
-}
