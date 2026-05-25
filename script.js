@@ -13,12 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: "百度网盘 备份", url: "https://pan.baidu.com/...", available: 0 }
             ]
         },
-        "prod-f8441903-card": {
-            "name": "三月刷机工具箱",
+"prod-a17f8f66-card": {
+            "name": "R6ChineseInput",
             "routes": [
                         {
-                                    "name": "蓝奏云 高速",
-                                    "url": "https://wwd.lanzoue.com/iVPMp21vvnla",
+                                    "name": "Github",
+                                    "url": "https://github.com/tomh500/tomh500.github.io/releases/download/R6ChineseInput/R6ChineseInput.7z",
                                     "available": 1
                         }
             ]
