@@ -19,6 +19,15 @@
                 0 0 40px rgba(255, 107, 107, 0.3) inset;
 }
 .product-card[data-label="hot"] .tag.hot {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: 'Consolas', monospace; /* 使用等宽字体，更具极客感 */
+    font-size: 11px;                   /* 缩减字号 */
+    font-weight: bold;
+    line-height: 1;                    /* 强行压低行高，防止撑开父级 */
+    padding: 2px 5px;                  /* 精细调整内边距：上下 2px，左右 5px */
+    margin-left: 6px;                  /* 与左侧标题保持合适间距 */
+    border-radius: 3px;                /* 保持硬朗的微圆角 */
     background: linear-gradient(45deg, #ff6b6b, #ff9e6b);
     color: #fff;
     animation: hot-glow 1.5s infinite alternate;
@@ -44,7 +53,17 @@
     box-shadow: 0 0 20px rgba(0, 207, 255, 0.5),
                 0 0 30px rgba(0, 207, 255, 0.2) inset;
 }
+/* ========== NEW 新字微调 ========== */
 .product-card[data-label="new"] .tag.new {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: 'Consolas', monospace;
+    font-size: 11px;                   /* 缩减字号 */
+    font-weight: bold;
+    line-height: 1;                    /* 强行压低行高 */
+    padding: 2px 5px;                  /* 精细调整内边距 */
+    margin-left: 6px;                  /* 与左侧标题保持合适间距 */
+    border-radius: 3px;
     background: linear-gradient(45deg, #4dd0ff, #00b4d8);
     color: #fff;
     animation: new-glow 2s infinite alternate;
@@ -92,8 +111,23 @@
     color: #888 !important;
 }
 
-/* 如果你有标签样式，也一并重置 */
+/* ========== LEGACY 旧标签微调 ========== */
 .product-card[data-label="legacy"] .tag.legacy {
-    background: #444;
-    color: #ccc;
+    display: inline-block;
+    vertical-align: middle;
+    font-family: 'Consolas', monospace; /* 保持统一的极客等宽字体 */
+    font-size: 11px;                   /* 同步缩减到 11px */
+    font-weight: bold;
+    line-height: 1;                    /* 锁死行高，防止撑开 */
+    padding: 2px 5px;                  /* 紧凑的内边距 */
+    margin-left: 6px;                  /* 与左侧标题的间距 */
+    border-radius: 3px;                /* 微圆角 */
+    
+    /* 更加低调的暗色赛博调色 */
+    background: rgba(255, 255, 255, 0.08); 
+    color: #888;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* 移除所有发光动画，让它静静躺在历史里 */
+    animation: none; 
 }
