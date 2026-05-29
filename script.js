@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "ccd-manager-card": {
             name: "CCD Manager",
             routes: [
-                { name: "蓝奏云 高速", url: "https://wwbjs.lanzoue.com/iywZ53pye3bg", password: "9wwg", available: 1 },
+                { name: "蓝奏云 高速", url: "https://wwbjs.lanzoue.com/iFO4H3qn62cd", password: "eta2", available: 1 },
                 { name: "GitHub 节点", url: "https://github.com/...", available: 0 },
                 { name: "百度网盘 备份", url: "https://pan.baidu.com/...", available: 0 }
             ]
