@@ -1,0 +1,17 @@
+# 挚爱的时刻 CFG-Listener 统一更新配置
+channels:
+  release:
+    latest_version: 30000
+    min_required: 30000
+    update_type: "hotfix" # 可选: hotfix(热更), full(下大包)
+    full_url: ""
+    manifest_url: "https://gitee.com/jingyu233/square-project/raw/master/Summer/HotUpdate.txt"
+    changelog: "1. 修复了乱码问题\n2. 提升了系统稳定性"
+
+  developer:
+    latest_version: 40000
+    min_required: 30000
+    update_type: "latest"
+    full_url: ""
+    manifest_url: ""
+    changelog: "[内部测试] 开启分流更新逻辑，增加 YAML 解析支持"
