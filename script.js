@@ -23,22 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
             ]
 },
-                "prod-182cc9ab-card": {
-                "name": "StrikeSense",
-                 "routes": [
-                        {
-                                    "name": "百度网盘",
-                                    "url": "",
-                                    "available": 0
-                        },
-                        {
-                                    "name": "蓝奏云",
-                                    "url": "https://wwbjs.lanzoue.com/iEaN43s77n0j",
-                                    "available": 1,
-                                    "password": "6q6p"
-                        }
-                         ]
-},
+
         "prod-47c719e1-card": {
                 "name": "SquareMove",
                 "routes": [
