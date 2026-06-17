@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         {
                                     "name": "蓝奏云",
-                                    "url": "https://wwbjs.lanzoue.com/i1eZM3s5mwgh",
+                                    "url": "https://wwbjs.lanzoue.com/i3Pxq3s5v1ba",
                                     "available": 1,
-                                    "password": "32yj"
+                                    "password": "2ibu"
                         }
                          ]
 },
