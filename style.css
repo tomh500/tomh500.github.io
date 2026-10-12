@@ -456,6 +456,17 @@ body {
 }
 .product-card:hover .prod-img-wrapper img { opacity: 1; }
 
+.screenshotplus-cover {
+    background: radial-gradient(circle at center, rgba(105, 232, 187, 0.16), #090d16 75%);
+    flex-shrink: 0;
+}
+.screenshotplus-cover img {
+    object-fit: contain;
+    padding: 18px;
+    box-sizing: border-box;
+    opacity: 1;
+}
+
 .prod-details {
     padding: 20px;
     display: flex;

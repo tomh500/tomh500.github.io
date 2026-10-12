@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. 【核心配置项】未来所有产品的下载链接与密码全在这里改！
     // ==========================================
     const productsDatabase = {
+        "screenshotplus-card": {
+            name: "ScreenShotPlus · Windows x64",
+            routes: [
+                { name: "GitHub 下载 · Nightly 预发布版", url: "https://github.com/tomh500/ScreenShotPlus/releases/download/nightly/ScreenShotPlus.exe", available: 1 },
+                { name: "发布记录与校验文件", url: "https://github.com/tomh500/ScreenShotPlus/releases/tag/nightly", available: 1 },
+                { name: "项目源码与使用说明", url: "https://github.com/tomh500/ScreenShotPlus", available: 1 }
+            ]
+        },
         // "ccd-manager-card" 对应 HTML 里产品卡片的 id 属性
         "ccd-manager-card": {
             name: "CCD Manager",
