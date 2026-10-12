@@ -1,84 +1,74 @@
-import uuid
+"""Generate a project entry for site-config.js without changing website files."""
 import json
+import re
+import uuid
+from pathlib import Path
+from urllib.parse import urlparse
 
-def generate_product_configs():
-    print("=" * 50)
-    print("    Lossless Square 产品配置自动生成脚本 (升级版)")
-    print("=" * 50)
 
-    # 1. 基础信息收集
-    prod_name = input("请输入产品名称: ").strip()
-    prod_desc = input("请输入产品描述: ").strip()
-    
-    # 新增：标签选择
-    print("\n[产品标签]")
-    print("可选标签: hot (热), new (新), legacy (旧), none (无)")
-    label = input("请输入标签 (默认 none): ").strip() or "none"
-    
-    card_id = f"prod-{uuid.uuid4().hex[:8]}-card"
-    
-    print("\n[选择产品点击行为]")
-    print("1. 点击直接跳转外部网页链接")
-    print("2. 点击弹出下载线路选择窗")
-    behavior_type = input("请选择 (1 或 2): ").strip()
+def ask(prompt, default=""):
+    value = input(prompt).strip()
+    return value or default
 
-    # 2. 生成 HTML 通用属性
-    data_attr = f'data-label="{label}"' if label != "none" else ""
 
-    if behavior_type == "1":
-        target_url = input("请输入跳转链接: ").strip()
-        img_path = input("请输入展示图片路径: ").strip() or "images/default.png"
-        
-        html_code = f"""<div class="product-card" {data_attr} data-type="link" data-target="{target_url}">
-    <div class="prod-img-wrapper">
-        <img src="{img_path}" alt="{prod_name}">
-    </div>
-    <div class="prod-details">
-        <h3>{prod_name} {f'<span class="tag {label}">{label.upper()}</span>' if label != 'none' else ''}</h3>
-        <p>{prod_desc}</p>
-        <span class="action-tag text-link">访问站点 →</span>
-    </div>
-</div>"""
-        print_result(html_code, None)
+def ask_choice(prompt, choices, default):
+    while True:
+        value = ask(prompt, default)
+        if value in choices:
+            return value
+        print("可选值：" + ", ".join(choices))
 
-    elif behavior_type == "2":
-        img_path = input("请输入展示图片路径: ").strip() or "images/default.png"
-        routes = []
+
+def ask_url(prompt):
+    while True:
+        value = ask(prompt)
+        parsed = urlparse(value)
+        if parsed.scheme == "https" and parsed.netloc:
+            return value
+        print("请输入完整的 HTTPS 地址。")
+
+
+def bilingual(prompt):
+    zh = ask(prompt + "（中文）: ")
+    en = ask(prompt + "（英文；暂缺可留空）: ")
+    # Missing English falls back to Chinese rather than inventing a translation.
+    return {"zh": zh, "en": en or zh}
+
+
+def main():
+    print("生成项目配置，审核后粘贴到 site-config.js 的 projects 数组。")
+    name = ask("项目名称: ")
+    if not name:
+        raise SystemExit("项目名称不能为空。")
+    default_id = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-") or "project-" + uuid.uuid4().hex[:8]
+    project = {"id": ask("项目 ID（回车使用默认）: ", default_id), "name": name}
+    project["category"] = ask_choice("分类 desktop / games / music [desktop]: ", ["desktop", "games", "music"], "desktop")
+    label = ask_choice("标签 new / legacy / none [none]: ", ["new", "legacy", "none"], "none")
+    if label != "none":
+        project["label"] = label
+    image = ask("本地封面路径（如 images/product/my-app.svg）: ")
+    image_path = (Path(__file__).parent / image).resolve()
+    root_path = Path(__file__).parent.resolve()
+    if not image or not image_path.is_relative_to(root_path) or not image_path.is_file():
+        raise SystemExit("封面必须是仓库内已有的文件。先添加封面再运行。")
+    project["image"] = image_path.relative_to(root_path).as_posix()
+    project["description"] = bilingual("项目描述")
+    behavior = ask_choice("入口 link / download [link]: ", ["link", "download"], "link")
+    if behavior == "link":
+        project["url"] = ask_url("项目网址: ")
+    else:
+        project["routes"] = []
         while True:
-            r_name = input("\n[路线名称] (q 结束): ").strip()
-            if r_name.lower() == 'q': break
-            r_url = input("[路线链接]: ").strip()
-            r_pwd = input("[路线密码] (留空跳过): ").strip()
-            r_avail = input("[是否可用] (1/0): ").strip()
-            
-            item = {"name": r_name, "url": r_url, "available": int(r_avail or 1)}
-            if r_pwd: item["password"] = r_pwd
-            routes.append(item)
-            if input("继续添加? (y/n): ").lower() == 'n': break
+            route = {"name": bilingual("下载来源名称"), "url": ask_url("下载来源网址: ")}
+            password = ask("提取码（没有则留空）: ")
+            if password:
+                route["password"] = password
+            project["routes"].append(route)
+            if ask_choice("继续添加下载来源 y / n [n]: ", ["y", "n"], "n") == "n":
+                break
+    print("\n粘贴以下对象到 projects 数组，并确认名称、能力和链接：\n")
+    print(json.dumps(project, ensure_ascii=False, indent=2) + ",")
 
-        html_code = f"""<div class="product-card" id="{card_id}" {data_attr} data-type="download">
-    <div class="prod-img-wrapper">
-        <img src="{img_path}" alt="{prod_name}">
-    </div>
-    <div class="prod-details">
-        <h3>{prod_name} {f'<span class="tag {label}">{label.upper()}</span>' if label != 'none' else ''}</h3>
-        <p>{prod_desc}</p>
-        <span class="action-tag text-download">获取下载 ↓</span>
-    </div>
-</div>"""
-        
-        js_data = {"name": prod_name, "routes": routes}
-        js_output = f'"{card_id}": {json.dumps(js_data, ensure_ascii=False, indent=12)}'
-        print_result(html_code, js_output)
-
-def print_result(html, js):
-    print("\n" + "="*20 + " 成功生成 " + "="*20)
-    print("【HTML 代码】 (请粘贴到 <main class=\"product-grid\">):")
-    print(html)
-    if js:
-        print("\n【JS 配置】 (请粘贴到 script.js 的 productsDatabase 中):")
-        print(js + ",")
-    print("=" * 50)
 
 if __name__ == "__main__":
-    generate_product_configs()
+    main()
