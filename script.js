@@ -8,6 +8,7 @@
   const projects = data.projects;
   const audio = document.getElementById('site-audio');
   const player = document.getElementById('music-player');
+  const siteVersion = document.body.dataset.siteVersion;
   const localized = value => typeof value === 'string' ? value : value?.[language] || value?.zh || '';
   const text = (zh, en) => language === 'en' ? en : zh;
   const filters = { query: '', category: 'all', tag: 'all' };
@@ -152,7 +153,9 @@
     try {
       let source = cache.get(path);
       if (!source) {
-        const response = await fetch(path, { signal: controller.signal });
+        const pageURL = new URL(path, location.origin);
+        if (siteVersion) pageURL.searchParams.set('v', siteVersion);
+        const response = await fetch(pageURL, { signal: controller.signal });
         if (!response.ok) throw new Error('Page request failed');
         source = await response.text(); cache.set(path, source);
       }

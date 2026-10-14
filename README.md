@@ -28,6 +28,8 @@ python -m http.server 8765 --bind 127.0.0.1
 
 内容修改后更新全部页面：
 
+生成脚本会为 CSS、JavaScript 地址附加内容哈希版本号，站内切页请求也带页面版本，以免 Cloudflare 或浏览器缓存让新版 HTML 使用旧资源。
+
 ```powershell
 python -m pip install -r requirements-template.txt
 python scripts/build-template.py

@@ -6,6 +6,7 @@ import json
 import re
 import shutil
 import subprocess
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 UPSTREAM = ROOT / 'template' / 'upstream'
@@ -27,6 +28,17 @@ UI = {
 
 def soup_text(html):
     return BeautifulSoup(html, 'html.parser')
+
+def asset_url(path):
+    digest = hashlib.sha256((ROOT / path.lstrip('/')).read_bytes()).hexdigest()[:12]
+    return path + '?v=' + digest
+
+def site_version():
+    digest = hashlib.sha256()
+    for path in ['site-content.json', 'site-config.js', 'script.js', 'style.css',
+                 'template/assets/css/template.css', 'scripts/build-template.py']:
+        digest.update((ROOT / path).read_bytes())
+    return digest.hexdigest()[:12]
 
 def translated(value, language):
     return value.get(language, value['zh']) if isinstance(value, dict) else str(value)
@@ -98,10 +110,11 @@ def prepare(page):
     attribute(s.select_one('meta[name="description"]'), 'content', joined(CONTENT['name'], {'zh':'的个人主页', 'en':"'s personal homepage"}))
     s.html['lang'] = 'zh-CN'
     s.body['data-page'] = page
+    s.body['data-site-version'] = site_version()
     # The upstream hydration payload contains the former owner's data and relies
     # on Next's server. Keep the raw archive, but use a static interaction adapter.
     for path in ['/template/assets/css/template.css', '/style.css']:
-        s.head.append(s.new_tag('link', rel='stylesheet', href=path))
+        s.head.append(s.new_tag('link', rel='stylesheet', href=asset_url(path)))
     s.head.append(s.new_tag('link', rel='icon', href='/' + CONTENT['avatar']))
     boot = s.new_tag('script')
     boot.string = 'try{document.documentElement.classList.toggle("dark",localStorage.getItem("celery-theme")==="dark")}catch{}'
@@ -439,7 +452,7 @@ def finish(s, page):
     for svg in s.select('svg'):
         if 'viewbox' in svg.attrs:
             svg['viewBox'] = svg.attrs.pop('viewbox')
-    s.body.append(s.new_tag('script', src='/script.js', defer=''))
+    s.body.append(s.new_tag('script', src=asset_url('/script.js'), defer=''))
     path = ROOT / 'index.html' if page == 'home' else ROOT / page / 'index.html'
     path.parent.mkdir(exist_ok=True)
     path.write_text(str(s) + '\n', encoding='utf-8', newline='\n')
