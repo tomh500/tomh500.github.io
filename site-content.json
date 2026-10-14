@@ -1,7 +1,13 @@
 {
-  "name": "柠萌小芹菜",
+  "name": {
+    "zh": "柠萌小芹菜",
+    "en": "Lemon Celery"
+  },
   "handle": "tomh500",
-  "aliases": "三月小芹菜 | 井芹仁菜 | 洛天依 | tomh500 | luotiany1",
+  "aliases": {
+    "zh": "三月小芹菜 | 井芹仁菜 | 洛天依 | tomh500 | luotiany1",
+    "en": "March Celery | Nina Iseri | Luo Tianyi | tomh500 | luotiany1"
+  },
   "avatar": "images/iseri.gif",
   "intro": {
     "zh": "我使用C++主要工作，能够利用现代AI工具，擅长在WIN32桌面开发。",
@@ -9,7 +15,11 @@
   },
   "tagline": {
     "zh": "吾欲执日月而问天，摘星辰以证吾言",
-    "en": "吾欲执日月而问天，摘星辰以证吾言"
+    "en": "I would hold the sun and moon to question the heavens, and gather stars to bear witness to my words."
+  },
+  "aboutTagline": {
+    "zh": "君待岁月成诗，吾摘星辰为序",
+    "en": "While you wait for the years to become a poem, I will gather the stars to write its prologue."
   },
   "identities": [
     {
@@ -36,9 +46,17 @@
     "Source"
   ],
   "personality": {
-    "type": "INFP",
+    "type": {
+      "zh": "调停者 (INFP-T)",
+      "en": "Mediator (INFP-T)"
+    },
+    "notice": {
+      "zh": "请不要对我使用谎言，读空气对我来说轻而易举，如果我没有拆穿你的谎言，只是因为我太过于温柔，不愿意打扰谁人的片刻宁静，但这也让我痛苦万分",
+      "en": "Please don't lie to me. Reading the room comes easily to me. If I haven't called out your lie, it is only because I am too gentle to disturb someone else's brief moment of peace, even though it hurts me deeply."
+    },
     "description": {
-      "zh": "我是一个对情感与理性都极为执着、习惯用逻辑衡量世界，却又无法将自己的感情完全交付理性裁决的人，敏感、好胜、自尊心强，追求完美与卓越，渴望被理解、被认可，也渴望成为他人生命中不可替代的存在。我习惯将难以言说的情绪藏进文字、音乐与作品里，善于思考、富有想象力，却也容易陷入比较、自我怀疑与无休止的精神内耗。我讨厌敷衍、冷漠与模棱两可，向往真诚、平等而坚定的关系，有时表现得骄傲而强势，内心却比想象中更加脆弱。我渴望证明自己的价值，也时常质疑自己的价值；试图以理性解释一切，却总在最珍视的人与事面前败给感性。所以请谅解我的偏执、敏感与偶尔的幼稚，我并非不懂得克制，只是有些感情对我而言，远比输赢与得失更加重要。"
+      "zh": "我是一个对情感与理性都极为执着、习惯用逻辑衡量世界，却又无法将自己的感情完全交付理性裁决的人，敏感、好胜、自尊心强，追求完美与卓越，渴望被理解、被认可，也渴望成为他人生命中不可替代的存在。我习惯将难以言说的情绪藏进文字、音乐与作品里，善于思考、富有想象力，却也容易陷入比较、自我怀疑与无休止的精神内耗。我讨厌敷衍、冷漠与模棱两可，向往真诚、平等而坚定的关系，有时表现得骄傲而强势，内心却比想象中更加脆弱。我渴望证明自己的价值，也时常质疑自己的价值；试图以理性解释一切，却总在最珍视的人与事面前败给感性。所以请谅解我的偏执、敏感与偶尔的幼稚，我并非不懂得克制，只是有些感情对我而言，远比输赢与得失更加重要。",
+      "en": "I am deeply attached to both emotion and reason. I tend to judge the world through logic, yet I cannot fully submit my feelings to its verdict. I am sensitive, competitive and proud, and I strive for perfection and excellence. I long to be understood and recognized, and to become irreplaceable in someone else's life. I often hide feelings I struggle to express in my writing, music and creations. I am thoughtful and imaginative, but I also get caught in comparison, self-doubt and relentless inner conflict. I dislike dismissiveness, indifference and ambiguity. I want relationships that are sincere, equal and steadfast. At times I can seem arrogant and forceful, while inside I am more fragile than I appear. I want to prove my worth, yet I often question it. I try to explain everything with reason, only to give way to emotion when it comes to the people and things I cherish most. So please forgive my stubbornness, sensitivity and occasional immaturity. It is not that I do not know how to hold back; some feelings simply matter far more to me than winning, losing, gaining or letting go."
     },
     "dimensions": [
       {
@@ -238,11 +256,15 @@
     {
       "title": {
         "zh": "无损平方",
-        "en": "无损平方"
+        "en": "Square"
       },
       "struckTitle": {
-        "zh": "集团总裁",
-        "en": "集团总裁"
+        "zh": "集团",
+        "en": "Group"
+      },
+      "struckRole": {
+        "zh": "总裁",
+        "en": "President"
       },
       "titleSuffix": {
         "zh": "团队",
@@ -327,26 +349,35 @@
     }
   ],
   "music": {
-    "title": "时间日记",
-    "artist": "洛天依",
+    "title": {
+      "zh": "时间日记",
+      "en": "Time Diary"
+    },
+    "artist": {
+      "zh": "洛天依",
+      "en": "Luo Tianyi"
+    },
     "src": "bgm.ogg"
   },
   "experienceJoke": {
     "opening": {
       "zh": "还没有从中二病毕业吗？真是的 拿你没办法，那就听好了",
-      "en": "还没有从中二病毕业吗？真是的 拿你没办法，那就听好了"
+      "en": "Still haven't outgrown your chuunibyou phase? Honestly, what am I going to do with you? Fine, listen up."
     },
     "companies": [
-      "无损平方集团黄焖鸡科技有限公司",
-      "无损平方集团餐饮服务有限公司",
-      "无损平方集团圣旮旯网络科技有限公司",
-      "无损平方集团小可爱美容美发有限公司",
-      "无损平方集团新视野教育培训有限公司"
+      {"zh": "无损平方集团黄焖鸡科技有限公司", "en": "Square Group Braised Chicken Technology Co., Ltd."},
+      {"zh": "无损平方集团餐饮服务有限公司", "en": "Square Group Catering Services Co., Ltd."},
+      {"zh": "无损平方集团圣旮旯网络科技有限公司", "en": "Square Group Shenggala Network Technology Co., Ltd."},
+      {"zh": "无损平方集团小可爱美容美发有限公司", "en": "Square Group Little Cutie Beauty and Hairdressing Co., Ltd."},
+      {"zh": "无损平方集团新视野教育培训有限公司", "en": "Square Group New Horizons Education and Training Co., Ltd."}
     ],
     "afterword": {
       "zh": "满意了吗 总之 上述的东西都是不存在的，还是好好地给我学数学啊喂！",
-      "en": "满意了吗 总之 上述的东西都是不存在的，还是好好地给我学数学啊喂！"
+      "en": "Happy now? Anyway, none of these companies exist. Now get back to studying math!"
     }
   },
-  "poem": "它若是虚无的话，虚无本身即是如此\n至某种程度相通于众生\n\n如同一切是我中的众生\n故也是众生各自中的一切"
+  "poem": {
+    "zh": "它若是虚无的话，虚无本身即是如此\n至某种程度相通于众生\n\n如同一切是我中的众生\n故也是众生各自中的一切",
+    "en": "And if that is nothing, then nothing is, to some extent\na thing I share with each and every one\n\n(for I am everything in every one\njust as every one is everything in me)"
+  }
 }

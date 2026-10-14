@@ -2,21 +2,23 @@
 
 当前分支：`codex/kldhsh-template`。个人资料修改 `site-content.json`，项目修改 `site-config.js`，然后运行 `python scripts/build-template.py` 并刷新预览。
 
-本次指定内容已全部填入。**性格侧写** 使用用户提供的完整原文，修改位置为 `personality.description.zh`，英文界面也显示该中文原文。QQ 按“不对外公开”处理，StrikeBounce 保持不可点击，博客入口已删除。
+本次指定内容已全部填入。**性格侧写** 使用用户提供的完整原文，修改位置为 `personality.description.zh`，英文翻译为 `personality.description.en`。四页正文、音乐标题、页面标题、头像说明和无障碍标签均支持中英切换；“无损平方”英文统一为 `Square`。QQ 按“不对外公开”处理，StrikeBounce 保持不可点击，博客入口已删除。
 
 | 内容 | 配置位置 |
 | --- | --- |
-| 别名及顺序 | `aliases` |
+| 姓名、别名及顺序 | `name` / `aliases`；分别填写 `zh`、`en` |
 | 首页短句、个人技术、学习方向 | `tagline` / `intro` / `learning` |
+| 关于页独立引言 | `aboutTagline` |
 | 常用技术 | `technologies` |
 | 兴趣、公开留言说明 | `interests` / `questions` |
 | 性格侧写 | `personality.description.zh` |
+| 性格标题、侧写下方的小号斜体文字 | `personality.type` / `personality.notice.zh` |
 | 人格分数 | `personality.dimensions[].value`；`pole: "left"` 表示左侧倾向，其余为右侧。标记位置会自动计算 |
 | 六项技能名称、分数、短句 | `skills[].name` / `value` / `description` |
 | 雷达图轴名 | `skills[].short`；图形由 JavaScript 根据同一组技能数值生成 |
 | 团队称呼、划掉的头衔、角色 | `experience[]` |
 | 中二病调侃、虚构公司、结语 | `experienceJoke` |
-| 中文引文 | `poem`；显示在关于页底部，保持中文 |
+| 中英引文 | `poem.zh` / `poem.en`；显示在关于页底部 |
 | 赞助及公开联系方式 | `sponsorUrl` / `socials[]` |
 | 两个网站及友链 | `websites` / `friends` |
 | 音乐文件、歌名、歌手 | `music` |

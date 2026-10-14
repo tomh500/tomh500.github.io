@@ -32,9 +32,18 @@
     button.setAttribute('aria-label', audio.paused ? text('播放音乐', 'Play music') : text('暂停音乐', 'Pause music'));
     button.setAttribute('aria-pressed', String(!audio.paused));
   }
+  function musicStatus(zh = '', en = '') {
+    const status = player.querySelector('[role="status"]');
+    status.dataset.zh = zh;
+    status.dataset.en = en;
+    status.textContent = text(zh, en);
+  }
   function applyLanguage() {
     document.documentElement.lang = language === 'en' ? 'en' : 'zh-CN';
     document.querySelectorAll('[data-zh]').forEach(node => { node.textContent = node.dataset[language]; });
+    document.querySelectorAll('[data-i18n-attrs]').forEach(node => {
+      for (const [name, value] of Object.entries(JSON.parse(node.dataset.i18nAttrs))) node.setAttribute(name, localized(value));
+    });
     document.querySelectorAll('[data-placeholder-zh]').forEach(node => { node.placeholder = node.dataset[language === 'zh' ? 'placeholderZh' : 'placeholderEn']; });
     document.querySelectorAll('[data-action="language"]').forEach(button => {
       button.title = text('切换为英语', 'Switch to Chinese'); button.setAttribute('aria-label', button.title);
@@ -139,7 +148,7 @@
     closeMenu();
     navigation?.abort();
     const controller = new AbortController(); navigation = controller;
-    player.querySelector('[role="status"]').textContent = '';
+    musicStatus();
     try {
       let source = cache.get(path);
       if (!source) {
@@ -168,7 +177,7 @@
       else window.scrollTo({ top: 0, behavior: 'instant' });
       document.querySelector('main').focus({ preventScroll: true });
     } catch (error) {
-      if (error.name !== 'AbortError') player.querySelector('[role="status"]').textContent = text('页面加载失败，请重试。', 'Page could not be loaded. Please try again.');
+      if (error.name !== 'AbortError') musicStatus('页面加载失败，请重试。', 'Page could not be loaded. Please try again.');
     }
   }
 
@@ -181,9 +190,9 @@
     } else if (button?.dataset.action === 'menu') {
       const menu = document.getElementById('mobile-nav'); menu.hidden = !menu.hidden; button.setAttribute('aria-expanded', String(!menu.hidden));
     } else if (button?.dataset.action === 'music') {
-      player.querySelector('[role="status"]').textContent = '';
+      musicStatus();
       try { if (audio.paused) await audio.play(); else audio.pause(); }
-      catch { player.querySelector('[role="status"]').textContent = text('音乐暂时无法播放，请稍后再试。', 'Music could not be played. Please try again later.'); }
+      catch { musicStatus('音乐暂时无法播放，请稍后再试。', 'Music could not be played. Please try again later.'); }
       updateMusic();
     } else if (button?.dataset.action === 'close-dialog') {
       document.getElementById('download-dialog').close();

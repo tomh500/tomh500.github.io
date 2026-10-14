@@ -28,6 +28,18 @@ UI = {
 def soup_text(html):
     return BeautifulSoup(html, 'html.parser')
 
+def translated(value, language):
+    return value.get(language, value['zh']) if isinstance(value, dict) else str(value)
+
+def joined(*values, separator=''):
+    return {language: separator.join(translated(value, language) for value in values) for language in ['zh', 'en']}
+
+def attribute(node, name, value):
+    translations = json.loads(node.get('data-i18n-attrs', '{}'))
+    translations[name] = {'zh': translated(value, 'zh'), 'en': translated(value, 'en')}
+    node['data-i18n-attrs'] = json.dumps(translations, ensure_ascii=False)
+    node[name] = translated(value, 'zh')
+
 def fill(node, value):
     if isinstance(value, dict):
         zh, en = value['zh'], value.get('en', value['zh'])
@@ -82,9 +94,8 @@ def prepare(page):
         element.attrs.pop('data-cfemail', None)
     for meta in s.select('meta[name="keywords"], meta[name="next-size-adjust"]'):
         meta.decompose()
-    fill(s.title, CONTENT['name'] + ' | ' + CONTENT['handle'])
-    s.title.attrs.clear()
-    s.select_one('meta[name="description"]')['content'] = CONTENT['name'] + '的个人主页'
+    fill(s.title, joined(CONTENT['name'], CONTENT['handle'], separator=' | '))
+    attribute(s.select_one('meta[name="description"]'), 'content', joined(CONTENT['name'], {'zh':'的个人主页', 'en':"'s personal homepage"}))
     s.html['lang'] = 'zh-CN'
     s.body['data-page'] = page
     # The upstream hydration payload contains the former owner's data and relies
@@ -120,6 +131,7 @@ def prepare(page):
             button['aria-expanded'] = 'false'
             button['aria-controls'] = 'mobile-nav'
             button['aria-label'] = '打开导航'
+            fill(button.select_one('.sr-only'), {'zh':'打开导航', 'en':'Open main menu'})
     mobile = add('<div id="mobile-nav" class="md:hidden border-t border-pink-200 p-4" hidden></div>')
     for a in nav.select('div.hidden.md\\:block a'):
         mobile.append(deepcopy(a))
@@ -127,7 +139,7 @@ def prepare(page):
     for img in s.select('img'):
         if 'kldhsh.jpg' in img.get('src', ''):
             img['src'] = '/' + CONTENT['avatar']
-            img['alt'] = CONTENT['name'] + '的头像'
+            attribute(img, 'alt', joined(CONTENT['name'], {'zh':'的头像', 'en':"'s avatar"}))
     return s
 
 def home(s):
@@ -135,7 +147,7 @@ def home(s):
     copy = main.select_one('.text-center.md\\:text-left')
     fill(copy.h1, CONTENT['name'])
     paras = copy.find_all('p', recursive=False)
-    fill(paras[1], {'zh': '别名: ' + CONTENT['aliases'], 'en': 'Aliases: ' + CONTENT['aliases']})
+    fill(paras[1], joined({'zh':'别名: ', 'en':'Aliases: '}, CONTENT['aliases']))
     fill(paras[2], CONTENT['tagline'])
     identities = main.select_one('ul')
     sample = deepcopy(identities.li)
@@ -152,7 +164,7 @@ def home(s):
 
 def persistent_music(s):
     music = add('<div id="music-player" class="template-music bg-white dark:bg-gray-800 rounded-lg shadow-lg"><span></span><button class="bg-pink-500 text-white rounded-md px-4 py-2" data-action="music" aria-label="播放音乐">播放</button><p role="status" aria-live="polite"></p></div>')
-    fill(music.span, CONTENT['music']['title'] + ' · ' + CONTENT['music']['artist'])
+    fill(music.span, joined(CONTENT['music']['title'], CONTENT['music']['artist'], separator=' · '))
     s.body.append(music)
     audio = s.new_tag('audio', id='site-audio', loop='', preload='none', src='/' + CONTENT['music']['src'])
     s.body.append(audio)
@@ -174,13 +186,13 @@ def make_tabs(s, section):
         fill(poles[0], dimension['left'])
         fill(poles[1], dimension['right'])
         bar = row.select_one('[role="progressbar"]')
-        bar['aria-label'] = dimension['zh']
+        attribute(bar, 'aria-label', dimension)
         bar['aria-valuenow'] = str(value)
         bar['aria-valuemin'] = '0'
         bar['aria-valuemax'] = '100'
         rows.append(row)
     fill(template_card.select_one('h4 + p'), CONTENT['personality']['description'])
-    template_card.select_one('.pt-4.pb-2').decompose()
+    fill(template_card.select_one('.pt-4.pb-2 p'), CONTENT['personality']['notice'])
     for shell in [desktop.select_one('.flex-1'), mobile.find_all('div', recursive=False)[1]]:
         shell.clear()
         for key, title in [('personality', '我的性格'), ('loves', '我喜爱的'), ('askme', '向我提问'), ('contact', '联系我')]:
@@ -218,10 +230,10 @@ def about(s):
     blocks = main.find_all('div', recursive=False)
     fill(blocks[0].p, CONTENT['intro'])
     profile = blocks[1].select_one('.md\\:w-2\\/3')
-    fill(profile.h3, CONTENT['name'] + ' (' + CONTENT['aliases'] + ')')
+    fill(profile.h3, joined(CONTENT['name'], ' (', CONTENT['aliases'], ')'))
     fill(profile.find('p', recursive=False), CONTENT['intro'])
     fill(profile.select_one('.my-5 p'), CONTENT['learning'])
-    fill(profile.blockquote, CONTENT['tagline'])
+    fill(profile.blockquote, CONTENT.get('aboutTagline', CONTENT['tagline']))
     badges = profile.select_one('.mt-5').find_all('div', recursive=False)[-1]
     sample = deepcopy(badges.find('span') or badges.find('div'))
     badges.clear()
@@ -261,7 +273,7 @@ def about(s):
         level = skill.get('value')
         fill(spans[1], str(level) + '/100')
         bar = row.select_one('.skill-track')
-        bar['aria-label'] = skill['name']['zh']
+        attribute(bar, 'aria-label', skill['name'])
         bar['aria-valuenow'] = str(level)
         bar['aria-valuemin'] = '0'
         bar['aria-valuemax'] = '100'
@@ -276,9 +288,12 @@ def about(s):
         row = deepcopy(sample)
         row.h3.clear()
         row.h3.append(fill(add('<span></span>'), exp['title']))
-        row.h3.append(fill(add('<del class="struck-title"></del>'), exp['struckTitle']))
-        row.h3.append(fill(add('<span></span>'), exp['titleSuffix']))
-        fill(row.p, exp['description'])
+        row.h3.append(fill(add('<del class="struck-title"></del>'), joined({'zh':'', 'en':' '}, exp['struckTitle'])))
+        row.h3.append(fill(add('<span></span>'), joined({'zh':'', 'en':' '}, exp['titleSuffix'])))
+        row.p.clear()
+        if exp.get('struckRole'):
+            row.p.append(fill(add('<del class="struck-title"></del>'), exp['struckRole']))
+        row.p.append(fill(add('<span></span>'), joined({'zh':'', 'en':' ' if exp.get('struckRole') else ''}, exp['description'])))
         if exp['url']:
             bind_link(row.a, exp['url'])
             fill(row.a, exp['url'])
@@ -393,7 +408,7 @@ def social(s):
         ps[0].decompose()
         fill(ps[1], friend['description'])
         a.img['src'] = '/' + friend['avatar']
-        a.img['alt'] = (friend['name']['zh'] if isinstance(friend['name'], dict) else friend['name']) + '的头像'
+        attribute(a.img, 'alt', joined({'zh':'', 'en':'Avatar for '}, friend['name'], {'zh':'的头像', 'en':''}))
         bind_link(a, friend['url'])
         friend_grid.append(a)
 
