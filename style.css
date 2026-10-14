@@ -43,8 +43,15 @@ main { padding-bottom: 6rem; }
 .scale-marker { position: absolute; left: var(--scale-position); top: 50%; transform: translate(-50%, -50%); width: 1.1rem; height: 1.1rem; border: 3px solid white; border-radius: 50%; background: var(--scale-color); box-shadow: 0 3px 9px #0002; }
 .scale-poles { display: flex; justify-content: space-between; gap: 1rem; padding-top: .5rem; color: #6b7280; }
 .dark .scale-poles { color: #d1d5db; }
-.skills-radar { max-width: 28rem; margin: 0 auto; }
-.skills-experience-grid { align-items: start; }
+.skills-radar { max-width: 22rem; margin: 0 auto; }
+.skills-experience-grid { grid-template-columns: minmax(0, 1fr); align-items: start; }
+.skills-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.75rem; align-items: center; }
+.skills-overview, .skills-details { min-width: 0; }
+.skills-details { display: grid; gap: 1.4rem; }
+.experience-content { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+.experience-content > .experience-joke { margin-top: 0; }
+@media (min-width: 900px) { .skills-layout { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 2.5rem; } }
+@media (min-width: 1024px) { .experience-content { grid-template-columns: 13rem minmax(0, 1fr); } .joke-companies { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .35rem 1.5rem; } }
 #skills { scroll-margin-top: 5.5rem; }
 .skills-radar svg { display: block; width: 100%; height: auto; overflow: visible; }
 .radar-grid { fill: none; stroke: #d1d5db; stroke-width: 1; }
@@ -54,7 +61,7 @@ main { padding-bottom: 6rem; }
 .dark .radar-label { fill: #e5e7eb; }
 .radar-values { fill: #66ccff40; stroke: #4095ce; stroke-width: 2.5; }
 .radar-dot { stroke: #374151; stroke-width: 1; }
-.skill-assessment { text-align: right; margin-top: -.75rem; }
+.skill-assessment { text-align: center; margin-top: .25rem; }
 .skill-heading { display: flex; justify-content: space-between; gap: 1rem; font-size: .875rem; font-weight: 500; margin-bottom: .45rem; }
 .skill-heading > span:last-child { white-space: nowrap; color: #17678b; }
 .dark .skill-heading > span:last-child { color: #8bdcff; }

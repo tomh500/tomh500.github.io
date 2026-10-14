@@ -243,11 +243,16 @@ def about(s):
     skill_card['id'] = 'skills'
     skill_rows = skill_card.select_one('.space-y-6')
     skill_rows.clear()
+    skill_rows['class'] = ['skills-layout']
+    overview = add('<div class="skills-overview"></div>')
+    details = add('<div class="skills-details"></div>')
     radar = add('<div class="skills-radar" data-radar></div>')
-    skill_rows.append(radar)
+    overview.append(radar)
     assessment = add('<p class="skill-assessment text-sm text-gray-500 dark:text-gray-400"></p>')
     fill(assessment, {'zh': '主观评估 · 100分制', 'en': 'Self-assessment · out of 100'})
-    skill_rows.append(assessment)
+    overview.append(assessment)
+    skill_rows.append(overview)
+    skill_rows.append(details)
     for skill in CONTENT['skills']:
         row = add('<div class="skill-row"><div class="skill-heading"><span></span><span></span></div><div class="skill-track" role="progressbar"><div></div></div><p></p></div>')
         row['style'] = '--skill-color:' + skill['color']
@@ -262,10 +267,11 @@ def about(s):
         bar['aria-valuemax'] = '100'
         bar.div['style'] = 'width:' + str(level) + '%'
         fill(row.p, skill['description'])
-        skill_rows.append(row)
+        details.append(row)
     work_rows = work_card.select_one('.space-y-6')
     sample = deepcopy(work_rows.find('div', recursive=False))
     work_rows.clear()
+    work_rows['class'] = ['experience-content']
     for exp in CONTENT['experience']:
         row = deepcopy(sample)
         row.h3.clear()
@@ -279,13 +285,12 @@ def about(s):
         else:
             row.a.parent.decompose()
         work_rows.append(row)
-    joke = add('<div class="experience-joke"><p></p><div class="joke-companies"></div><p></p><p class="joke-afterword"></p></div>')
+    joke = add('<div class="experience-joke"><p></p><div class="joke-companies"></div><p class="joke-afterword"></p></div>')
     paragraphs = joke.find_all('p', recursive=False)
     fill(paragraphs[0], CONTENT['experienceJoke']['opening'])
     for company in CONTENT['experienceJoke']['companies']:
         joke.select_one('.joke-companies').append(fill(add('<p></p>'), company))
-    fill(paragraphs[1], CONTENT['experienceJoke']['closing'])
-    fill(paragraphs[2], CONTENT['experienceJoke']['afterword'])
+    fill(paragraphs[1], CONTENT['experienceJoke']['afterword'])
     work_rows.append(joke)
     poem = add('<section class="poem-card rounded-lg border bg-white dark:bg-gray-800 border-pink-200 dark:border-pink-800"><blockquote></blockquote></section>')
     fill(poem.blockquote, CONTENT['poem'])
