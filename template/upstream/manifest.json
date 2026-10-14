@@ -1,0 +1,213 @@
+{
+  "origin": "https://kldhsh.top/",
+  "scope": "Public HTML, referenced browser chunks, CSS, fonts and media. Server source is not available.",
+  "files": [
+    {
+      "url": "https://cdn.kldhsh.top/file/kldhsh.jpg",
+      "path": "template/upstream/files/cdn.kldhsh.top/file/kldhsh.jpg",
+      "bytes": 229388,
+      "sha256": "0b93c09a27f8c6b16a1defe3a21b06c7e39e07c5616c0fc352699617c9f5c50e"
+    },
+    {
+      "url": "https://cdn.kldhsh.top/klbk/202505/916b1746819529.png",
+      "path": "template/upstream/files/cdn.kldhsh.top/klbk/202505/916b1746819529.png",
+      "bytes": 209386,
+      "sha256": "7537e920c09b0bdaec52d1408d71151dd9266f050d20e1d9e45efbf11f438f75"
+    },
+    {
+      "url": "https://cdn.kldhsh.top/klbk/202601/5e961769888245.png",
+      "path": "template/upstream/files/cdn.kldhsh.top/klbk/202601/5e961769888245.png",
+      "bytes": 48313,
+      "sha256": "0ecca37900f7be9776ef098be0dfac998340050b0b2a5bd2dc187c56bd6139a2"
+    },
+    {
+      "url": "https://cdn.kldhsh.top/klbk/202601/b2ee1769888248.png",
+      "path": "template/upstream/files/cdn.kldhsh.top/klbk/202601/b2ee1769888248.png",
+      "bytes": 62168,
+      "sha256": "c20a29209fd9b9dba789f125aeb501ef351a81c38dd373d4b88b6cdaba4c0c85"
+    },
+    {
+      "url": "https://cdn.kldhsh.top/klbk/202605/f8211780209437.jpg",
+      "path": "template/upstream/files/cdn.kldhsh.top/klbk/202605/f8211780209437.jpg",
+      "bytes": 80140,
+      "sha256": "66e58771bc5df84ae24ac7df65a122013696d3fce10bf99b41d537438831a40a"
+    },
+    {
+      "url": "https://cdn.kldhsh.top/klbk/202607/cf7d1783417480.svg",
+      "path": "template/upstream/files/cdn.kldhsh.top/klbk/202607/cf7d1783417480.svg",
+      "bytes": 27364,
+      "sha256": "8afa8855416627d6a1fa6ed1dda7daa5dc83fd83e0da6f099edba761f75827d4"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/11eacf67-0f4bee439f8683fe.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/11eacf67-0f4bee439f8683fe.js",
+      "bytes": 169106,
+      "sha256": "3f80e938e017390c0133c191f378f869671e7b0ef659d0b65a569f916eeaf7c3"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/186-d695761a995188a2.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/186-d695761a995188a2.js",
+      "bytes": 14364,
+      "sha256": "182446a02cdbc79b79fcd45fbc80ebfa34ce7054eb5506ab5ef5d1e7a1cc45f4"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/372-da948da4997522b6.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/372-da948da4997522b6.js",
+      "bytes": 9364,
+      "sha256": "2df8f83f305a4c1d96fd8897b79596df3236e5f3708916f071676328a0bc8a77"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/607-404a21303b6cf316.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/607-404a21303b6cf316.js",
+      "bytes": 21697,
+      "sha256": "774a987298f3cdcbee8def1b52026c215b5877be3803be9e109a725d1a8deab2"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/689-fc68b144fa851b47.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/689-fc68b144fa851b47.js",
+      "bytes": 78676,
+      "sha256": "d2fc88a1dd109bfa2a7882e3b2b5b641c295bd3168a052ea16487e0e66b248e5"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/954-7b860a5817b5a230.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/954-7b860a5817b5a230.js",
+      "bytes": 173142,
+      "sha256": "b7503fd04412ae714549f14732e0724a44d8199373b27af3fba63baac585fd97"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/995-16556001f386360b.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/995-16556001f386360b.js",
+      "bytes": 47582,
+      "sha256": "c5caa863ee77bb5471b27ff17c7c80b6d73a3fa13923837e505611f33f28b33d"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/app/about/page-9c547d4e6f0e6a3f.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/app/about/page-9c547d4e6f0e6a3f.js",
+      "bytes": 31743,
+      "sha256": "3bb08e73e0e1ceccb075149d09d9d126a29372ee581bf1b1542d0df37fa09d61"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/app/layout-2aac9b161e108913.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/app/layout-2aac9b161e108913.js",
+      "bytes": 10396,
+      "sha256": "45ca666f74454515a5bd3cf1ab9ec41ab85a62b8c41b19e6929b4b14868726d3"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/app/page-e7ac84d736c07aef.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/app/page-e7ac84d736c07aef.js",
+      "bytes": 8307,
+      "sha256": "eb963c10c0cbd572afe7453edad1c968b3737e39646445882795f429d9d9cc28"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/app/projects/page-38218fb176b13f82.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/app/projects/page-38218fb176b13f82.js",
+      "bytes": 6259,
+      "sha256": "34741b972e1f3caf0fefc0032cd8f0880204fe799f3d10d6d428c14b6fbd4dc9"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/app/social/page-91affdd64336a346.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/app/social/page-91affdd64336a346.js",
+      "bytes": 10367,
+      "sha256": "627ed6820d726a44984278df07c9e24baee3c94cfc714039776c25903941410b"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/main-app-16defbd9b05ebfa6.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/main-app-16defbd9b05ebfa6.js",
+      "bytes": 506,
+      "sha256": "9b71b6282d997aa1ea4a002ca8c9d7d944593734e4a5b580fa48a100d271d5ac"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/polyfills-42372ed130431b0a.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/polyfills-42372ed130431b0a.js",
+      "bytes": 112594,
+      "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/chunks/webpack-0fac5a0194bbc25d.js",
+      "path": "template/upstream/files/kldhsh.top/_next/static/chunks/webpack-0fac5a0194bbc25d.js",
+      "bytes": 3414,
+      "sha256": "c4c08fc18b6eaed54b9f68babf12ba5d8c7556ee02e7c9b4c403c15f2f3d5d91"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/css/e8d972842c2f70d2.css",
+      "path": "template/upstream/files/kldhsh.top/_next/static/css/e8d972842c2f70d2.css",
+      "bytes": 75091,
+      "sha256": "d1732ad5e305df591a2cbb2e447ea9213082d852eea56def66f4b058c4761b98"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/media/e4af272ccee01ff0-s.p.woff2",
+      "path": "template/upstream/files/kldhsh.top/_next/static/media/e4af272ccee01ff0-s.p.woff2",
+      "bytes": 48432,
+      "sha256": "c940764593d0fe5d596be327ca7558855e018039fb78509aa21921fd3644c3e4"
+    },
+    {
+      "url": "https://kldhsh.top/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js",
+      "path": "template/upstream/files/kldhsh.top/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js",
+      "bytes": 1239,
+      "sha256": "2595496fe48df6fcf9b1bc57c29a744c121eb4dd11566466bc13d2e52e6bbcc8"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/media/19cfc7226ec3afaa-s.woff2",
+      "path": "template/upstream/files/kldhsh.top/_next/static/media/19cfc7226ec3afaa-s.woff2",
+      "bytes": 19044,
+      "sha256": "46dd4cdca58c26ae87cc6927657bf83b2e8abfc39ffd0ab176e301a8d28d22bf"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/media/21350d82a1f187e9-s.woff2",
+      "path": "template/upstream/files/kldhsh.top/_next/static/media/21350d82a1f187e9-s.woff2",
+      "bytes": 18744,
+      "sha256": "aebf2ab4a4ce6810d73c1ac7be7cafb4e5ec4cee2d6db5fb3e09691747ec4bd6"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/media/8e9860b6e62d6359-s.woff2",
+      "path": "template/upstream/files/kldhsh.top/_next/static/media/8e9860b6e62d6359-s.woff2",
+      "bytes": 85272,
+      "sha256": "a28eb6d3ccb534ae0c94ca999371df024aab60b08c3c8a5720ee9e32fa0faaa2"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/media/ba9851c3c22cd980-s.woff2",
+      "path": "template/upstream/files/kldhsh.top/_next/static/media/ba9851c3c22cd980-s.woff2",
+      "bytes": 25844,
+      "sha256": "fccca918fea40089dacadc7045861314d1a6bc91f1f323cc1eeb22ebcdb321b5"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/media/c5fe6dc8356a8c31-s.woff2",
+      "path": "template/upstream/files/kldhsh.top/_next/static/media/c5fe6dc8356a8c31-s.woff2",
+      "bytes": 11272,
+      "sha256": "a2e2c783ca6f9c20486e81e72a279203e86730bbf8f01ff6a5ee9dbd09e1c271"
+    },
+    {
+      "url": "https://kldhsh.top/_next/static/media/df0a9ae256c0569c-s.woff2",
+      "path": "template/upstream/files/kldhsh.top/_next/static/media/df0a9ae256c0569c-s.woff2",
+      "bytes": 10280,
+      "sha256": "8db00ff46c67b22cda8bed865acf7077651cac8d2841d5b40980556b48961931"
+    }
+  ],
+  "captured_on": "2026-10-14",
+  "pages": [
+    {
+      "url": "https://kldhsh.top/about",
+      "path": "template/upstream/about.html",
+      "bytes": 36614,
+      "sha256": "189cef384acb551dfa6bc50abf04564be0c5af22e91d8a15f28d52c410068e3f"
+    },
+    {
+      "url": "https://kldhsh.top/",
+      "path": "template/upstream/home.html",
+      "bytes": 20108,
+      "sha256": "503ec43c22c0873fb9850cc6f31eba18513fec6a718585304d8a91dcc29d023d"
+    },
+    {
+      "url": "https://kldhsh.top/projects",
+      "path": "template/upstream/projects.html",
+      "bytes": 26745,
+      "sha256": "5c10ef529440578a76feef73bcabc90de2e3bcc5dea33562d4bdb987772865a6"
+    },
+    {
+      "url": "https://kldhsh.top/social",
+      "path": "template/upstream/social.html",
+      "bytes": 32008,
+      "sha256": "c91e1eb981e97a39e4eb012af76523a6a0253f441b2969f5028996eb34ffd103"
+    }
+  ]
+}

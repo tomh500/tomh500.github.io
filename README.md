@@ -1,45 +1,34 @@
-# tomh500 的个人主页
+# 柠萌小芹菜的个人主页
 
-纯静态 HTML / CSS / JavaScript，直接兼容 GitHub Pages，无需安装依赖或运行构建。主色为 `#66ccff`，支持浅色与深色主题、中文与英文、手机导航、项目搜索与分类。
+当前在 `codex/kldhsh-template` 分支直接使用 **kldhsh.top 下载页面模板**，将个人资料和项目逐项替换，配色改为 `#66ccff`。原始下载文件保存在 `template/upstream/`，详细来源与适配说明见 `template/README.md`。
 
-## 本地预览
+首页、关于我、项目、社交使用 `/`、`/about/`、`/projects/`、`/social/` 四个静态页面；兼容旧 `#about`、`#projects`、`#social` 链接。支持中英切换、浅色/深色主题、手机菜单、关于页标签、软件多线路下载、复制提取码、音乐播放。语言与主题保存在访问者的浏览器本地。
 
-在仓库根目录运行：
+本地预览：
 
 ```powershell
 python -m http.server 8765 --bind 127.0.0.1
 ```
 
-打开 `http://127.0.0.1:8765/`。四个视图使用 `#home`、`#about`、`#projects`、`#social`，可以直接分享和刷新，无需服务器路由。
+打开 <http://127.0.0.1:8765/>。
 
-## 修改内容
+修改内容：
 
-- `index.html`：页面结构、默认中文内容和 SVG 图标。
-- `style.css`：配色、布局、响应式样式与动效。
-- `script.js`：中英文本、导航、主题、项目渲染、下载窗口和音乐播放。
-- `site-config.js`：全部项目、下载线路、提取码与短句。
-- `images/product/`：项目封面；`images/iseri.gif`：头像；`bgm.ogg`：音乐。
-- `Square/`、`MarFlash/`、`CNAME`：保留原有产品资源及域名配置。
+- `site-content.json`：昵称、别名、身份、兴趣、技能、个人资料、社交和占位符。
+- `site-config.js`：项目、描述、封面、下载来源、提取码。
+- `CONTENT-TODO.md`：所有待填写字段与资料依据。
+- `images/iseri.gif`、`images/product/`、`bgm.ogg`：现有头像、项目封面和音乐。
+- `scripts/build-template.py`：直接替换下载模板的生成脚本。
+- `template/assets/css/template.css`：由下载的原始样式生成的蓝色模板，不要手工修改；调色请修改生成脚本。
+- `style.css`、`script.js`：静态托管所需的少量样式与交互。
 
-项目分类为 `desktop`、`games`、`music`。`label: 'new'` 显示“新”，`label: 'legacy'` 显示“已归档”；无标签时省略 `label`。有 `routes` 的项目打开下载弹窗，有 `url` 的项目直接跳转。新项目放在列表前面，归档项目放在后面。
-
-运行 `python add_product.py` 可生成一个配置项，审核后粘贴到 `site-config.js` 的 `projects` 数组。此脚本不会自动覆盖网页。
-
-新增文案应同时提供 `zh` / `en`。新增身份、联系方式和经历应先确认事实；没有确定的信息可以省略或明确标注“待填写”，不要编造。
-
-## 检查
+内容修改后更新全部页面：
 
 ```powershell
+python -m pip install -r requirements-template.txt
+python scripts/build-template.py
 node --check script.js
 node --check site-config.js
 ```
 
-在浏览器中检查：四个视图及后退/前进、手机导航、分类与搜索、无结果提示、下载窗口与 Escape、提取码、主题/语言刷新保存、音乐播放/暂停。
-
-主题和语言仅保存到浏览器本地；音乐由访问者主动点击播放。网页不依赖外部字体、图标 CDN 或统计服务。
-
-## 发布与恢复
-
-当前 GitHub Pages 从 `nextgen` 分支部署。审核完成后，再提交和推送到该分支。
-
-重构前的备份分支为 `backup/nextgen-20261013-035244`，提交 `0dac274`。可以通过 `git show backup/nextgen-20261013-035244:index.html` 查看旧页面，或切换该备份分支进行预览。
+部署使用生成后的静态 HTML/CSS/JS，无需服务器或 Next.js 构建。当前线上 GitHub Pages 的部署分支仍为原有 `nextgen`，这次没有推送或发布；`Square/`、`MarFlash/`、`CNAME` 和产品资源未改动。原主页可从 `nextgen` 的 `d7f11c4` 提交恢复。

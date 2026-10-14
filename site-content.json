@@ -1,0 +1,53 @@
+{
+  "name": "柠萌小芹菜",
+  "handle": "tomh500",
+  "aliases": "tomh500 | luotiany1",
+  "avatar": "images/iseri.gif",
+  "intro": {"zh": "[待填写：你的个人介绍]", "en": "[To fill: your introduction]"},
+  "tagline": {"zh": "[待填写：你的首页短句]", "en": "[To fill: your personal motto]"},
+  "identities": [
+    {"zh": "C++ / Python 开发爱好者", "en": "C++ / Python enthusiast"},
+    {"zh": "计算机科学与算法学习者", "en": "Computer science and algorithms learner"},
+    {"zh": "二次元文化与音乐爱好者", "en": "Anime and music enthusiast"}
+  ],
+  "learning": {"zh": "C++、STL、算法与 Codeforces", "en": "C++, STL, algorithms and Codeforces"},
+  "technologies": ["C++", "Python", "Windows API", "GSI", "GDI+", "Tkinter"],
+  "personality": {
+    "type": "INFP",
+    "description": {"zh": "[待填写：你的性格侧写]", "en": "[To fill: your personality description]"},
+    "dimensions": [
+      {"zh": "内向", "en": "Introversion", "value": null},
+      {"zh": "直觉", "en": "Intuition", "value": null},
+      {"zh": "感受", "en": "Feeling", "value": null},
+      {"zh": "展望", "en": "Prospecting", "value": null}
+    ]
+  },
+  "interests": [
+    {"zh": "游戏：CS2、PUBG、原神", "en": "Games: CS2, PUBG, Genshin Impact"},
+    {"zh": "角色：小鸟游六花、井芹仁菜、多托雷", "en": "Characters: Rikka Takanashi, Nina Iseri, Il Dottore"},
+    {"zh": "音乐：中文 VOCALOID 早期抒情作品、《时间日记》、钢琴改编", "en": "Music: early Chinese VOCALOID ballads, Time Diary and piano arrangements"}
+  ],
+  "questions": {"zh": "[待填写：想让访客向你提问的话题或提问入口]", "en": "[To fill: topics or a question page]"},
+  "skills": [
+    {"name": "C++", "value": null},
+    {"name": "Python", "value": null},
+    {"name": "Windows API", "value": null},
+    {"name": "GSI", "value": null},
+    {"name": "GDI+", "value": null},
+    {"name": "Tkinter", "value": null}
+  ],
+  "experience": [{"title": {"zh": "[待填写：经历名称]", "en": "[To fill: experience title]"}, "description": {"zh": "[待填写：经历内容]", "en": "[To fill: experience description]"}, "url": ""}],
+  "blogUrl": "",
+  "sponsorUrl": "",
+  "socials": [
+    {"platform": "Discord", "label": {"zh": "进入社区", "en": "Join the community"}, "url": "https://discord.gg/cZffvnzmmX"},
+    {"platform": "GitHub", "label": "tomh500", "url": "https://github.com/tomh500"},
+    {"platform": "QQ", "label": {"zh": "[待填写：公开 QQ 联系方式]", "en": "[To fill: public QQ contact]"}, "url": ""},
+    {"platform": "哔哩哔哩", "label": "UID 511242952", "url": "https://space.bilibili.com/511242952"},
+    {"platform": "Telegram", "label": {"zh": "[待填写：Telegram 账号]", "en": "[To fill: Telegram account]"}, "url": ""},
+    {"platform": "Email", "label": {"zh": "[待填写：公开邮箱]", "en": "[To fill: public email]"}, "url": ""}
+  ],
+  "websites": [{"name": "luotiany1.top", "url": "https://luotiany1.top"}, {"name": "StrikeSense", "url": "https://tomh500.github.io/StrikeSense/"}],
+  "friends": [{"name": {"zh": "[待填写：朋友的网站]", "en": "[To fill: a friend's website]"}, "description": {"zh": "[待填写：友链介绍]", "en": "[To fill: description]"}, "url": "", "avatar": "images/placeholder.svg"}],
+  "music": {"title": "时间日记", "artist": "洛天依", "src": "bgm.ogg"}
+}
