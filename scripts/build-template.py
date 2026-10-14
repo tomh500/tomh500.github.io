@@ -387,6 +387,7 @@ def assets():
         new_hex = '#' + ''.join(f'{int(channel):02x}' for channel in new.split())
         css=css.replace(old_hex,new_hex)
     css=css.replace('330 81% 60%', '200 100% 70%').replace('330 ', '200 ')
+    css=css.replace('/_next/static/media/', '/template/assets/media/')
     (target / 'css' / 'template.css').write_text(css, encoding='utf-8', newline='\n')
 
 def main():
