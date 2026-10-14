@@ -2,7 +2,7 @@
 
 当前分支：`codex/kldhsh-template`。个人资料修改 `site-content.json`，项目修改 `site-config.js`，然后运行 `python scripts/build-template.py` 并刷新预览。
 
-目前只剩 **性格侧写** 没有收到你的原文：修改 `personality.description.zh`。其余本次指定内容已填入；QQ 按“不对外公开”处理，StrikeBounce 保持不可点击，博客入口已删除。
+本次指定内容已全部填入。**性格侧写** 使用用户提供的完整原文，修改位置为 `personality.description.zh`，英文界面也显示该中文原文。QQ 按“不对外公开”处理，StrikeBounce 保持不可点击，博客入口已删除。
 
 | 内容 | 配置位置 |
 | --- | --- |
@@ -10,6 +10,7 @@
 | 首页短句、个人技术、学习方向 | `tagline` / `intro` / `learning` |
 | 常用技术 | `technologies` |
 | 兴趣、公开留言说明 | `interests` / `questions` |
+| 性格侧写 | `personality.description.zh` |
 | 人格分数 | `personality.dimensions[].value`；`pole: "left"` 表示左侧倾向，其余为右侧。标记位置会自动计算 |
 | 六项技能名称、分数、短句 | `skills[].name` / `value` / `description` |
 | 雷达图轴名 | `skills[].short`；图形由 JavaScript 根据同一组技能数值生成 |
