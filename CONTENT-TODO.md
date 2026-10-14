@@ -31,4 +31,6 @@
 
 遥汐的头像保存为 `images/friends/yaoxi.jpg`，来自先前直接下载的 `https://cdn.kldhsh.top/file/kldhsh.jpg`，无需运行时请求原站。
 
+StarsetNight 的友链为 `https://starset.top/`，头像保存为 `images/friends/starsetnight.jpg`，来自用户指定的 GitHub 账号 `https://github.com/StarsetNight` 的公开头像（`https://avatars.githubusercontent.com/u/65395090?v=4`）。
+
 站内点击四页导航、浏览器后退与前进采用局部页面切换，保留同一个音频元素和播放位置。刷新、关闭标签页或跳转到外部网站会开始新的页面生命周期。
