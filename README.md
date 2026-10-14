@@ -1,6 +1,6 @@
 # 柠萌小芹菜的个人主页
 
-当前在 `codex/kldhsh-template` 分支直接使用 **kldhsh.top 下载页面模板**，将个人资料和项目逐项替换，配色改为 `#66ccff`。原始下载文件保存在 `template/upstream/`，详细来源与适配说明见 `template/README.md`。
+当前在 `nextgen` 部署分支直接使用 **kldhsh.top 下载页面模板**，将个人资料和项目逐项替换，配色改为 `#66ccff`。原始下载文件保存在 `template/upstream/`，详细来源与适配说明见 `template/README.md`。
 
 首页、关于我、项目、社交使用 `/`、`/about/`、`/projects/`、`/social/` 四个静态页面；兼容旧 `#about`、`#projects`、`#social` 链接。支持中英切换、浅色/深色主题、手机菜单、关于页标签、软件多线路下载、复制提取码、音乐播放。语言与主题保存在访问者的浏览器本地。
 
@@ -35,4 +35,4 @@ node --check script.js
 node --check site-config.js
 ```
 
-部署使用生成后的静态 HTML/CSS/JS，无需服务器或 Next.js 构建。当前线上 GitHub Pages 的部署分支仍为原有 `nextgen`，这次没有推送或发布；`Square/`、`MarFlash/`、`CNAME` 和产品资源未改动。原主页可从 `nextgen` 的 `d7f11c4` 提交恢复。
+部署使用生成后的静态 HTML/CSS/JS，无需服务器或 Next.js 构建。GitHub Pages 从 `nextgen` 分支根目录发布到 `https://luotiany1.top/`；推送该分支会触发上线。`Square/`、`MarFlash/`、`CNAME` 和产品资源未改动。原主页可从 `d7f11c4` 提交恢复。

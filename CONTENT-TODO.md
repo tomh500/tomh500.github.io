@@ -1,6 +1,6 @@
 # 内容与后续修改
 
-当前分支：`codex/kldhsh-template`。个人资料修改 `site-content.json`，项目修改 `site-config.js`，然后运行 `python scripts/build-template.py` 并刷新预览。
+当前部署分支：`nextgen`。个人资料修改 `site-content.json`，项目修改 `site-config.js`，然后运行 `python scripts/build-template.py` 并刷新预览；推送 `nextgen` 会更新线上网站。
 
 本次指定内容已全部填入。**性格侧写** 使用用户提供的完整原文，修改位置为 `personality.description.zh`，英文翻译为 `personality.description.en`。四页正文、音乐标题、页面标题、头像说明和无障碍标签均支持中英切换；“无损平方”英文统一为 `Square`。QQ 按“不对外公开”处理，StrikeBounce 保持不可点击，博客入口已删除。
 
