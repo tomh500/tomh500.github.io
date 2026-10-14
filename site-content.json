@@ -1,53 +1,357 @@
 {
   "name": "柠萌小芹菜",
   "handle": "tomh500",
-  "aliases": "tomh500 | luotiany1",
+  "aliases": "三月小芹菜 | 井芹仁菜 | 洛天依 | tomh500 | luotiany1",
   "avatar": "images/iseri.gif",
-  "intro": {"zh": "[待填写：你的个人介绍]", "en": "[To fill: your introduction]"},
-  "tagline": {"zh": "[待填写：你的首页短句]", "en": "[To fill: your personal motto]"},
+  "intro": {
+    "zh": "我使用C++主要工作，能够利用现代AI工具，擅长在WIN32桌面开发。",
+    "en": "I work mainly with C++, use modern AI tools, and specialize in Win32 desktop development."
+  },
+  "tagline": {
+    "zh": "吾欲执日月而问天，摘星辰以证吾言",
+    "en": "吾欲执日月而问天，摘星辰以证吾言"
+  },
   "identities": [
-    {"zh": "C++ / Python 开发爱好者", "en": "C++ / Python enthusiast"},
-    {"zh": "计算机科学与算法学习者", "en": "Computer science and algorithms learner"},
-    {"zh": "二次元文化与音乐爱好者", "en": "Anime and music enthusiast"}
+    {
+      "zh": "C++ / Python 开发爱好者",
+      "en": "C++ / Python enthusiast"
+    },
+    {
+      "zh": "计算机科学与算法学习者",
+      "en": "Computer science and algorithms learner"
+    },
+    {
+      "zh": "二次元文化与音乐爱好者",
+      "en": "Anime and music enthusiast"
+    }
   ],
-  "learning": {"zh": "C++、STL、算法与 Codeforces", "en": "C++, STL, algorithms and Codeforces"},
-  "technologies": ["C++", "Python", "Windows API", "GSI", "GDI+", "Tkinter"],
+  "learning": {
+    "zh": "情报科学基础、数据结构与算法、数学及理综",
+    "en": "Foundations of information science, data structures and algorithms, mathematics and integrated sciences"
+  },
+  "technologies": [
+    "C++",
+    "WindowsSDK",
+    "Linux",
+    "Source"
+  ],
   "personality": {
     "type": "INFP",
-    "description": {"zh": "[待填写：你的性格侧写]", "en": "[To fill: your personality description]"},
+    "description": {
+      "zh": "[待填写：你的性格侧写]",
+      "en": "[To fill: your personality description]"
+    },
     "dimensions": [
-      {"zh": "内向", "en": "Introversion", "value": null},
-      {"zh": "直觉", "en": "Intuition", "value": null},
-      {"zh": "感受", "en": "Feeling", "value": null},
-      {"zh": "展望", "en": "Prospecting", "value": null}
+      {
+        "zh": "内向",
+        "en": "Introverted",
+        "left": {
+          "zh": "外向",
+          "en": "Extraverted"
+        },
+        "right": {
+          "zh": "内向",
+          "en": "Introverted"
+        },
+        "value": 84,
+        "color": "#66ccff",
+        "pole": "right"
+      },
+      {
+        "zh": "天马行空",
+        "en": "Imaginative",
+        "left": {
+          "zh": "天马行空",
+          "en": "Imaginative"
+        },
+        "right": {
+          "zh": "求真务实",
+          "en": "Practical"
+        },
+        "value": 67,
+        "color": "#66ccff",
+        "pole": "left"
+      },
+      {
+        "zh": "情感细腻",
+        "en": "Sensitive",
+        "left": {
+          "zh": "理性思考",
+          "en": "Analytical"
+        },
+        "right": {
+          "zh": "情感细腻",
+          "en": "Sensitive"
+        },
+        "value": 62,
+        "color": "#66ccff",
+        "pole": "right"
+      },
+      {
+        "zh": "随机应变",
+        "en": "Adaptable",
+        "left": {
+          "zh": "运筹帷幄",
+          "en": "Planned"
+        },
+        "right": {
+          "zh": "随机应变",
+          "en": "Adaptable"
+        },
+        "value": 88,
+        "color": "#66ccff",
+        "pole": "right"
+      },
+      {
+        "zh": "情绪易波动",
+        "en": "Turbulent",
+        "left": {
+          "zh": "自信果断",
+          "en": "Assertive"
+        },
+        "right": {
+          "zh": "情绪易波动",
+          "en": "Emotionally reactive"
+        },
+        "value": 83,
+        "color": "#66ccff",
+        "pole": "right"
+      }
     ]
   },
   "interests": [
-    {"zh": "游戏：CS2、PUBG、原神", "en": "Games: CS2, PUBG, Genshin Impact"},
-    {"zh": "角色：小鸟游六花、井芹仁菜、多托雷", "en": "Characters: Rikka Takanashi, Nina Iseri, Il Dottore"},
-    {"zh": "音乐：中文 VOCALOID 早期抒情作品、《时间日记》、钢琴改编", "en": "Music: early Chinese VOCALOID ballads, Time Diary and piano arrangements"}
+    {
+      "zh": "游戏：樱之诗、CLANNAD、PUBG",
+      "en": "Games: Sakura no Uta, CLANNAD, PUBG"
+    },
+    {
+      "zh": "角色：井芹仁菜、小鸟游六花、三月七",
+      "en": "Characters: Nina Iseri, Rikka Takanashi, March 7th"
+    },
+    {
+      "zh": "音乐：VOCALOID抒情曲",
+      "en": "Music: VOCALOID ballads"
+    }
   ],
-  "questions": {"zh": "[待填写：想让访客向你提问的话题或提问入口]", "en": "[To fill: topics or a question page]"},
+  "questions": {
+    "zh": "请使用我对外开放的公开渠道进行提交留言，不要打扰到我的私人SNS，谢谢",
+    "en": "Please leave messages through my public channels. Please do not contact my private SNS accounts. Thank you."
+  },
   "skills": [
-    {"name": "C++", "value": null},
-    {"name": "Python", "value": null},
-    {"name": "Windows API", "value": null},
-    {"name": "GSI", "value": null},
-    {"name": "GDI+", "value": null},
-    {"name": "Tkinter", "value": null}
+    {
+      "name": {
+        "zh": "情报科学与基本原理",
+        "en": "Information science and fundamentals"
+      },
+      "short": {
+        "zh": "情报科学",
+        "en": "Information science"
+      },
+      "value": 58,
+      "color": "#66ccff",
+      "description": {
+        "zh": "写过程序，也做过项目，理论还在补。",
+        "en": "I have written programs and built projects; I am still working on the theory."
+      }
+    },
+    {
+      "name": {
+        "zh": "C++ Win32桌面开发",
+        "en": "C++ Win32 desktop development"
+      },
+      "short": {
+        "zh": "Win32开发",
+        "en": "Win32 development"
+      },
+      "value": 72,
+      "color": "#66ccff",
+      "description": {
+        "zh": "做得最多，也最顺手；不少经验是踩坑换来的。",
+        "en": "The work I do most and feel most comfortable with. Much of it was learned the hard way."
+      }
+    },
+    {
+      "name": {
+        "zh": "OI算法竞赛",
+        "en": "OI competitive programming"
+      },
+      "short": {
+        "zh": "OI算法",
+        "en": "OI algorithms"
+      },
+      "value": 25,
+      "color": "#66ccff",
+      "description": {
+        "zh": "刚起步，还得多刷题、补训练。",
+        "en": "Just getting started. I need more practice and training."
+      }
+    },
+    {
+      "name": {
+        "zh": "高等数学与理综",
+        "en": "Higher mathematics and integrated sciences"
+      },
+      "short": {
+        "zh": "数学与理综",
+        "en": "Math and sciences"
+      },
+      "value": 30,
+      "color": "#66ccff",
+      "description": {
+        "zh": "基础还没补齐，先把眼前的题做明白。",
+        "en": "Still filling gaps in the basics and working through one problem at a time."
+      }
+    },
+    {
+      "name": {
+        "zh": "抒情散文与记叙文创作",
+        "en": "Lyrical prose and narrative writing"
+      },
+      "short": {
+        "zh": "文学创作",
+        "en": "Creative writing"
+      },
+      "value": 76,
+      "color": "#66ccff",
+      "description": {
+        "zh": "喜欢把感受写下来，结构和取舍还要练。",
+        "en": "I like putting feelings into words. I still need to work on structure and knowing what to leave out."
+      }
+    },
+    {
+      "name": {
+        "zh": "音乐创作与VOCALOID创作",
+        "en": "Music and VOCALOID creation"
+      },
+      "short": {
+        "zh": "音乐创作",
+        "en": "Music creation"
+      },
+      "value": 64,
+      "color": "#66ccff",
+      "description": {
+        "zh": "喜欢琢磨旋律和编曲，也还在学怎么把歌做好。",
+        "en": "I like exploring melodies and arrangements, and I am still learning how to make a song work."
+      }
+    }
   ],
-  "experience": [{"title": {"zh": "[待填写：经历名称]", "en": "[To fill: experience title]"}, "description": {"zh": "[待填写：经历内容]", "en": "[To fill: experience description]"}, "url": ""}],
-  "blogUrl": "",
-  "sponsorUrl": "",
+  "experience": [
+    {
+      "title": {
+        "zh": "无损平方",
+        "en": "无损平方"
+      },
+      "struckTitle": {
+        "zh": "集团总裁",
+        "en": "集团总裁"
+      },
+      "titleSuffix": {
+        "zh": "团队",
+        "en": "Team"
+      },
+      "description": {
+        "zh": "领导人",
+        "en": "Leader"
+      },
+      "url": ""
+    }
+  ],
+  "sponsorUrl": "https://afdian.com/a/sangatsu_p",
   "socials": [
-    {"platform": "Discord", "label": {"zh": "进入社区", "en": "Join the community"}, "url": "https://discord.gg/cZffvnzmmX"},
-    {"platform": "GitHub", "label": "tomh500", "url": "https://github.com/tomh500"},
-    {"platform": "QQ", "label": {"zh": "[待填写：公开 QQ 联系方式]", "en": "[To fill: public QQ contact]"}, "url": ""},
-    {"platform": "哔哩哔哩", "label": "UID 511242952", "url": "https://space.bilibili.com/511242952"},
-    {"platform": "Telegram", "label": {"zh": "[待填写：Telegram 账号]", "en": "[To fill: Telegram account]"}, "url": ""},
-    {"platform": "Email", "label": {"zh": "[待填写：公开邮箱]", "en": "[To fill: public email]"}, "url": ""}
+    {
+      "platform": "Discord",
+      "label": {
+        "zh": "进入社区",
+        "en": "Join the community"
+      },
+      "url": "https://discord.gg/cZffvnzmmX"
+    },
+    {
+      "platform": "GitHub",
+      "label": "tomh500",
+      "url": "https://github.com/tomh500"
+    },
+    {
+      "platform": "QQ",
+      "label": {
+        "zh": "不对外公开",
+        "en": "Not public"
+      },
+      "url": "",
+      "unavailable": {
+        "zh": "不对外公开",
+        "en": "Not public"
+      }
+    },
+    {
+      "platform": "哔哩哔哩",
+      "label": "UID 511242952",
+      "url": "https://space.bilibili.com/511242952"
+    },
+    {
+      "platform": "Telegram",
+      "label": "@March7d",
+      "url": "https://t.me/March7d"
+    },
+    {
+      "platform": "Email",
+      "label": "sangatsu_p@luotiany1.top",
+      "url": "mailto:sangatsu_p@luotiany1.top"
+    }
   ],
-  "websites": [{"name": "luotiany1.top", "url": "https://luotiany1.top"}, {"name": "StrikeSense", "url": "https://tomh500.github.io/StrikeSense/"}],
-  "friends": [{"name": {"zh": "[待填写：朋友的网站]", "en": "[To fill: a friend's website]"}, "description": {"zh": "[待填写：友链介绍]", "en": "[To fill: description]"}, "url": "", "avatar": "images/placeholder.svg"}],
-  "music": {"title": "时间日记", "artist": "洛天依", "src": "bgm.ogg"}
+  "websites": [
+    {
+      "name": "StrikeSense",
+      "url": "https://tomh500.github.io/StrikeSense/"
+    },
+    {
+      "name": "StrikeBounce",
+      "url": "",
+      "note": {
+        "zh": "开发中",
+        "en": "In development"
+      }
+    }
+  ],
+  "friends": [
+    {
+      "name": {
+        "zh": "遥汐的网站",
+        "en": "YaoXi's website"
+      },
+      "description": {
+        "zh": "遥汐",
+        "en": "YaoXi"
+      },
+      "url": "https://kldhsh.top/",
+      "avatar": "images/friends/yaoxi.jpg"
+    }
+  ],
+  "music": {
+    "title": "时间日记",
+    "artist": "洛天依",
+    "src": "bgm.ogg"
+  },
+  "experienceJoke": {
+    "opening": {
+      "zh": "【还没有从中二病毕业吗？真是的 拿你没办法，那就听好了",
+      "en": "【还没有从中二病毕业吗？真是的 拿你没办法，那就听好了"
+    },
+    "companies": [
+      "无损平方集团黄焖鸡科技有限公司",
+      "无损平方集团餐饮服务有限公司",
+      "无损平方集团圣旮旯网络科技有限公司",
+      "无损平方集团小可爱美容美发有限公司",
+      "无损平方集团新视野教育培训有限公司"
+    ],
+    "closing": {
+      "zh": "】",
+      "en": "】"
+    },
+    "afterword": {
+      "zh": "满意了吗 总之 上述的东西都是不存在的，还是好好地给我学数学啊喂！",
+      "en": "满意了吗 总之 上述的东西都是不存在的，还是好好地给我学数学啊喂！"
+    }
+  },
+  "poem": "它若是虚无的话，虚无本身即是如此\n至某种程度相通于众生\n\n如同一切是我中的众生\n故也是众生各自中的一切"
 }

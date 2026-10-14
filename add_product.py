@@ -43,7 +43,7 @@ def main():
     default_id = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-") or "project-" + uuid.uuid4().hex[:8]
     project = {"id": ask("项目 ID（回车使用默认）: ", default_id), "name": name}
     project["category"] = ask_choice("分类 desktop / games / music [desktop]: ", ["desktop", "games", "music"], "desktop")
-    label = ask_choice("标签 new / legacy / none [none]: ", ["new", "legacy", "none"], "none")
+    label = ask_choice("标签 new / hot / legacy / none [none]: ", ["new", "hot", "legacy", "none"], "none")
     if label != "none":
         project["label"] = label
     image = ask("本地封面路径（如 images/product/my-app.svg）: ")

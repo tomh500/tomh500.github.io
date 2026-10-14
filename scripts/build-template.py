@@ -43,6 +43,8 @@ def label(node, value):
     for child in list(node.children):
         if isinstance(child, NavigableString):
             child.extract()
+        elif child.name == 'span' and child.has_attr('data-zh'):
+            child.decompose()
     span = soup_text('<span></span>').span
     fill(span, value)
     node.append(span)
@@ -98,8 +100,7 @@ def prepare(page):
     for a in nav.select('a'):
         href = a.get('href', '')
         if href.startswith('https://blog.'):
-            label(a, {'zh': '博客' if CONTENT['blogUrl'] else '博客 · 待填写', 'en': 'Blog' if CONTENT['blogUrl'] else 'Blog · To fill'})
-            bind_link(a, CONTENT['blogUrl'])
+            a.decompose()
         elif href in ['/', '/about', '/projects', '/social']:
             a['href'] = href if href == '/' else href + '/'
             if (href.strip('/') or 'home') == page:
@@ -148,32 +149,35 @@ def home(s):
     latest = add('<a href="/projects/" class="text-sm text-pink-600 dark:text-pink-300"></a>')
     fill(latest, {'zh': '最新作品 · ' + PROJECTS[0]['name'], 'en': 'Latest project · ' + PROJECTS[0]['name']})
     loading.append(latest)
-    music = add('<div class="template-music bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6"><span></span><button class="bg-pink-500 text-white rounded-md px-4 py-2" data-action="music" aria-label="播放音乐">播放</button><audio loop preload="none"></audio><p role="status" aria-live="polite"></p></div>')
+
+def persistent_music(s):
+    music = add('<div id="music-player" class="template-music bg-white dark:bg-gray-800 rounded-lg shadow-lg"><span></span><button class="bg-pink-500 text-white rounded-md px-4 py-2" data-action="music" aria-label="播放音乐">播放</button><p role="status" aria-live="polite"></p></div>')
     fill(music.span, CONTENT['music']['title'] + ' · ' + CONTENT['music']['artist'])
-    music.audio['src'] = '/' + CONTENT['music']['src']
-    main.append(music)
+    s.body.append(music)
+    audio = s.new_tag('audio', id='site-audio', loop='', preload='none', src='/' + CONTENT['music']['src'])
+    s.body.append(audio)
 
 def make_tabs(s, section):
     desktop, mobile = section.select_one('.hidden.md\\:flex'), section.select_one('.md\\:hidden')
     template_card = deepcopy(desktop.select_one('.flex-1 > .space-y-6 > div'))
-    # Personality is taken from the user's ChatGPT memory. Numeric scores are not.
+    # These five values and their scale directions were supplied by the owner.
     fill(template_card.h3, CONTENT['personality']['type'])
     rows = template_card.select_one('.space-y-5')
-    sample = deepcopy(rows.find('div', recursive=False))
     rows.clear()
     for dimension in CONTENT['personality']['dimensions']:
-        row = deepcopy(sample)
-        spans = row.select('.flex > span')
-        fill(spans[0], dimension)
         value = dimension.get('value')
-        fill(spans[1], str(value) + '%' if value is not None else {'zh': '待填写', 'en': 'To fill'})
+        row = add('<div class="personality-scale"><div class="scale-score"></div><div class="scale-rail" role="progressbar"><span class="scale-marker"></span></div><div class="scale-poles"><span></span><span></span></div></div>')
+        position = 100 - value if dimension.get('pole') == 'left' else value
+        row['style'] = '--scale-color:' + dimension['color'] + ';--scale-position:' + str(position) + '%'
+        fill(row.select_one('.scale-score'), {'zh': str(value) + '% ' + dimension['zh'], 'en': str(value) + '% ' + dimension['en']})
+        poles = row.select('.scale-poles > span')
+        fill(poles[0], dimension['left'])
+        fill(poles[1], dimension['right'])
         bar = row.select_one('[role="progressbar"]')
         bar['aria-label'] = dimension['zh']
-        if value is None:
-            bar.attrs.pop('aria-valuenow', None)
-        else:
-            bar['aria-valuenow'] = str(value)
-        bar.div['style'] = 'width:' + str(value or 0) + '%'
+        bar['aria-valuenow'] = str(value)
+        bar['aria-valuemin'] = '0'
+        bar['aria-valuemax'] = '100'
         rows.append(row)
     fill(template_card.select_one('h4 + p'), CONTENT['personality']['description'])
     template_card.select_one('.pt-4.pb-2').decompose()
@@ -234,24 +238,40 @@ def about(s):
     else:
         sponsor.clear()
         fill(sponsor, {'zh': '[待填写：赞助链接]', 'en': '[To fill: support link]'})
+    blocks[4]['class'].append('skills-experience-grid')
     skill_card, work_card = blocks[4].find_all('div', recursive=False)
+    skill_card['id'] = 'skills'
     skill_rows = skill_card.select_one('.space-y-6')
-    sample = deepcopy(skill_rows.find('div', recursive=False))
     skill_rows.clear()
+    radar = add('<div class="skills-radar" data-radar></div>')
+    skill_rows.append(radar)
+    assessment = add('<p class="skill-assessment text-sm text-gray-500 dark:text-gray-400"></p>')
+    fill(assessment, {'zh': '主观评估 · 100分制', 'en': 'Self-assessment · out of 100'})
+    skill_rows.append(assessment)
     for skill in CONTENT['skills']:
-        row = deepcopy(sample)
-        spans = row.select('span')
+        row = add('<div class="skill-row"><div class="skill-heading"><span></span><span></span></div><div class="skill-track" role="progressbar"><div></div></div><p></p></div>')
+        row['style'] = '--skill-color:' + skill['color']
+        spans = row.select('.skill-heading > span')
         fill(spans[0], skill['name'])
         level = skill.get('value')
-        fill(spans[1], str(level) + '%' if level is not None else {'zh': '熟练度待填写', 'en': 'Proficiency: to fill'})
-        row.select_one('[style]')['style'] = 'width:' + str(level or 0) + '%'
+        fill(spans[1], str(level) + '/100')
+        bar = row.select_one('.skill-track')
+        bar['aria-label'] = skill['name']['zh']
+        bar['aria-valuenow'] = str(level)
+        bar['aria-valuemin'] = '0'
+        bar['aria-valuemax'] = '100'
+        bar.div['style'] = 'width:' + str(level) + '%'
+        fill(row.p, skill['description'])
         skill_rows.append(row)
     work_rows = work_card.select_one('.space-y-6')
     sample = deepcopy(work_rows.find('div', recursive=False))
     work_rows.clear()
     for exp in CONTENT['experience']:
         row = deepcopy(sample)
-        fill(row.h3, exp['title'])
+        row.h3.clear()
+        row.h3.append(fill(add('<span></span>'), exp['title']))
+        row.h3.append(fill(add('<del class="struck-title"></del>'), exp['struckTitle']))
+        row.h3.append(fill(add('<span></span>'), exp['titleSuffix']))
         fill(row.p, exp['description'])
         if exp['url']:
             bind_link(row.a, exp['url'])
@@ -259,14 +279,35 @@ def about(s):
         else:
             row.a.parent.decompose()
         work_rows.append(row)
+    joke = add('<div class="experience-joke"><p></p><div class="joke-companies"></div><p></p><p class="joke-afterword"></p></div>')
+    paragraphs = joke.find_all('p', recursive=False)
+    fill(paragraphs[0], CONTENT['experienceJoke']['opening'])
+    for company in CONTENT['experienceJoke']['companies']:
+        joke.select_one('.joke-companies').append(fill(add('<p></p>'), company))
+    fill(paragraphs[1], CONTENT['experienceJoke']['closing'])
+    fill(paragraphs[2], CONTENT['experienceJoke']['afterword'])
+    work_rows.append(joke)
+    poem = add('<section class="poem-card rounded-lg border bg-white dark:bg-gray-800 border-pink-200 dark:border-pink-800"><blockquote></blockquote></section>')
+    fill(poem.blockquote, CONTENT['poem'])
+    main.append(poem)
 
 def projects(s):
-    grid = body_main(s).find_all('div', recursive=False)[1]
+    main = body_main(s)
+    grid = main.find_all('div', recursive=False)[1]
+    grid['id'] = 'project-grid'
+    toolbar = add('<div class="project-toolbar"><label class="project-search"><svg class="search-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg><span class="sr-only" data-zh="搜索项目" data-en="Search projects">搜索项目</span><input id="project-search" type="search" placeholder="搜索项目名称或描述…" data-placeholder-zh="搜索项目名称或描述…" data-placeholder-en="Search projects by name or description…" autocomplete="off"/></label><label class="project-select"><span data-zh="分类" data-en="Category">分类</span><select id="project-category"><option value="all" data-zh="全部" data-en="All">全部</option><option value="desktop" data-zh="桌面工具" data-en="Desktop tools">桌面工具</option><option value="games" data-zh="游戏" data-en="Games">游戏</option><option value="music" data-zh="音乐" data-en="Music">音乐</option></select></label><label class="project-select"><span data-zh="标签" data-en="Tags">标签</span><select id="project-tag"><option value="all" data-zh="全部" data-en="All">全部</option><option value="new" data-zh="新" data-en="New">新</option><option value="hot" data-zh="热" data-en="Hot">热</option><option value="legacy" data-zh="遗产" data-en="Legacy">遗产</option></select></label></div>')
+    grid.insert_before(toolbar)
+    count = add('<p id="project-count" role="status" aria-live="polite"></p>')
+    grid.insert_before(count)
     sample = deepcopy(grid.find('div', recursive=False))
     grid.clear()
     for project in PROJECTS:
         card = deepcopy(sample)
         card['data-project'] = project['id']
+        tags = project.get('tags', []) or ([project['label']] if project.get('label') else [])
+        card['data-tags'] = ' '.join(tags)
+        card['data-category'] = project['category']
+        card['data-search'] = ' '.join([project['name'], project['description']['zh'], project['description']['en']]).lower()
         card.img['src'] = '/' + project['image']
         card.img['alt'] = project['name']
         card.img['loading'] = 'lazy'
@@ -276,8 +317,14 @@ def projects(s):
         parts[2].clear()
         if project.get('note'):
             parts[2].append(fill(add('<p class="text-sm text-gray-500 dark:text-gray-400"></p>'), project['note']))
-        if project.get('label'):
-            parts[1].append(fill(add('<span class="project-badge text-sm text-pink-600 dark:text-pink-300"></span>'), {'zh': '新' if project['label'] == 'new' else '已归档', 'en': project['label'].upper()}))
+        if tags:
+            badges = add('<div class="project-badges"></div>')
+            for tag in tags:
+                badge = add('<span class="project-badge"></span>')
+                badge['class'].append('tag-' + tag)
+                fill(badge, {'zh': {'new':'新', 'hot':'热', 'legacy':'遗产'}[tag], 'en': tag.upper()})
+                badges.append(badge)
+            parts[1].insert(1, badges)
         action = parts[3].a
         button = action.button
         # Unwrap nested button elements to make the original card action accessible.
@@ -294,12 +341,11 @@ def projects(s):
             bind_link(action, project['url'])
             label(action, {'zh': '访问项目', 'en': 'Visit'})
         grid.append(card)
+    empty = add('<div id="project-empty" class="project-empty" hidden><p data-zh="没有找到匹配的项目。" data-en="No matching projects.">没有找到匹配的项目。</p><button data-action="reset-search" data-zh="查看全部项目" data-en="Show all projects">查看全部项目</button></div>')
+    main.append(empty)
     dialog = add('<dialog id="download-dialog"><div class="download-heading"><h2 id="download-title"></h2><button data-action="close-dialog" aria-label="关闭">×</button></div><p id="download-note"></p><div id="download-routes"></div><p id="download-status" role="status" aria-live="polite"></p></dialog>')
     dialog['aria-labelledby'] = 'download-title'
     s.body.append(dialog)
-    data = s.new_tag('script', type='application/json', id='project-data')
-    data.string = json.dumps(PROJECTS, ensure_ascii=False).replace('<', '\\u003c')
-    s.body.append(data)
 
 def social(s):
     blocks = body_main(s).find_all('div', recursive=False)
@@ -314,17 +360,23 @@ def social(s):
         bind_link(card, entry['url'])
         if entry['url']:
             label(button, {'zh': '与我联系', 'en': 'Get in touch'})
+        else:
+            label(button, entry.get('unavailable', {'zh':'待填写', 'en':'To fill'}))
         button.name = 'span'
         button.attrs.pop('disabled', None)
+        if not entry['url'] and entry.get('unavailable'):
+            button.decompose()
     site_grid = blocks[2].select_one('.grid')
     sample = deepcopy(site_grid.a)
     site_grid.clear()
     for site in CONTENT['websites']:
         a = deepcopy(sample)
-        a['href'] = site['url']
         label(a.button, site['name'])
         a['class'] = a.button['class']
         a.button.unwrap()
+        bind_link(a, site['url'])
+        if site.get('note'):
+            a.append(fill(add('<small class="website-note"></small>'), site['note']))
         site_grid.append(a)
     friend_grid = blocks[3].select_one('.grid')
     sample = deepcopy(friend_grid.a)
@@ -333,14 +385,15 @@ def social(s):
         a = deepcopy(sample)
         fill(a.h3, friend['name'])
         ps = a.select('p')
-        fill(ps[0], '')
+        ps[0].decompose()
         fill(ps[1], friend['description'])
         a.img['src'] = '/' + friend['avatar']
-        a.img['alt'] = '友链头像'
+        a.img['alt'] = (friend['name']['zh'] if isinstance(friend['name'], dict) else friend['name']) + '的头像'
         bind_link(a, friend['url'])
         friend_grid.append(a)
 
 def finish(s, page):
+    persistent_music(s)
     # All static UI text also gets a language pair, without rebuilding any layout.
     for text in list(s.body.find_all(string=True)):
         value = str(text).strip()
@@ -358,6 +411,10 @@ def finish(s, page):
     nested_main = s.select('main main')
     for element in nested_main:
         element.name = 'div'
+    s.select_one('main')['tabindex'] = '-1'
+    data = s.new_tag('script', type='application/json', id='site-data')
+    data.string = json.dumps({'projects': PROJECTS, 'skills': CONTENT['skills']}, ensure_ascii=False).replace('<', '\\u003c')
+    s.body.append(data)
     # Correct SVG attribute case lowered by Python's HTML parser.
     for svg in s.select('svg'):
         if 'viewbox' in svg.attrs:

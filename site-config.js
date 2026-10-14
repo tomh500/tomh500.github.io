@@ -18,7 +18,7 @@ window.SITE_CONFIG = {
       description: { zh: '无损、快速地将文件移动到别的地方，腾出 C 盘空间。FreeMove 的增强体验版。', en: 'Move files to another location without loss and free up your C drive. An enhanced take on FreeMove.' },
       routes: [{ name: { zh: 'GitHub 项目与下载', en: 'Project & downloads on GitHub' }, url: 'https://github.com/tomh500/SquareMove' }]
     },
-    { id: 'strikesense', name: 'StrikeSense', category: 'games', image: 'images/product/gsi.png',
+    { id: 'strikesense', name: 'StrikeSense', category: 'games', label: 'hot', image: 'images/product/gsi.png',
       description: { zh: '高性能、不包含云控的 CS2 GSI 客户端，支持自定义音乐盒与击杀音效等功能。', en: 'A high-performance CS2 GSI client without remote cloud control, with custom music kits and kill sounds.' },
       url: 'https://tomh500.github.io/StrikeSense/'
     },
