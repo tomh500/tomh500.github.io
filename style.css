@@ -1,4 +1,8 @@
 /* The downloaded template stylesheet owns the layout. */
+.community-post { margin-block: 1rem; border: 1px solid #b9e9ff; border-radius: .75rem; }
+.community-post > summary { padding: 1rem 1.25rem; cursor: pointer; font-weight: 600; }
+.community-post .blog-post { border: 0; border-top: 1px solid #b9e9ff; border-radius: 0 0 .75rem .75rem; }
+.dark .community-post, .dark .community-post .blog-post { border-color: #28536b; }
 .blog-layout { max-width: 66rem; margin: auto; padding: 7rem 1.5rem 4rem; }
 .blog-heading { margin-bottom: 2.5rem; }
 .blog-kicker { color: #17678b; font-size: .75rem; letter-spacing: .18em; margin-bottom: 1rem; }

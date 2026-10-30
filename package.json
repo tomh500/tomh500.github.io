@@ -2,6 +2,8 @@
   "name": "lemoe-blog",
   "private": true,
   "scripts": {
+    "build:editor": "node scripts/build-editor.cjs",
+    "predeploy:backend": "npm run build:editor",
     "test": "node --test backend/tests/*.test.mjs",
     "dev:backend": "wrangler dev --config backend/wrangler.jsonc",
     "db:local": "wrangler d1 migrations apply DB --local --config backend/wrangler.jsonc",
@@ -12,6 +14,8 @@
     "wrangler": "^4.0.0"
   },
   "dependencies": {
-    "markdown-it": "14.3.3"
+    "dompurify": "3.4.17",
+    "markdown-it": "14.3.3",
+    "turndown": "7.2.4"
   }
 }

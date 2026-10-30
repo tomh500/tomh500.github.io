@@ -2,6 +2,8 @@
 
 新增博客和留言板：前台仍由 GitHub Pages 托管，`backend/` 提供 Cloudflare Worker + D1 写作台、GitHub 登录、留言审核及发布到仓库。配置和上线步骤见 [backend/DEPLOY.md](backend/DEPLOY.md)。在 `blog-config.json` 配置后台域名前，留言显示准备中；已有静态页面仍可正常浏览。
 
+写作台默认使用可视编辑，支持排版按钮、图片上传/粘贴、大图自动压缩和 Markdown 源码切换。访客登录后可保存个人草稿并投稿；站长审核通过后仅展示在 `/community/`，默认折叠，不进入站长博客列表。投稿修改后需要重新审核，未发布的上传图片仅作者和站长可读。
+
 `content/posts/*.json` 只保存已发布文章；草稿保存在 D1。`npm test` 验证后台权限、草稿冲突、审核、登录状态及发布行为。写作台支持手机浏览器，无需打开 GitHub 编写文章；目前是网页应用，尚未提供原生 App。
 
 当前在 `nextgen` 部署分支直接使用 **kldhsh.top 下载页面模板**，将个人资料和项目逐项替换，配色改为 `#66ccff`。原始下载文件保存在 `template/upstream/`，详细来源与适配说明见 `template/README.md`。

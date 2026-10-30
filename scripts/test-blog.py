@@ -20,6 +20,8 @@ with tempfile.TemporaryDirectory() as folder:
     posts.mkdir(parents=True)
     fixture = {'slug':'test-story','title':'Title <script>','summary':'A test story','tags':['C++'], 'body':'# Hello\n\n<script>alert(1)</script>\n\n[bad](javascript:alert(1))\n\n**Strong** text', 'publishedAt':'2026-10-30T00:00:00.000Z','updatedAt':'2026-10-30T00:00:00.000Z'}
     (posts / 'test-story.json').write_text(json.dumps(fixture), encoding='utf-8')
+    visitor={**fixture,'slug':'guest-story','title':'Visitor story','community':True,'author':'reader'}
+    (posts / 'guest-story.json').write_text(json.dumps(visitor),encoding='utf-8')
     build.ROOT = target
     build.blogs()
     article = target / 'blog' / 'test-story' / 'index.html'
@@ -30,6 +32,13 @@ with tempfile.TemporaryDirectory() as folder:
     assert soup.select_one('h1').get_text() == fixture['title']
     assert soup.select_one('[data-comments]')['data-thread'] == 'post:test-story'
     assert 'Lemoe Serina' in soup.select_one('.blog-post-meta')['data-en']
+    blog=BeautifulSoup((target/'blog/index.html').read_text(encoding='utf-8'),'html.parser')
+    assert 'Visitor story' not in blog.get_text()
+    community=BeautifulSoup((target/'community/index.html').read_text(encoding='utf-8'),'html.parser')
+    assert community.select_one('details.community-post') is not None
+    assert not community.select_one('details.community-post').has_attr('open')
+    assert (target/'community/guest-story/index.html').exists()
+    assert not (target/'blog/guest-story/index.html').exists()
     for page in ['blog/index.html', 'guestbook/index.html']:
         html = BeautifulSoup((target / page).read_text(encoding='utf-8'), 'html.parser')
         assert html.select_one('a[href="/blog/"]') and html.select_one('a[href="/guestbook/"]')

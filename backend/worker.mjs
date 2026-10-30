@@ -1,6 +1,34 @@
 import MarkdownIt from 'markdown-it';
-const markdown = new MarkdownIt({ html: false, linkify: false, breaks: false });
 const encoder = new TextEncoder();
+const imageLimit = 1024 * 1024;
+function base64(bytes) {
+  const chunks = [];
+  for (let offset = 0; offset < bytes.length; offset += 8192) chunks.push(String.fromCharCode(...bytes.subarray(offset, offset + 8192)));
+  return btoa(chunks.join(''));
+}
+export function imageType(bytes) {
+  const starts = values => values.every((value, i) => bytes[i] === value);
+  if (starts([137,80,78,71,13,10,26,10])) return 'png';
+  if (starts([255,216,255])) return 'jpg';
+  const head = new TextDecoder().decode(bytes.subarray(0,12));
+  if (head.startsWith('GIF87a') || head.startsWith('GIF89a')) return 'gif';
+  if (head.startsWith('RIFF') && head.slice(8,12) === 'WEBP') return 'webp';
+  return null;
+}
+async function boundedBytes(request, limit) {
+  if (Number(request.headers.get('Content-Length')) > limit) fail(413, '图片最大支持 1 MB，请压缩后重试');
+  if (!request.body) fail(400, '未选择图片');
+  const reader = request.body.getReader(), chunks = []; let length = 0;
+  for (;;) {
+    const { value, done } = await reader.read(); if (done) break;
+    length += value.length;
+    if (length > limit) { await reader.cancel(); fail(413, '图片最大支持 1 MB，请压缩后重试'); }
+    chunks.push(value);
+  }
+  const bytes = new Uint8Array(length); let offset = 0;
+  for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; }
+  return bytes;
+}
 const now = () => Math.floor(Date.now() / 1000);
 const random = () => Array.from(crypto.getRandomValues(new Uint8Array(32)), b => b.toString(16).padStart(2, '0')).join('');
 export const hash = async value => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(value))), b => b.toString(16).padStart(2, '0')).join('');
@@ -86,10 +114,56 @@ async function auth(request, env, url) {
   headers.append('Set-Cookie', setCookie('__Host-lemoe-oauth', '', 0));
   return new Response(null, { status: 302, headers });
 }
-async function publish(env, slug, unpublish) {
+async function savePost(request, env, me) {
+  const data = await body(request);
+  if (!validSlug(data.slug)) fail(400, '文章地址只能用小写字母、数字、短横线，最长 80 位');
+  let slug = data.slug;
+  if (!me.admin && !slug.startsWith(`guest-${me.id}-`)) slug = `guest-${me.id}-${slug}`;
+  if (!validSlug(slug)) fail(400, '文章地址过长，请使用更短的地址');
+  if (!Array.isArray(data.tags) || data.tags.length > 8 || data.tags.some(t => typeof t !== 'string' || t.length > 24)) fail(400, '标签格式不正确');
+  const title=text(data.title,160),summary=text(data.summary,500,false),content=text(data.body,60000),version=Number(data.version||0),stamp=new Date().toISOString();
+  if (!Number.isSafeInteger(version) || version<0) fail(400,'版本不正确');
+  const existing=await env.DB.prepare('SELECT author_id FROM posts WHERE slug=?').bind(slug).first();
+  if(existing && (existing.author_id || env.ADMIN_GITHUB_ID)!==me.id) fail(403,'只能编辑自己的文章');
+  let result;
+  if(version===0){
+    if(!me.admin){const count=await env.DB.prepare('SELECT COUNT(*) n FROM posts WHERE author_id=?').bind(me.id).first();if(count.n>=50)fail(429,'投稿最多保留 50 篇，请联系站长整理');}
+    result=await env.DB.prepare("INSERT INTO posts (slug,title,summary,tags,body,version,updated_at,author_id) VALUES (?,?,?,?,?,1,?,?) ON CONFLICT(slug) DO NOTHING").bind(slug,title,summary,JSON.stringify(data.tags),content,stamp,me.id).run();
+  }else{
+    result=await env.DB.prepare("UPDATE posts SET title=?,summary=?,tags=?,body=?,version=version+1,updated_at=?,review_state='draft',submitted_version=NULL,review_note='' WHERE slug=? AND version=? AND COALESCE(author_id,?)=?").bind(title,summary,JSON.stringify(data.tags),content,stamp,slug,version,env.ADMIN_GITHUB_ID,me.id).run();
+  }
+  if(!result.meta.changes)fail(409,'地址已存在或草稿已更新，请重新打开文章后重试');
+  return json({slug,version:version+1});
+}
+async function publicImages(env, post) {
+  let content=post.body;
+  const prefix=env.API_ORIGIN+'/api/writing/images/';
+  const escaped=prefix.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const ids=[...new Set([...content.matchAll(new RegExp(escaped+'([a-f0-9-]{36})','g'))].map(m=>m[1]))];
+  if(ids.length>20)fail(400,'每篇文章最多使用 20 张上传图片');
+  for(const id of ids){
+    const image=await env.DB.prepare('SELECT * FROM images WHERE id=? AND user_id=?').bind(id,post.author_id||env.ADMIN_GITHUB_ID).first();
+    if(!image)fail(400,'文章中包含无权使用或已失效的图片');
+    const filePath=image.public_path||`images/blog/${image.id}.${image.extension}`;
+    if(!image.public_path){
+      try { await github(env,`/repos/${env.GITHUB_REPOSITORY}/contents/${filePath}`,{method:'PUT',body:JSON.stringify({message:'Publish approved blog image',branch:env.GITHUB_BRANCH,content:image.data})}); }
+      catch(e){
+        if(e.status!==409)throw e;
+        const existing=await github(env,`/repos/${env.GITHUB_REPOSITORY}/contents/${filePath}?ref=${encodeURIComponent(env.GITHUB_BRANCH)}`);
+        if(existing.content?.replace(/\s/g,'')!==image.data)throw e;
+      }
+      await env.DB.prepare("UPDATE images SET public_path=?,data='' WHERE id=?").bind(filePath,id).run();
+    }
+    content=content.replaceAll(prefix+id,env.SITE_ORIGIN+'/'+filePath);
+  }
+  return content;
+}
+async function publish(env, slug, unpublish, expectedVersion) {
   if (!env.GITHUB_PUBLISH_TOKEN) fail(503, '尚未配置 GitHub 发布凭据');
   const post = await env.DB.prepare('SELECT * FROM posts WHERE slug=?').bind(slug).first();
   if (!post) fail(404, '文章不存在');
+  const community=!!post.author_id && post.author_id!==env.ADMIN_GITHUB_ID;
+  if(community&&!unpublish&&(post.review_state!=='pending'||post.submitted_version!==post.version||expectedVersion!==post.version))fail(409,'投稿已修改或尚未提交审核，请刷新后重新审核');
   const path = `/repos/${env.GITHUB_REPOSITORY}/contents/content/posts/${slug}.json`;
   // A missing file is expected for the first publication; other errors must not be ignored.
   const existing = await fetch('https://api.github.com' + path + '?ref=' + encodeURIComponent(env.GITHUB_BRANCH), { headers: { 'Accept': 'application/vnd.github+json', 'User-Agent': 'Lemoe-Blog', 'Authorization': `Bearer ${env.GITHUB_PUBLISH_TOKEN}` } });
@@ -100,16 +174,17 @@ async function publish(env, slug, unpublish) {
     if (file) await github(env, path, { method: 'DELETE', body: JSON.stringify({ message: `Unpublish ${slug}`, sha: file.sha, branch: env.GITHUB_BRANCH }) });
     await env.DB.prepare('UPDATE posts SET published_at=NULL,published_version=NULL WHERE slug=?').bind(slug).run();
   } else {
-    const published = { slug, title: post.title, summary: post.summary, tags: JSON.parse(post.tags), body: post.body, publishedAt: date, updatedAt: post.updated_at };
+    const author=await env.DB.prepare('SELECT login FROM users WHERE id=?').bind(post.author_id||env.ADMIN_GITHUB_ID).first();
+    const published = { slug, title: post.title, summary: post.summary, tags: JSON.parse(post.tags), body: await publicImages(env,post), publishedAt: date, updatedAt: post.updated_at, community, author:author?.login||'tomh500' };
     const bytes = encoder.encode(JSON.stringify(published, null, 2) + '\n');
-    const result = await github(env, path, { method: 'PUT', body: JSON.stringify({ message: `Publish ${slug}`, content: btoa(Array.from(bytes, b => String.fromCharCode(b)).join('')), ...(file ? { sha: file.sha } : {}), branch: env.GITHUB_BRANCH }) });
-    await env.DB.prepare('UPDATE posts SET published_at=?,published_version=? WHERE slug=?').bind(date, post.version, slug).run();
+    const result = await github(env, path, { method: 'PUT', body: JSON.stringify({ message: `Publish ${slug}`, content: base64(bytes), ...(file ? { sha: file.sha } : {}), branch: env.GITHUB_BRANCH }) });
+    await env.DB.prepare("UPDATE posts SET published_at=?,published_version=?,review_state=CASE WHEN version=? THEN 'approved' ELSE review_state END WHERE slug=?").bind(date,post.version,post.version,slug).run();
     return json({ message: '已提交到 GitHub，等待 Pages 构建上线', commit: result.commit.sha });
   }
   return json({ message: '已提交下线请求，Pages 构建完成后生效；草稿保留' });
 }
 async function route(request, env) {
-  const url = new URL(request.url), path = url.pathname;
+  const url = new URL(request.url); let path = url.pathname;
   if (request.method === 'OPTIONS') return new Response(null, { status: 204 });
   if (!['GET', 'HEAD'].includes(request.method)) {
     // Reject cross-site writes, including form submissions. Session cookies are never enough on their own.
@@ -147,35 +222,83 @@ async function route(request, env) {
     if (!result.meta.changes) fail(429, '请稍等 30 秒后再留言');
     return json({ message: me.admin ? '回复已公开' : '留言已提交，审核通过后公开' }, 201);
   }
+  const writing=path.startsWith('/api/writing/');
+  if(writing){
+    const me=await user(request,env);
+    const image=path.match(/^\/api\/writing\/images\/([a-f0-9-]{36})$/);
+    if(image&&request.method==='GET'){
+      const row=await env.DB.prepare('SELECT * FROM images WHERE id=?').bind(image[1]).first();
+      if(!row||(!me.admin&&row.user_id!==me.id))fail(404,'图片不存在');
+      if(row.public_path)return Response.redirect(`https://raw.githubusercontent.com/${env.GITHUB_REPOSITORY}/${encodeURIComponent(env.GITHUB_BRANCH)}/${row.public_path}`,302);
+      return new Response(Uint8Array.from(atob(row.data),c=>c.charCodeAt(0)),{headers:{'Content-Type':`image/${row.extension==='jpg'?'jpeg':row.extension}`,'Content-Disposition':'inline'}});
+    }
+    if(path==='/api/writing/posts'&&request.method==='GET'){
+      const rows=await env.DB.prepare('SELECT * FROM posts WHERE COALESCE(author_id,?)=? ORDER BY updated_at DESC LIMIT 200').bind(env.ADMIN_GITHUB_ID,me.id).all();
+      return json({posts:rows.results.map(p=>({...p,tags:JSON.parse(p.tags)}))});
+    }
+    if(path==='/api/writing/posts'&&request.method==='POST')return savePost(request,env,me);
+    const submit=path.match(/^\/api\/writing\/posts\/([a-z0-9-]+)\/submit$/);
+    if(submit&&request.method==='POST'){
+      const data=await body(request);
+      const result=await env.DB.prepare("UPDATE posts SET review_state='pending',submitted_version=version,review_note='' WHERE slug=? AND author_id=? AND version=? AND (published_version IS NULL OR published_version<>version)").bind(submit[1],me.id,Number(data.version)).run();
+      if(!result.meta.changes)fail(409,'草稿已变化或已经发布，请重新打开文章');
+      return json({message:'投稿已提交，站长审核通过后会展示在访客投稿页面'});
+    }
+    if(!['/api/writing/images','/api/writing/preview'].includes(path))fail(404,'接口不存在');
+    path=path.replace('/api/writing/','/api/admin/');
+  }
   if (path.startsWith('/api/admin/')) {
-    await user(request, env, true);
+    const me=await user(request, env, !writing);
+    if (path === '/api/admin/images' && request.method === 'POST') {
+      const contentType = request.headers.get('Content-Type') || '';
+      if (!contentType.startsWith('multipart/form-data;')) fail(415, '请选择图片文件');
+      const bytes = await boundedBytes(request, imageLimit + 65536);
+      let form;
+      try { form = await new Response(bytes, { headers: { 'Content-Type': contentType } }).formData(); }
+      catch { fail(400, '图片上传格式不正确'); }
+      const file = form.get('image');
+      if (!file || typeof file.arrayBuffer !== 'function' || !file.size) fail(400, '未选择图片');
+      if (file.size > imageLimit) fail(413, '图片最大支持 1 MB，请压缩后重试');
+      const data = new Uint8Array(await file.arrayBuffer()), extension = imageType(data);
+      if (!extension) fail(415, '仅支持 PNG、JPEG、GIF、WebP 图片');
+      const id=crypto.randomUUID();
+      const saved=await env.DB.prepare('INSERT INTO images (id,user_id,extension,data,size,created) SELECT ?,?,?,?,?,? WHERE (SELECT COALESCE(SUM(size),0) FROM images WHERE user_id=? AND public_path IS NULL)+?<=? AND (SELECT COUNT(*) FROM images WHERE user_id=? AND created>?)<10').bind(id,me.id,extension,base64(data),file.size,now(),me.id,file.size,me.admin?52428800:10485760,me.id,now()-60).run();
+      if(!saved.meta.changes)fail(429,'图片上传过于频繁或待发布图片空间已满');
+      return json({ url:env.API_ORIGIN + '/api/writing/images/' + id }, 201);
+    }
     if (path === '/api/admin/preview' && request.method === 'POST') {
       const data = await body(request);
-      return json({ html: markdown.render(text(data.body, 60000, false)) });
+      const preview = new MarkdownIt({ html:false });
+      const renderImage = preview.renderer.rules.image;
+      preview.renderer.rules.image = (tokens, index, options, context, renderer) => {
+        const source = tokens[index].attrGet('src');
+        const prefix = env.SITE_ORIGIN + '/images/blog/';
+        if (source?.startsWith(prefix) && /^[a-f0-9-]{36}\.(png|jpg|gif|webp)$/.test(source.slice(prefix.length))) {
+          tokens[index].attrSet('src', `https://raw.githubusercontent.com/${env.GITHUB_REPOSITORY}/${encodeURIComponent(env.GITHUB_BRANCH)}/images/blog/${source.slice(prefix.length)}`);
+        }
+        return renderImage(tokens, index, options, context, renderer);
+      };
+      return json({ html: preview.render(text(data.body, 60000, false)) });
     }
     if (path === '/api/admin/posts' && request.method === 'GET') {
       const rows = await env.DB.prepare('SELECT * FROM posts ORDER BY updated_at DESC LIMIT 200').all();
       return json({ posts: rows.results.map(p => ({ ...p, tags: JSON.parse(p.tags) })) });
     }
     if (path === '/api/admin/posts' && request.method === 'POST') {
-      const data = await body(request);
-      if (!validSlug(data.slug)) fail(400, '文章地址只能用小写字母、数字、短横线，最长 80 位');
-      if (!Array.isArray(data.tags) || data.tags.length > 8 || data.tags.some(t => typeof t !== 'string' || t.length > 24)) fail(400, '标签格式不正确');
-      const title = text(data.title, 160), summary = text(data.summary, 500, false), content = text(data.body, 60000);
-      const version = Number(data.version || 0);
-      if (!Number.isSafeInteger(version) || version < 0) fail(400, '版本不正确');
-      const stamp = new Date().toISOString();
-      if (version === 0) {
-        const result = await env.DB.prepare('INSERT INTO posts (slug,title,summary,tags,body,version,updated_at) VALUES (?,?,?,?,?,1,?) ON CONFLICT(slug) DO NOTHING').bind(data.slug,title,summary,JSON.stringify(data.tags),content,stamp).run();
-        if (!result.meta.changes) fail(409, '地址已存在，请打开已有草稿或换一个地址');
-      } else {
-        const result = await env.DB.prepare('UPDATE posts SET title=?,summary=?,tags=?,body=?,version=version+1,updated_at=? WHERE slug=? AND version=?').bind(title,summary,JSON.stringify(data.tags),content,stamp,data.slug,version).run();
-        if (!result.meta.changes) fail(409, '草稿已更新，请先备份当前文字并重新打开文章');
-      }
-      return json({ version: version + 1 });
+      return savePost(request,env,me);
+    }
+    if(path==='/api/admin/submissions'&&request.method==='GET'){
+      const rows=await env.DB.prepare("SELECT p.*,u.login FROM posts p JOIN users u ON u.id=p.author_id WHERE p.author_id<>? AND (p.review_state IN ('pending','rejected') OR p.published_at IS NOT NULL) ORDER BY p.updated_at DESC LIMIT 200").bind(env.ADMIN_GITHUB_ID).all();
+      return json({posts:rows.results.map(p=>({...p,tags:JSON.parse(p.tags)}))});
+    }
+    const reject=path.match(/^\/api\/admin\/posts\/([a-z0-9-]+)\/reject$/);
+    if(reject&&request.method==='POST'){
+      const data=await body(request),note=text(data.note||'请修改后重新提交',500);
+      const result=await env.DB.prepare("UPDATE posts SET review_state='rejected',review_note=? WHERE slug=? AND version=? AND review_state='pending'").bind(note,reject[1],Number(data.version)).run();
+      if(!result.meta.changes)fail(409,'投稿状态已变化，请刷新');return json({ok:true});
     }
     const match = path.match(/^\/api\/admin\/posts\/([a-z0-9-]+)\/(publish|unpublish)$/);
-    if (match && request.method === 'POST' && validSlug(match[1])) return publish(env, match[1], match[2] === 'unpublish');
+    if (match && request.method === 'POST' && validSlug(match[1])) { const data=await body(request);return publish(env,match[1],match[2]==='unpublish',data.version); }
     if (path === '/api/admin/comments' && request.method === 'GET') {
       const rows = await env.DB.prepare('SELECT c.*,u.login FROM comments c JOIN users u ON u.id=c.user_id ORDER BY c.created DESC LIMIT 200').all();
       return json({ comments: rows.results });

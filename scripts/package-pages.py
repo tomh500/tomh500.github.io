@@ -10,7 +10,7 @@ if DEST.exists():
 DEST.mkdir()
 for name in ['index.html', 'style.css', 'script.js', 'blog.js', 'site-config.js', 'CNAME', '.nojekyll', 'bgm.ogg']:
     shutil.copy2(ROOT / name, DEST / name)
-for name in ['about', 'projects', 'social', 'blog', 'guestbook', 'images', 'Square', 'MarFlash', 'template/assets']:
+for name in ['about', 'projects', 'social', 'blog', 'guestbook', 'community', 'images', 'Square', 'MarFlash', 'template/assets']:
     shutil.copytree(ROOT / name, DEST / name, dirs_exist_ok=True)
 for path in DEST.rglob('.generated-posts.json'):
     path.unlink()

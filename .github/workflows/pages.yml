@@ -2,6 +2,8 @@ name: Build and deploy website
 on:
   push:
     branches: [nextgen]
+    paths-ignore:
+      - 'images/blog/**'
   workflow_dispatch:
 permissions:
   contents: read

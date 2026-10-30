@@ -15,12 +15,12 @@
   let activeProject = null;
   let navigation = null;
   const cache = new Map();
-  const paths = new Set(['/', '/about/', '/projects/', '/social/', '/blog/', '/guestbook/']);
+  const paths = new Set(['/', '/about/', '/projects/', '/social/', '/blog/', '/guestbook/', '/community/']);
 
   function canonicalPath(url) {
     let path = url.pathname.replace(/index\.html$/, '');
     if (!path.endsWith('/')) path += '/';
-    if (/^\/blog\/[a-z0-9][a-z0-9-]{0,79}\/$/.test(path)) paths.add(path);
+    if (/^\/(blog|community)\/[a-z0-9][a-z0-9-]{0,79}\/$/.test(path)) paths.add(path);
     return paths.has(path) ? path : null;
   }
   function closeMenu() {

@@ -549,6 +549,10 @@ def blogs():
     content.append(search)
     grid = add('<div class="blog-posts"></div>')
     content.append(grid)
+    community = blog_shell('community', {'zh':'访客投稿','en':'Guest contributions'}, {'zh':'经站长审核的访客文章。默认折叠，点击标题展开。','en':'Reviewed contributions. Select a title to expand.'})
+    community.head.append(community.new_tag('meta', attrs={'name':'robots','content':'noindex,follow'}))
+    community_content = community.select_one('.blog-content')
+    owner_posts = [post for post in posts if not post.get('community')]
     for post in posts:
         card = add('<a class="blog-post"><div class="blog-post-meta"></div><h2></h2><p></p><div class="blog-tags"></div><span class="blog-read" data-zh="阅读全文 ↗" data-en="Read story ↗">阅读全文 ↗</span></a>')
         card['href'] = '/blog/' + post['slug'] + '/'
@@ -558,36 +562,56 @@ def blogs():
         card.select_one('.blog-post-meta').string = post['publishedAt'][:10]
         for tag in post.get('tags',[]):
             pill = add('<span></span>'); pill.string=tag; card.select_one('.blog-tags').append(pill)
-        grid.append(card)
-        article = blog_shell('blog/' + post['slug'], post['title'], post.get('summary',''))
+        section = 'community' if post.get('community') else 'blog'
+        card['href'] = '/' + section + '/' + post['slug'] + '/'
+        if post.get('community'):
+            details=add('<details class="community-post"><summary></summary></details>')
+            details.summary.string=post['title']+' · '+post.get('author','访客')
+            details.append(card)
+            community_content.append(details)
+        else:
+            grid.append(card)
+        article = blog_shell(section + '/' + post['slug'], post['title'], post.get('summary',''))
+        if post.get('community'):
+            article.head.append(article.new_tag('meta',attrs={'name':'robots','content':'noindex,follow'}))
         article_content = article.select_one('.blog-content')
-        meta = fill(add('<p class="blog-post-meta"></p>'), joined(post['publishedAt'][:10], ' · ', CONTENT['name']))
+        meta = fill(add('<p class="blog-post-meta"></p>'), joined(post['publishedAt'][:10], ' · ', post.get('author','访客') if post.get('community') else CONTENT['name']))
         article_content.append(meta)
         prose = add('<article class="blog-prose"></article>')
         for element in list(soup_text(markdown.render(post['body'])).contents):
             prose.append(element)
         article_content.append(prose)
         back = add('<a class="blog-back" href="/blog/" data-zh="← 返回博客" data-en="← Back to blog">← 返回博客</a>')
+        if post.get('community'):
+            back['href']='/community/'
+            fill(back,{'zh':'← 返回访客投稿','en':'← Back to contributions'})
         article_content.append(back)
         article_content.append(comment_section('post:' + post['slug']))
-        finish(article, 'blog/' + post['slug'])
+        finish(article, section + '/' + post['slug'])
     empty = add('<p id="blog-empty" class="blog-empty"></p>')
-    fill(empty, {'zh':'暂时没有文章，新的故事正在酝酿。' if not posts else '没有找到匹配的文章。','en':'New stories are on the way.' if not posts else 'No matching posts.'})
-    if posts: empty['hidden']=''
+    fill(empty, {'zh':'暂时没有文章，新的故事正在酝酿。' if not owner_posts else '没有找到匹配的文章。','en':'New stories are on the way.' if not owner_posts else 'No matching posts.'})
+    if owner_posts: empty['hidden']=''
     content.append(empty)
     entry = add('<p class="blog-admin-entry"><a data-admin-link hidden data-zh="进入写作台 ↗" data-en="Writing desk ↗">进入写作台 ↗</a></p>')
     content.append(entry)
+    community_link=add('<p class="blog-admin-entry"><a href="/community/" data-zh="访客投稿 →" data-en="Guest contributions →">访客投稿 →</a></p>')
+    content.append(community_link)
     finish(s,'blog')
+    community_content.append(add('<p class="blog-admin-entry"><a data-admin-link hidden data-zh="写一篇投稿 ↗" data-en="Write a contribution ↗">写一篇投稿 ↗</a></p>'))
+    if not any(post.get('community') for post in posts):
+        community_content.append(fill(add('<p class="blog-empty"></p>'),{'zh':'暂无审核通过的投稿。','en':'No approved contributions yet.'}))
+    finish(community,'community')
     guest = blog_shell('guestbook', {'zh':'留言板','en':'Guestbook'}, {'zh':'路过这里，留下一句想说的话。','en':'Leave a little note before you go.'})
     guest.select_one('.blog-content').append(comment_section('guestbook'))
     finish(guest,'guestbook')
     # Remove only generated post entry files recorded by the previous build.
     manifest = ROOT / 'blog' / '.generated-posts.json'
-    current = [p['slug'] for p in posts]
+    current = [('community/' if p.get('community') else 'blog/') + p['slug'] for p in posts]
     if manifest.exists():
-        for slug in json.loads(manifest.read_text(encoding='utf-8')):
-            if slug not in current and re.fullmatch(r'[a-z0-9][a-z0-9-]{0,79}', slug):
-                (ROOT / 'blog' / slug / 'index.html').unlink(missing_ok=True)
+        for old in json.loads(manifest.read_text(encoding='utf-8')):
+            path = old if '/' in old else 'blog/' + old
+            if path not in current and re.fullmatch(r'(blog|community)/[a-z0-9][a-z0-9-]{0,79}', path):
+                (ROOT / path / 'index.html').unlink(missing_ok=True)
     manifest.write_text(json.dumps(current),encoding='utf-8')
 
 def main():
