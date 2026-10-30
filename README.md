@@ -43,4 +43,4 @@ node --check script.js
 node --check site-config.js
 ```
 
-前台使用生成后的静态 HTML/CSS/JS。GitHub Pages 的 Source 已改为 GitHub Actions；推送 `nextgen` 会运行 `.github/workflows/pages.yml`，通过检查后生成页面、打包公开资源并发布到 `https://luotiany1.top/`。写作台发布文章也会触发同一流程。`Square/`、`MarFlash/`、`CNAME` 和产品资源保持现有内容。原主页可从 `d7f11c4` 提交恢复。
+前台使用生成后的静态 HTML/CSS/JS。GitHub Pages 的 Source 已改为 GitHub Actions；推送 `nextgen` 会运行 `.github/workflows/pages.yml`，通过检查后生成页面、打包公开资源并发布到 `https://luotiany1.top/`。写作台发布文章也会触发同一流程。2026-10-31 移除了约 925 MB 的 `Square/CloudMusic/` 停维音乐，旧音乐列表保留为空；主页 `bgm.ogg`、Square 其他工具、`MarFlash/` 和 `CNAME` 保留。原主页可从 `d7f11c4` 提交恢复。

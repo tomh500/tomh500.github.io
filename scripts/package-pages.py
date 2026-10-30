@@ -11,7 +11,8 @@ DEST.mkdir()
 for name in ['index.html', 'style.css', 'script.js', 'blog.js', 'site-config.js', 'CNAME', '.nojekyll', 'bgm.ogg']:
     shutil.copy2(ROOT / name, DEST / name)
 for name in ['about', 'projects', 'social', 'blog', 'guestbook', 'community', 'images', 'Square', 'MarFlash', 'template/assets']:
-    shutil.copytree(ROOT / name, DEST / name, dirs_exist_ok=True)
+    shutil.copytree(ROOT / name, DEST / name, dirs_exist_ok=True,
+                    ignore=shutil.ignore_patterns('CloudMusic') if name == 'Square' else None)
 for path in DEST.rglob('.generated-posts.json'):
     path.unlink()
 print('Public Pages files staged in dist/')
