@@ -561,7 +561,7 @@ def blogs():
         grid.append(card)
         article = blog_shell('blog/' + post['slug'], post['title'], post.get('summary',''))
         article_content = article.select_one('.blog-content')
-        meta = add('<p class="blog-post-meta"></p>'); meta.string = post['publishedAt'][:10] + ' · ' + CONTENT['name']['zh']
+        meta = fill(add('<p class="blog-post-meta"></p>'), joined(post['publishedAt'][:10], ' · ', CONTENT['name']))
         article_content.append(meta)
         prose = add('<article class="blog-prose"></article>')
         for element in list(soup_text(markdown.render(post['body'])).contents):

@@ -6,7 +6,7 @@
 
 当前在 `nextgen` 部署分支直接使用 **kldhsh.top 下载页面模板**，将个人资料和项目逐项替换，配色改为 `#66ccff`。原始下载文件保存在 `template/upstream/`，详细来源与适配说明见 `template/README.md`。
 
-首页、关于我、项目、社交使用 `/`、`/about/`、`/projects/`、`/social/` 四个静态页面；兼容旧 `#about`、`#projects`、`#social` 链接。支持中英切换、浅色/深色主题、手机菜单、关于页标签、软件多线路下载、复制提取码、音乐播放。语言与主题保存在访问者的浏览器本地。
+首页、关于我、项目、社交使用 `/`、`/about/`、`/projects/`、`/social/`，博客和留言板使用 `/blog/`、`/guestbook/`；已发布文章生成独立静态页面。兼容旧 `#about`、`#projects`、`#social` 链接。支持中英切换、浅色/深色主题、手机菜单、关于页标签、软件多线路下载、复制提取码、音乐播放。语言与主题保存在访问者的浏览器本地。
 
 站内导航与浏览器后退/前进局部更新页面，音乐播放器及音频元素保持不变。所有页面都有播放器；刷新或离开网站会结束当前页面的播放。项目页支持搜索、分类与“新／热／遗产”标签筛选。关于页的能力雷达图由 JavaScript 读取 `site-content.json` 生成的技能数据绘制，分数与下方技能条使用同一份配置。
 
@@ -41,4 +41,4 @@ node --check script.js
 node --check site-config.js
 ```
 
-部署使用生成后的静态 HTML/CSS/JS，无需服务器或 Next.js 构建。GitHub Pages 从 `nextgen` 分支根目录发布到 `https://luotiany1.top/`；推送该分支会触发上线。`Square/`、`MarFlash/`、`CNAME` 和产品资源未改动。原主页可从 `d7f11c4` 提交恢复。
+前台使用生成后的静态 HTML/CSS/JS。GitHub Pages 的 Source 已改为 GitHub Actions；推送 `nextgen` 会运行 `.github/workflows/pages.yml`，通过检查后生成页面、打包公开资源并发布到 `https://luotiany1.top/`。写作台发布文章也会触发同一流程。`Square/`、`MarFlash/`、`CNAME` 和产品资源保持现有内容。原主页可从 `d7f11c4` 提交恢复。

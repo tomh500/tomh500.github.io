@@ -29,6 +29,7 @@ with tempfile.TemporaryDirectory() as folder:
     assert not soup.select('a[href^="javascript:"]')
     assert soup.select_one('h1').get_text() == fixture['title']
     assert soup.select_one('[data-comments]')['data-thread'] == 'post:test-story'
+    assert 'Lemoe Serina' in soup.select_one('.blog-post-meta')['data-en']
     for page in ['blog/index.html', 'guestbook/index.html']:
         html = BeautifulSoup((target / page).read_text(encoding='utf-8'), 'html.parser')
         assert html.select_one('a[href="/blog/"]') and html.select_one('a[href="/guestbook/"]')
