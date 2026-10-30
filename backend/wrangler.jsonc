@@ -1,0 +1,22 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "lemoe-blog-api",
+  "account_id": "b4a4f709b712160acb59e8c02f8890ec",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-30",
+  "routes": [{ "pattern": "blog-api.luotiany1.top", "custom_domain": true }],
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": true },
+  "vars": {
+    "SITE_ORIGIN": "https://luotiany1.top",
+    "API_ORIGIN": "https://blog-api.luotiany1.top",
+    "ADMIN_GITHUB_ID": "95513888",
+    "GITHUB_REPOSITORY": "tomh500/tomh500.github.io",
+    "GITHUB_BRANCH": "nextgen"
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "lemoe-blog",
+    "database_id": "6d73e4b8-7c31-46c4-9868-2990633379a9",
+    "migrations_dir": "./migrations"
+  }]
+}

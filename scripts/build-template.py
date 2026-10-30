@@ -7,10 +7,12 @@ import re
 import shutil
 import subprocess
 import hashlib
+from markdown_it import MarkdownIt
 
 ROOT = Path(__file__).resolve().parents[1]
 UPSTREAM = ROOT / 'template' / 'upstream'
 CONTENT = json.loads((ROOT / 'site-content.json').read_text(encoding='utf-8'))
+BLOG_CONFIG = json.loads((ROOT / 'blog-config.json').read_text(encoding='utf-8'))
 PROJECTS = json.loads(subprocess.check_output(['node', '-e', 'global.window={};require("./site-config.js");process.stdout.write(JSON.stringify(window.SITE_CONFIG.projects))'], cwd=ROOT).decode('utf-8'))
 UI = {
     '首页': 'Home', '关于我': 'About me', '项目': 'Projects', '社交': 'Social', '博客': 'Blog',
@@ -36,7 +38,7 @@ def asset_url(path):
 def site_version():
     digest = hashlib.sha256()
     for path in ['site-content.json', 'site-config.js', 'script.js', 'style.css',
-                 'template/assets/css/template.css', 'scripts/build-template.py']:
+                 'template/assets/css/template.css', 'scripts/build-template.py', 'blog-config.json', 'blog.js']:
         digest.update((ROOT / path).read_bytes())
     return digest.hexdigest()[:12]
 
@@ -145,6 +147,15 @@ def prepare(page):
             button['aria-controls'] = 'mobile-nav'
             button['aria-label'] = '打开导航'
             fill(button.select_one('.sr-only'), {'zh':'打开导航', 'en':'Open main menu'})
+    desktop = nav.select_one('div.hidden.md\\:block a')
+    for href, title in [('/blog/', {'zh':'博客','en':'Blog'}), ('/guestbook/', {'zh':'留言板','en':'Guestbook'})]:
+        link = deepcopy(desktop)
+        link['href'] = href
+        link.attrs.pop('aria-current', None)
+        fill(link, title)
+        if page == href.strip('/'):
+            link['aria-current'] = 'page'
+        desktop.parent.insert(desktop.parent.contents.index(desktop) + 1, link)
     mobile = add('<div id="mobile-nav" class="md:hidden border-t border-pink-200 p-4" hidden></div>')
     for a in nav.select('div.hidden.md\\:block a'):
         mobile.append(deepcopy(a))
@@ -423,10 +434,31 @@ def social(s):
         a.img['src'] = '/' + friend['avatar']
         attribute(a.img, 'alt', joined({'zh':'', 'en':'Avatar for '}, friend['name'], {'zh':'的头像', 'en':''}))
         bind_link(a, friend['url'])
-        friend_grid.append(a)
+        if friend.get('easterEgg') == 'yaoxi':
+            wrapper = add('<article class="yaoxi-friend"></article>')
+            a['class'].append('yaoxi-friend-link')
+            wrapper.append(a)
+            for node, normal, surprise in [
+                (a.h3, friend['name'], friend['hoverName']),
+                (ps[1], friend['description'], friend['hoverDescription']),
+            ]:
+                node.clear()
+                node.attrs.pop('data-zh', None)
+                node.attrs.pop('data-en', None)
+                node['class'] = node.get('class', []) + ['yaoxi-swap']
+                node.append(fill(add('<span class="yaoxi-normal"></span>'), normal))
+                node.append(fill(add('<span class="yaoxi-surprise"></span>'), surprise))
+            friend_grid.append(wrapper)
+        else:
+            friend_grid.append(a)
 
 def finish(s, page):
     persistent_music(s)
+    for link in s.select('body > nav a'):
+        if 'px-3' in link.get('class', []):
+            link['class'] = ['px-3','py-2','rounded-md','text-sm','font-medium','transition-colors'] + (
+                ['bg-pink-200','dark:bg-pink-800','text-pink-800','dark:text-pink-100'] if link.has_attr('aria-current') else
+                ['text-pink-600','dark:text-pink-300','hover:bg-pink-100','dark:hover:bg-pink-900'])
     # All static UI text also gets a language pair, without rebuilding any layout.
     for text in list(s.body.find_all(string=True)):
         value = str(text).strip()
@@ -446,15 +478,16 @@ def finish(s, page):
         element.name = 'div'
     s.select_one('main')['tabindex'] = '-1'
     data = s.new_tag('script', type='application/json', id='site-data')
-    data.string = json.dumps({'projects': PROJECTS, 'skills': CONTENT['skills']}, ensure_ascii=False).replace('<', '\\u003c')
+    data.string = json.dumps({'projects': PROJECTS, 'skills': CONTENT['skills'], 'blog': BLOG_CONFIG}, ensure_ascii=False).replace('<', '\\u003c')
     s.body.append(data)
     # Correct SVG attribute case lowered by Python's HTML parser.
     for svg in s.select('svg'):
         if 'viewbox' in svg.attrs:
             svg['viewBox'] = svg.attrs.pop('viewbox')
     s.body.append(s.new_tag('script', src=asset_url('/script.js'), defer=''))
+    s.body.append(s.new_tag('script', src=asset_url('/blog.js'), defer=''))
     path = ROOT / 'index.html' if page == 'home' else ROOT / page / 'index.html'
-    path.parent.mkdir(exist_ok=True)
+    path.parent.mkdir(exist_ok=True, parents=True)
     path.write_text(str(s) + '\n', encoding='utf-8', newline='\n')
 
 def assets():
@@ -480,6 +513,83 @@ def assets():
     css=css.replace('/_next/static/media/', '/template/assets/media/')
     (target / 'css' / 'template.css').write_text(css, encoding='utf-8', newline='\n')
 
+def blog_shell(page, title, subtitle):
+    s = prepare('social')
+    s.body['data-page'] = page
+    for link in s.select('body > nav a'):
+        link.attrs.pop('aria-current', None)
+        if link.get('href') == ('/guestbook/' if page == 'guestbook' else '/blog/'):
+            link['aria-current'] = 'page'
+    main = s.select_one('main')
+    main.clear()
+    main.append(add('<div class="blog-layout"><header class="blog-heading"><p class="blog-kicker">LEMOE · NOTES &amp; STORIES</p><h1></h1><p class="blog-subtitle"></p></header><div class="blog-content"></div></div>'))
+    fill(main.h1, title)
+    fill(main.select_one('.blog-subtitle'), subtitle)
+    fill(s.title, joined(title, CONTENT['name'], separator=' | '))
+    return s
+
+def comment_section(thread):
+    section = add('<section class="blog-comments" data-comments><h2></h2><p class="comment-status" role="status" aria-live="polite"></p><div class="comment-account"></div><form hidden><label><span data-zh="写下留言" data-en="Your message">写下留言</span><textarea name="body" maxlength="2000" rows="4" required></textarea></label><div class="comment-challenge"></div><button class="blog-button" type="submit" data-zh="提交留言" data-en="Send message">提交留言</button><small data-zh="留言审核后公开，请勿提交私人信息。" data-en="Messages appear after review. Please avoid private information.">留言审核后公开，请勿提交私人信息。</small></form><div class="comment-list"></div><button class="blog-button comment-more" hidden data-zh="更早的留言" data-en="Older messages">更早的留言</button></section>')
+    section['data-thread'] = thread
+    fill(section.h2, {'zh':'留言板' if thread == 'guestbook' else '文章评论', 'en':'Guestbook' if thread == 'guestbook' else 'Comments'})
+    return section
+
+def blogs():
+    markdown = MarkdownIt('commonmark', {'html':False})
+    posts = []
+    for file in (ROOT / 'content' / 'posts').glob('*.json'):
+        post = json.loads(file.read_text(encoding='utf-8'))
+        if not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,79}', post['slug']) or file.stem != post['slug']:
+            raise ValueError('Invalid post slug: ' + file.name)
+        posts.append(post)
+    posts.sort(key=lambda post: post['publishedAt'], reverse=True)
+    s = blog_shell('blog', {'zh':'博客','en':'Blog'}, {'zh':'记录代码、音乐，以及日常的微光。','en':'Code, music, and little moments worth keeping.'})
+    content = s.select_one('.blog-content')
+    search = add('<label class="blog-search"><span data-zh="搜索文章" data-en="Search posts">搜索文章</span><input type="search" id="blog-search" placeholder="标题、摘要或标签" data-placeholder-zh="标题、摘要或标签" data-placeholder-en="Title, summary or tags"/></label>')
+    content.append(search)
+    grid = add('<div class="blog-posts"></div>')
+    content.append(grid)
+    for post in posts:
+        card = add('<a class="blog-post"><div class="blog-post-meta"></div><h2></h2><p></p><div class="blog-tags"></div><span class="blog-read" data-zh="阅读全文 ↗" data-en="Read story ↗">阅读全文 ↗</span></a>')
+        card['href'] = '/blog/' + post['slug'] + '/'
+        card['data-search'] = ' '.join([post['title'], post.get('summary',''), *post.get('tags',[])]).lower()
+        card.h2.string = post['title']
+        card.p.string = post.get('summary','')
+        card.select_one('.blog-post-meta').string = post['publishedAt'][:10]
+        for tag in post.get('tags',[]):
+            pill = add('<span></span>'); pill.string=tag; card.select_one('.blog-tags').append(pill)
+        grid.append(card)
+        article = blog_shell('blog/' + post['slug'], post['title'], post.get('summary',''))
+        article_content = article.select_one('.blog-content')
+        meta = add('<p class="blog-post-meta"></p>'); meta.string = post['publishedAt'][:10] + ' · ' + CONTENT['name']['zh']
+        article_content.append(meta)
+        prose = add('<article class="blog-prose"></article>')
+        for element in list(soup_text(markdown.render(post['body'])).contents):
+            prose.append(element)
+        article_content.append(prose)
+        back = add('<a class="blog-back" href="/blog/" data-zh="← 返回博客" data-en="← Back to blog">← 返回博客</a>')
+        article_content.append(back)
+        article_content.append(comment_section('post:' + post['slug']))
+        finish(article, 'blog/' + post['slug'])
+    empty = add('<p id="blog-empty" class="blog-empty"></p>')
+    fill(empty, {'zh':'暂时没有文章，新的故事正在酝酿。' if not posts else '没有找到匹配的文章。','en':'New stories are on the way.' if not posts else 'No matching posts.'})
+    if posts: empty['hidden']=''
+    content.append(empty)
+    entry = add('<p class="blog-admin-entry"><a data-admin-link hidden data-zh="进入写作台 ↗" data-en="Writing desk ↗">进入写作台 ↗</a></p>')
+    content.append(entry)
+    finish(s,'blog')
+    guest = blog_shell('guestbook', {'zh':'留言板','en':'Guestbook'}, {'zh':'路过这里，留下一句想说的话。','en':'Leave a little note before you go.'})
+    guest.select_one('.blog-content').append(comment_section('guestbook'))
+    finish(guest,'guestbook')
+    # Remove only generated post entry files recorded by the previous build.
+    manifest = ROOT / 'blog' / '.generated-posts.json'
+    current = [p['slug'] for p in posts]
+    if manifest.exists():
+        for slug in json.loads(manifest.read_text(encoding='utf-8')):
+            if slug not in current and re.fullmatch(r'[a-z0-9][a-z0-9-]{0,79}', slug):
+                (ROOT / 'blog' / slug / 'index.html').unlink(missing_ok=True)
+    manifest.write_text(json.dumps(current),encoding='utf-8')
+
 def main():
     assets()
     for page, transform in [('home',home),('about',about),('projects',projects),('social',social)]:
@@ -487,6 +597,8 @@ def main():
         transform(s)
         finish(s,page)
         print('Generated',page)
+    blogs()
+    print('Generated blog and guestbook')
 
 if __name__ == '__main__':
     main()

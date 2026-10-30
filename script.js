@@ -15,11 +15,12 @@
   let activeProject = null;
   let navigation = null;
   const cache = new Map();
-  const paths = new Set(['/', '/about/', '/projects/', '/social/']);
+  const paths = new Set(['/', '/about/', '/projects/', '/social/', '/blog/', '/guestbook/']);
 
   function canonicalPath(url) {
     let path = url.pathname.replace(/index\.html$/, '');
     if (!path.endsWith('/')) path += '/';
+    if (/^\/blog\/[a-z0-9][a-z0-9-]{0,79}\/$/.test(path)) paths.add(path);
     return paths.has(path) ? path : null;
   }
   function closeMenu() {
@@ -142,6 +143,7 @@
       document.getElementById('project-tag').value = filters.tag;
     }
     applyLanguage();
+    document.dispatchEvent(new Event('site:view'));
   }
 
   async function navigate(path, mode = 'push', hash = '') {
@@ -170,7 +172,9 @@
       const nextDialog = next.querySelector('#download-dialog');
       if (nextDialog) document.body.append(document.importNode(nextDialog, true));
       document.body.dataset.page = next.body.dataset.page;
-      document.title = next.title;
+      document.querySelector('title').replaceWith(document.importNode(next.querySelector('title'), true));
+      const nextDescription = next.querySelector('meta[name="description"]');
+      if (nextDescription) document.querySelector('meta[name="description"]')?.replaceWith(document.importNode(nextDescription, true));
       activeProject = null;
       if (mode === 'push') history.pushState({}, '', path + hash);
       else if (mode === 'replace') history.replaceState({}, '', path + hash);

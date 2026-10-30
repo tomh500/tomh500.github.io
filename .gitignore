@@ -1,2 +1,7 @@
 __pycache__/
 .preview/
+node_modules/
+.wrangler/
+.dev.vars*
+.env*
+dist/

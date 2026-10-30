@@ -1,0 +1,17 @@
+{
+  "name": "lemoe-blog",
+  "private": true,
+  "scripts": {
+    "test": "node --test backend/tests/*.test.mjs",
+    "dev:backend": "wrangler dev --config backend/wrangler.jsonc",
+    "db:local": "wrangler d1 migrations apply DB --local --config backend/wrangler.jsonc",
+    "db:remote": "wrangler d1 migrations apply DB --remote --config backend/wrangler.jsonc",
+    "deploy:backend": "wrangler deploy --config backend/wrangler.jsonc"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0"
+  }
+}

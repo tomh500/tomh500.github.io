@@ -1,5 +1,9 @@
 # 柠萌小芹菜的个人主页
 
+新增博客和留言板：前台仍由 GitHub Pages 托管，`backend/` 提供 Cloudflare Worker + D1 写作台、GitHub 登录、留言审核及发布到仓库。配置和上线步骤见 [backend/DEPLOY.md](backend/DEPLOY.md)。在 `blog-config.json` 配置后台域名前，留言显示准备中；已有静态页面仍可正常浏览。
+
+`content/posts/*.json` 只保存已发布文章；草稿保存在 D1。`npm test` 验证后台权限、草稿冲突、审核、登录状态及发布行为。写作台支持手机浏览器，无需打开 GitHub 编写文章；目前是网页应用，尚未提供原生 App。
+
 当前在 `nextgen` 部署分支直接使用 **kldhsh.top 下载页面模板**，将个人资料和项目逐项替换，配色改为 `#66ccff`。原始下载文件保存在 `template/upstream/`，详细来源与适配说明见 `template/README.md`。
 
 首页、关于我、项目、社交使用 `/`、`/about/`、`/projects/`、`/social/` 四个静态页面；兼容旧 `#about`、`#projects`、`#social` 链接。支持中英切换、浅色/深色主题、手机菜单、关于页标签、软件多线路下载、复制提取码、音乐播放。语言与主题保存在访问者的浏览器本地。

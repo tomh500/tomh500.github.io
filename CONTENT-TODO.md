@@ -31,6 +31,10 @@
 
 遥汐的头像保存为 `images/friends/yaoxi.jpg`，来自先前直接下载的 `https://cdn.kldhsh.top/file/kldhsh.jpg`，无需运行时请求原站。
 
-StarsetNight 的友链为 `https://starset.top/`，头像保存为 `images/friends/starsetnight.jpg`，来自用户指定的 GitHub 账号 `https://github.com/StarsetNight` 的公开头像（`https://avatars.githubusercontent.com/u/65395090?v=4`）。
+川崎星夕的友链为 `https://starset.top/`，简介为“川崎君（已升级为星夕酱）”。2026-10-30 从其网站下载新头像 `https://starset.top/images/StarsetICON.webp`，保存为 `images/friends/starsetnight.webp`。
+
+遥汐卡片标题为“遥汐”，默认简介为“把日常写成温柔的小站”。仅她的卡片启用 `easterEgg: "yaoxi"`：悬停或键盘聚焦时切换为原站粉色配色，名字与简介以淡入上滑动画变成“遥汐酱 ♡”和“真的是软妹子~”；已移除菜单与两个按钮。文字由 `hoverName` / `hoverDescription` 配置，减少动态效果偏好沿用全站设置。
+
+御手洗团子的友链为 `https://noix09.com/`，简介按用户提供的友链图片为“九页随笔 轻敲流年”，头像从 `https://noix09.com/head.webp` 下载至 `images/friends/noix.webp`。
 
 站内点击四页导航、浏览器后退与前进采用局部页面切换，保留同一个音频元素和播放位置。刷新、关闭标签页或跳转到外部网站会开始新的页面生命周期。

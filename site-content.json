@@ -1,12 +1,12 @@
 {
   "name": {
     "zh": "柠萌小芹菜",
-    "en": "Lemon Celery"
+    "en": "Lemoe Serina"
   },
   "handle": "tomh500",
   "aliases": {
-    "zh": "三月小芹菜 | 井芹仁菜 | 洛天依 | tomh500 | luotiany1",
-    "en": "March Celery | Nina Iseri | Luo Tianyi | tomh500 | luotiany1"
+    "zh": "Lemoe Serina | March Serina | Iseri Nina | LuoTianyi | tomh500",
+    "en": "柠萌小芹菜 | March Serina | Iseri Nina | LuoTianyi | tomh500"
   },
   "avatar": "images/iseri.gif",
   "intro": {
@@ -23,8 +23,8 @@
   },
   "identities": [
     {
-      "zh": "C++ / Python 开发爱好者",
-      "en": "C++ / Python enthusiast"
+      "zh": "C++ 开发爱好者",
+      "en": "C++ development enthusiast"
     },
     {
       "zh": "计算机科学与算法学习者",
@@ -337,24 +337,39 @@
   "friends": [
     {
       "name": {
-        "zh": "遥汐的网站",
-        "en": "YaoXi's website"
-      },
-      "description": {
         "zh": "遥汐",
         "en": "YaoXi"
       },
+      "description": {
+        "zh": "把日常写成温柔的小站",
+        "en": "A gentle little corner for everyday stories"
+      },
+      "hoverName": { "zh": "遥汐酱 ♡", "en": "YaoXi-chan ♡" },
+      "hoverDescription": { "zh": "真的是软妹子~", "en": "Really a soft girl~" },
       "url": "https://kldhsh.top/",
-      "avatar": "images/friends/yaoxi.jpg"
+      "avatar": "images/friends/yaoxi.jpg",
+      "easterEgg": "yaoxi"
     },
     {
       "name": {
-        "zh": "StarsetNight 的网站",
-        "en": "StarsetNight's website"
+        "zh": "川崎星夕",
+        "en": "川崎星夕"
       },
-      "description": "StarsetNight",
+      "description": {
+        "zh": "川崎君（已升级为星夕酱）",
+        "en": "Kawasaki-kun (upgraded to Xingxi-chan)"
+      },
       "url": "https://starset.top/",
-      "avatar": "images/friends/starsetnight.jpg"
+      "avatar": "images/friends/starsetnight.webp"
+    },
+    {
+      "name": "NoIX_09 (御手洗团子)",
+      "description": {
+        "zh": "九页随笔 轻敲流年",
+        "en": "Nine pages of notes, gently tapping the passing years"
+      },
+      "url": "https://noix09.com/",
+      "avatar": "images/friends/noix.webp"
     }
   ],
   "music": {
